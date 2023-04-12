@@ -1,9 +1,6 @@
 package school.redrover;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +11,8 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
+
+import static org.testng.Assert.assertEquals;
 
 public class GroupHighwayToAqaTest {
 
@@ -186,4 +185,125 @@ public class GroupHighwayToAqaTest {
 
         driver.quit();
     }
+
+    @Test
+    public void testRequiredFieldMessage() throws InterruptedException {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--remote-allow-origins=*", "--headless", "--window-size=1920,1080");
+        WebDriver driver = new ChromeDriver(chromeOptions);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        String expectedMessage = "This is a required field.";
+
+        driver.get(BASE_URL);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement subscribeButton = driver.findElement(By.xpath("//button[@class='action subscribe primary']"));
+        js.executeScript("arguments[0].scrollIntoView();", subscribeButton);
+
+        Thread.sleep(2000);
+
+        subscribeButton.click();
+        WebElement element = driver.findElement(By.xpath("//div[@id='newsletter-error']"));
+        wait.until(ExpectedConditions.visibilityOf(element));
+
+        String actualMessage = element.getText();
+
+        Assert.assertEquals(actualMessage, expectedMessage);
+
+        driver.quit();
+    }
+
+    @Test
+    public void searchItem() throws InterruptedException {
+        ChromeOptions chromeOptions=new ChromeOptions();
+        chromeOptions.addArguments("--remote-allow-origins=*", "--headless", "--window-size=1920,1080");
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
+        driver.get("https://magento.softwaretestingboard.com");
+        WebElement href = driver.findElement(By.xpath("//div/nav/ul/li [1]"));
+        String value = href.getText();
+        assertEquals(value, "What's New");
+        WebElement href2 = driver.findElement(By.xpath("//div/nav/ul/li [2]"));
+        String value1 = href2.getText();
+        assertEquals(value1, "Women");
+        WebElement href3 = driver.findElement(By.xpath("//div/nav/ul/li [3]"));
+        String value2 = href3.getText();
+        assertEquals(value2, "Men");
+        WebElement href4 = driver.findElement(By.xpath("//div/nav/ul/li [4]"));
+        String value3 = href4.getText();
+        assertEquals(value3, "Gear");
+        WebElement href5 = driver.findElement(By.xpath("//div/nav/ul/li [5]"));
+        String value4 = href5.getText();
+        assertEquals(value4, "Training");
+        WebElement href6 = driver.findElement(By.xpath("//div/nav/ul/li [6]"));
+        String value5 = href6.getText();
+        assertEquals(value5, "Sale");
+        driver.findElement(By.xpath("//div/nav/ul/li [2]")).click();
+        String text= driver.getTitle();
+        assertEquals(text,"Women");
+        driver.findElement(By.xpath("//html/body/div[1]/div[2]/ul/li[1]/a")).click();
+        String title= driver.getTitle();
+        assertEquals(title,"Home Page");
+        driver.quit();
+    }
+
+    @Test
+
+    public void testH1TextInWhatIsNew() throws InterruptedException {
+
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--remote-allow-origins=*", "--headless", "--window-size=1920,1080");
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
+
+        driver.get("https://magento.softwaretestingboard.com/");
+        Thread.sleep(2000);
+
+        WebElement whatIsNew = driver.findElement(By.id("ui-id-3"));
+        whatIsNew.click();
+
+        WebElement h1InWhatIsNew = driver.findElement(By.xpath("//h1[@id = 'page-title-heading']/span"));
+
+        Assert.assertEquals(h1InWhatIsNew.getText(), "What's New");
+
+        driver.quit();
+
+    }
+
+    @Test
+    public void testNumberOfItemsEqualsProductNumberShownPerPage() throws InterruptedException {
+       ChromeOptions chromeOptions = new ChromeOptions();
+       chromeOptions.addArguments("--remote-allow-origins=*", "--headless", "--window-size=1920,1080");
+        WebDriver driver = new ChromeDriver(chromeOptions);
+
+        driver.get(BASE_URL);
+        Thread.sleep(3000);
+
+        WebElement womenButton = driver.findElement(By.id("ui-id-4"));
+        WebElement topsButton = driver.findElement(By.id("ui-id-9"));
+        WebElement jacketsButton = driver.findElement(By.id("ui-id-11"));
+
+        new Actions(driver).moveToElement(womenButton).moveToElement(topsButton)
+                .moveToElement(jacketsButton).perform();
+        jacketsButton.click();
+
+      WebElement expectedNumberOfItems = driver.findElement(By
+              .xpath("//span[@class='toolbar-number'][1]"));
+      List<WebElement> listOfItemsShownOnPage = driver.findElements(By
+              .xpath("//li[@class='item product product-item']"));
+
+      Assert.assertEquals(listOfItemsShownOnPage.size(), Integer.parseInt(expectedNumberOfItems.getText()));
+      driver.quit();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

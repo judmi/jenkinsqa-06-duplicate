@@ -173,7 +173,7 @@ public class GroupJavaJitsu {
 
 
     @Test
-    public void testAboutDoctorsFind() {
+    public void testAboutDoctorsFind() throws InterruptedException {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*", "--headless", "--window-size=1920,1080");
 
@@ -181,16 +181,24 @@ public class GroupJavaJitsu {
         driver.get("https://prodoctorov.ru/");
         String title = driver.getTitle();
         Assert.assertEquals("ПроДокторов – сайт отзывов пациентов о врачах №1 в России", title);
+        WebElement urlElement = driver.findElement(By.className("b-choose-town-btn-v2"));
+        urlElement.click();
+        WebElement inputElementSearch = driver.findElement(By.className("b-choose-town-popup__search-input"));
+        inputElementSearch.sendKeys("Краснодар");
+        WebElement SearchboxElement = driver.findElement(By.className("tt-dataset"));
+        Thread.sleep(2000);
+        SearchboxElement.click();
+        Thread.sleep(2000);
         WebElement inputElement = driver.findElement(By.className("text-field__input"));
-        WebElement submitButton = driver.findElement(By.className("base-search__button"));
+        Thread.sleep(2000);
         inputElement.sendKeys("Ницакова Марина Петровна");
+        WebElement submitButton = driver.findElement(By.className("base-search__button"));
         submitButton.click();
         WebElement link = driver.findElement(By.className("b-card__name-link"));
         link.click();
         WebElement text = driver.findElement(By.className("ui-text"));
         Assert.assertEquals(driver.getCurrentUrl(), "https://prodoctorov.ru/krasnodar/vrach/177664-nicakova/");
         driver.quit();
-
     }
     @Test
     public void testAlex() throws InterruptedException {
@@ -207,6 +215,67 @@ public class GroupJavaJitsu {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", schedule);
         WebElement enroll=driver.findElement(By.xpath("(//a[@href=\"https://www.instamojo.com/globalsqa/appium-training/\"])[2]"));
         enroll.click();
+        driver.quit();
+    }
+
+    @Test
+    public void testLoginAnton () throws InterruptedException {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--remote-allow-origins=*", "--headless", "--window-size=1920,1080");
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().window().maximize();
+        driver.get("https://www.saucedemo.com/");
+
+        WebElement userElement = driver.findElement(By.id("user-name"));
+        userElement.sendKeys("standard_user");
+
+        WebElement userPassword = driver.findElement(By.id("password"));
+        userPassword.sendKeys("secret_sauce");
+
+        WebElement loginButton = driver.findElement(By.id("login-button"));
+        loginButton.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println("testLoginNatasha");
+        System.out.println("testLogin2");
+    }
+
+    @Test
+    public void testArtem() {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--remote-allow-origins=*", "--headless", "--window-size=1920,1080");
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://demoqa.com/");
+        WebElement buttonElements = driver.findElement(By.xpath("//div[@class='card mt-4 top-card'][1]//*[name()='svg']"));
+        buttonElements.click();
+
+        WebElement textBox = driver.findElement(By.xpath("//span[text()='Text Box']"));
+        textBox.click();
+
+        WebElement fullNameField = driver.findElement(By.id("userName"));
+        fullNameField.sendKeys("Artem De");
+
+        WebElement emailField = driver.findElement(By.id("userEmail"));
+        emailField.sendKeys("test@gmail.com");
+
+        WebElement currentAddressField = driver.findElement(By.id("currentAddress"));
+        currentAddressField.sendKeys("123 Main St, Anytown USA");
+
+        WebElement permanentAddressField = driver.findElement(By.id("permanentAddress"));
+        permanentAddressField.sendKeys("456 Oak St, Anytown USA");
+
+        WebElement submitButton = driver.findElement(By.id("submit"));
+        submitButton.click();
+
+        WebElement successfullySubmitted = driver.findElement(By.id("name"));
+        Assert.assertEquals(successfullySubmitted.getText(), "Name:Artem De");
         driver.quit();
     }
 }
