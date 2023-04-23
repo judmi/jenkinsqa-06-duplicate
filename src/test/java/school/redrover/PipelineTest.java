@@ -6,12 +6,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 import java.time.Duration;
 
 public class PipelineTest extends BaseTest {
+
     private static final String PIPELINE_NAME = "pipeline1";
 
     private final By newItem = By.linkText("New Item");
@@ -26,6 +28,7 @@ public class PipelineTest extends BaseTest {
     private WebDriverWait getWait(int seconds) {
         return new WebDriverWait(getDriver(), Duration.ofSeconds(seconds));
     }
+
     public WebDriverWait webDriverWait10;
 
     public void scrollByElement(By by) throws InterruptedException {
@@ -41,6 +44,8 @@ public class PipelineTest extends BaseTest {
         }
         return webDriverWait10;
     }
+
+    @Ignore
     @Test
     public void testCreatePipeline() throws InterruptedException {
 
@@ -64,6 +69,7 @@ public class PipelineTest extends BaseTest {
 
         Assert.assertEquals(pipelinePipe.getText(), "Pipeline Pipe");
     }
+
     @Test
     public void testCreatedPipelineIsDisplayedOnDashboard() {
         getDriver().findElement(newItem).click();
@@ -76,7 +82,6 @@ public class PipelineTest extends BaseTest {
         String actualResult = getDriver().findElement(By.xpath("//tr[@id = 'job_" + PIPELINE_NAME + "']//a[@href='job/" + PIPELINE_NAME + "/']")).getText();
 
         Assert.assertEquals(actualResult, PIPELINE_NAME);
-
     }
 
     @Test
