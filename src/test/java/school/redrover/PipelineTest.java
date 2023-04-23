@@ -1,17 +1,12 @@
 package school.redrover;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PipelineTest extends BaseTest {
     private static final String PIPELINE_NAME = "pipeline1";
@@ -25,10 +20,8 @@ public class PipelineTest extends BaseTest {
     private final By textAreaDescription = By.xpath("//textarea[@name='description']");
     private final By pipelineDescription = By.xpath("//div[@id = 'description']/div[1]");
 
-    private final Map<Integer, WebDriverWait> waitMap = new HashMap<>();
-
-    protected WebDriverWait getWait(int seconds) {
-        return waitMap.computeIfAbsent(seconds, duration -> new WebDriverWait(getDriver(), Duration.ofSeconds(duration)));
+    private WebDriverWait getWait(int seconds) {
+        return new WebDriverWait(getDriver(), Duration.ofSeconds(seconds));
     }
 
     @Test
