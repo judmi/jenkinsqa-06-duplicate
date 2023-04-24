@@ -32,6 +32,18 @@ public class TopMenuTest extends BaseTest {
     }
 
     @Test
+    public void testUserButton() {
+        WebElement buttonAdmin = getDriver().findElement(By.xpath("//header/div/a[@class = 'model-link']"));
+        buttonAdmin.click();
+
+        WebElement userIDDescription = getDriver().findElement(By.xpath("//div[@id='main-panel']//div[contains(text(), " +
+                "'Jenkins User ID:')]"));
+        String userID = userIDDescription.getText().split(": ")[1];
+
+        Assert.assertEquals(userID, "admin");
+    }
+
+    @Test
     public void testTopMenuUser(){
         WebElement topMenuUser = getDriver().findElement(By.xpath("//span[@class='hidden-xs hidden-sm'][text()='admin']"));
 
