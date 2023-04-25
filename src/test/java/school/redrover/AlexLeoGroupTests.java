@@ -179,6 +179,36 @@ public class AlexLeoGroupTests extends BaseTest {
         Assert.assertTrue(logoJenkins.isDisplayed());
     }
 
+    @Test
+    public void testJenkinsLogoIsPresent(){
+        WebElement logo = getDriver().findElement(By.id("jenkins-head-icon"));
+        Assert.assertTrue(logo.isDisplayed());
+    }
+
+    @Test
+    public void testJenkinsNameIsPresent(){
+        WebElement name = getDriver().findElement(By.id("jenkins-name-icon"));
+        Assert.assertTrue(name.isDisplayed());
+    }
+
+    @Test
+    public void testSearchBoxIsPresent(){
+        WebElement searchBox = getDriver().findElement(By.id("search-box"));
+        Assert.assertTrue(searchBox.isDisplayed());
+    }
+
+    @Test
+    public void testLogoutIconIsPresent(){
+        WebElement logoutIcon = getDriver().findElement(By.xpath("//a[@href='/logout']/*[@class='icon-md']"));
+        Assert.assertTrue(logoutIcon.isDisplayed());
+    }
+
+    @Test
+    public void testLinkContainsText(){
+        String logoutLink = getDriver().findElement(By.xpath("//a[@href='/logout']/span")).getText();
+        Assert.assertEquals(logoutLink, "log out");
+    }
+
     @Description("Verify to the search field functionality")
     @Test
     public void testSearchField(){
@@ -189,4 +219,5 @@ public class AlexLeoGroupTests extends BaseTest {
         Assert.assertTrue(getWait5().until(ExpectedConditions.textToBe
                 (By.xpath("//div[@class='jenkins-app-bar__content']/h1"), "Built-In Node")));
     }
+
 }
