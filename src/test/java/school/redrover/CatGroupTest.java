@@ -2,6 +2,7 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -170,7 +171,6 @@ public class CatGroupTest extends BaseTest {
 
         Assert.assertEquals(actualVersionOfJenkins, expectedVersionOfJenkins);
     }
-
     @Test
     public void testBuildHistoryButton() {
         WebElement buttonBuildHistory = getDriver().findElement(By.linkText("Build History"));
