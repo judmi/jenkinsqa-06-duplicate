@@ -6,38 +6,37 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bond4562Test extends BaseTest {
 
+    private List<String> getText(List<WebElement> WebList) {
+        if(WebList.size() > 0) {
+            List<String> valueName = new ArrayList<>();
+            for (WebElement webElement : WebList) {
+                valueName.add(webElement.getText());
+            }
+
+            return valueName;
+        }
+
+        return List.of("ERRRR");
+    }
+
     @Test
-    public void testSwitchThemeYouTube() throws InterruptedException {
-        getDriver().get("https://www.youtube.com/");
+    public void testH2Title() {
+        final List<String> expH2Title = List.of(
+                "System Configuration", "Security", "Status Information", "Troubleshooting", "Tools and Actions");
 
-        WebElement topBarMenuButton = getDriver().findElement(
-                By.xpath("//yt-icon[@class='style-scope ytd-topbar-menu-button-renderer']"));
-        topBarMenuButton.click();
+        getDriver().findElement(
+                By.xpath("//a[@href='/manage']"))
+                .click();
 
-        Thread.sleep(1000);
+        List <WebElement> actH2Title = getDriver().findElements(By.xpath(
+                "//h2[@class='jenkins-section__title']"));
 
-        WebElement themeLinkButton = getDriver().findElement(
-                By.xpath("//ytd-toggle-theme-compact-link-renderer"));
-        themeLinkButton.click();
-
-        WebElement darkThemeButton = getDriver().findElement(
-                By.xpath("//yt-formatted-string[text() = 'Dark theme']"));
-        darkThemeButton.click();
-
-        Thread.sleep(1000);
-
-        WebElement topBarMenuButtonNew = getDriver().findElement(
-                By.xpath("//yt-icon[@class='style-scope ytd-topbar-menu-button-renderer']"));
-        topBarMenuButtonNew.click();
-
-        Thread.sleep(1000);
-
-        WebElement darkTheme = getDriver().findElement(
-                By.xpath("//ytd-toggle-theme-compact-link-renderer//div[@id='label']"));
-
-        Assert.assertEquals(darkTheme.getText(), "Appearance: Dark");
+        Assert.assertEquals(getText(actH2Title), expH2Title);
     }
 
 }
