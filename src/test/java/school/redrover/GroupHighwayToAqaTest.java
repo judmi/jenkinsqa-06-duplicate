@@ -155,6 +155,25 @@ public class GroupHighwayToAqaTest extends BaseTest {
     }
 
     @Test
+    public void testCreateAJobWithAnErrorMessageAsAResult(){
+        WebElement myViewsTask = getDriver().findElement(
+                By.xpath("//a[@href='/me/my-views']")
+        );
+        myViewsTask.click();
+        WebElement messageOnThePage = getDriver().findElement(By.xpath("//div[@id='main-panel']//h2"));
+
+        Assert.assertEquals(messageOnThePage.getText(), "This folder is empty");
+
+        WebElement createAJobBlock = getDriver().findElement(By.xpath("//span[text()='Create a job']"));
+        createAJobBlock.click();
+        WebElement okButton = getDriver().findElement(By.xpath("//div[@class='btn-decorator']"));
+        okButton.click();
+        WebElement messageInRed = getDriver().findElement(By.xpath("//div[@id='itemname-required']"));
+
+        Assert.assertEquals(messageInRed.getText(), "» This field cannot be empty, please enter a valid name");
+    }
+
+    @Test
     public void testNegativeSymbolForFreestyleProjectItemsName() {
         final String[] NegativeSymbol = {"!", "@", "#", "$", "%", "^", "&", "*", ";", ":", "?", "/", "<", ">", "\\", "[", "]", "|", "."};
 
