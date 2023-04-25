@@ -161,4 +161,12 @@ public class JavaJitsuGroupTest extends BaseTest {
         Assert.assertEquals(nameJob.getText(), "Pipeline JavaTest");
     }
 
+    @Test
+    public void testManageJenkins() {
+        WebElement manageJenkins = getDriver().findElement(By.xpath("//div[@id='tasks']/div[4])"));
+        manageJenkins.click();
+
+        WebElement manageJenkinsHeader = getDriver().findElement(By.xpath("//h1"));
+        Assert.assertEquals(manageJenkinsHeader.getText(), "Manage Jenkins");
+    }
 }
