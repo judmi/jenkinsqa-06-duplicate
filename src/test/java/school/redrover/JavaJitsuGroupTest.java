@@ -163,7 +163,7 @@ public class JavaJitsuGroupTest extends BaseTest {
 
     @Test
     public void testManageJenkins() {
-        WebElement manageJenkins = getDriver().findElement(By.xpath("//div[@id='tasks']/div[4])"));
+        WebElement manageJenkins = getDriver().findElement(By.xpath("//div[@id='tasks']/div[4]"));
         manageJenkins.click();
 
         WebElement manageJenkinsHeader = getDriver().findElement(By.xpath("//h1"));
