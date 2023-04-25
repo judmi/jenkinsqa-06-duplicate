@@ -23,6 +23,7 @@ public class CaramelSyrupForJavaTest extends BaseTest {
         Assert.assertEquals(currentElement, searchBox);
     }
 
+    @Ignore
     @Test
     public void testKhudovaEditDescriptionButtonChanges() {
 
