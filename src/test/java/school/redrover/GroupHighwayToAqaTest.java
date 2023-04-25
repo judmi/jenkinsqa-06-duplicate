@@ -172,7 +172,6 @@ public class GroupHighwayToAqaTest extends BaseTest {
 
         Assert.assertEquals(messageInRed.getText(), "» This field cannot be empty, please enter a valid name");
     }
-}
 
     @Test
     public void testNegativeSymbolForFreestyleProjectItemsName() {
