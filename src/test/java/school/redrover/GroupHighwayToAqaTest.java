@@ -134,7 +134,7 @@ public class GroupHighwayToAqaTest extends BaseTest {
     }
 
     @Test
-    public void testCreateAJobWithAnErrorMessage(){
+    public void testCreateAJobWithAnErrorMessageAsAResult(){
         WebElement myViewsTask = getDriver().findElement(
                 By.xpath("//a[@href='/me/my-views']")
         );
