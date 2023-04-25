@@ -1,9 +1,7 @@
 package school.redrover;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -212,5 +210,32 @@ public class CatGroupTest extends BaseTest {
         }
 
         Assert.assertEquals(actualResult, "UserNameTest");
+    }
+
+    @Test
+    public void testAddNewLogRecorder() {
+        WebElement manageJenkinsLink = getDriver().findElement(By.xpath("//a[@href = '/manage']"));
+        manageJenkinsLink.click();
+
+        WebElement systemLogLink = getDriver().findElement(By.xpath("//*[@href = 'log']"));
+        systemLogLink.click();
+
+        WebElement addNewLogRecorderButton = getDriver().findElement(By.xpath("//*[@href = 'new']"));
+        addNewLogRecorderButton.click();
+
+        String recorderName = "newLogRecorder_1";
+        WebElement inputNameField = getDriver().findElement(By.xpath("//input[@checkdependson = 'name']"));
+        inputNameField.sendKeys(recorderName);
+
+        WebElement createButton = getDriver().findElement(By.xpath("//button[@name = 'Submit']"));
+        createButton.click();
+
+        WebElement saveButton2 = getDriver().findElement(By.xpath("//*[@colspan = '4']/button"));
+        saveButton2.click();
+
+        WebElement addedRecorderName = getDriver().findElement(By.xpath("//div[@id = 'main-panel']/h1"));
+        String expectedResult = addedRecorderName.getText();
+
+       Assert.assertEquals(recorderName, expectedResult);
     }
 }
