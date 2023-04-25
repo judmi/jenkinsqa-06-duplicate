@@ -30,6 +30,17 @@ public class TopMenuTest extends BaseTest {
     }
 
     @Test
+    public void testSetOfElementsPeople() {
+        WebElement buttonPeople = getDriver().findElement(By.linkText("People"));
+        buttonPeople.click();
+
+        WebElement fourElements = getDriver().findElement(By.xpath("//table[@id = \"people\"]"));
+        boolean actualResult = fourElements.isDisplayed();
+
+        Assert.assertTrue(actualResult);
+    }
+
+    @Test
     public void testTopMenuUser(){
         WebElement topMenuUser = getDriver().findElement(By.xpath("//span[@class='hidden-xs hidden-sm'][text()='admin']"));
 
