@@ -9,13 +9,14 @@ import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DreamTeamTest extends BaseTest {
 
     @Test
     public void testWelcomeToJenkinsPresent() {
-        WebElement welcome = getDriver().findElement(By.xpath("//*[@id='main-panel']/div[2]/div/h1"));
+        WebElement welcome = getDriver().findElement(By.xpath("//div[@id='main-panel']//h1"));
         Assert.assertEquals(welcome.getText(), "Welcome to Jenkins!");
     }
 
@@ -58,10 +59,38 @@ public class DreamTeamTest extends BaseTest {
     }
 
     @Test
+    public void testJenkinsMainPageLilia() {
+        WebElement headerWelcome = getDriver().findElement(By.tagName("h1"));
+        Assert.assertEquals(headerWelcome.getText(), "Welcome to Jenkins!");
+
+        WebElement addDescription = getDriver().findElement(By.xpath("//a[@id='description-link']"));
+        addDescription.click();
+        WebElement textBox = getDriver().findElement(By.xpath("//textarea[@name='description']"));
+        textBox.sendKeys("Hello Jenkins!");
+        WebElement saveButton = getDriver().findElement(By.xpath("//button[@name='Submit']"));
+        saveButton.click();
+    }
+
+
+
+    @Test
     public void testDashboardSidePanelItemsList() {
-        List<WebElement> sidePanelItems = getDriver().findElements(By.xpath("//*[@id=\"tasks\"]/div"));
+        List<WebElement> sidePanelItems = getDriver().findElements(By.xpath("//div[@id='tasks']/div"));
         int itemsQuantity = sidePanelItems.size();
 
         Assert.assertEquals(itemsQuantity, 5);
+    }
+
+    @Test
+    public void testSideMenu() {
+        List <String> expectedMenus = List.of("New Item", "People", "Build History", "Manage Jenkins", "My Views");
+
+        List<WebElement> sideMenus = getDriver().findElements(By.xpath("//div[@id='tasks']/div"));
+        List<String> menuNames = new ArrayList<>();
+        for (WebElement element: sideMenus){
+            menuNames.add(element.getText());
+        }
+
+        Assert.assertEquals(menuNames, expectedMenus);
     }
 }
