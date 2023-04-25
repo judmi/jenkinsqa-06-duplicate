@@ -16,6 +16,7 @@ public class BestAutoTeamTest extends BaseTest {
 
         Assert.assertTrue(jenkinsLogo.isDisplayed());
     }
+  
     @Ignore
     @Test
     public void testAddDescription() throws InterruptedException {
