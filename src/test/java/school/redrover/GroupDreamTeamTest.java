@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DreamTeamTest extends BaseTest {
+public class GroupDreamTeamTest extends BaseTest {
 
     @Test
     public void testWelcomeToJenkinsPresent() {
@@ -71,8 +71,6 @@ public class DreamTeamTest extends BaseTest {
         saveButton.click();
     }
 
-
-
     @Test
     public void testDashboardSidePanelItemsList() {
         List<WebElement> sidePanelItems = getDriver().findElements(By.xpath("//div[@id='tasks']/div"));
@@ -92,5 +90,81 @@ public class DreamTeamTest extends BaseTest {
         }
 
         Assert.assertEquals(menuNames, expectedMenus);
+    }
+
+    @Test
+    public void testConfigureItemsMenu() {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2000));
+
+        List <String> expectedConfigureMenuNames = List.of(
+                "General",
+                "Source Code Management",
+                "Build Triggers",
+                "Build Environment",
+                "Build Steps",
+                "Post-build Actions");
+
+        WebElement createNewProject = getDriver().findElement(By.xpath("//div[@id='tasks']/div[1]/span/a"));
+        createNewProject.click();
+
+        WebElement inputItemName = getDriver().findElement(By.id("name"));
+        wait.until(ExpectedConditions.elementToBeClickable(inputItemName)).sendKeys("First Project");
+
+        WebElement freestyleProjectTab =
+                getDriver().findElement(By.xpath("//ul[@class ='j-item-options']/li[@tabindex='0']"));
+        freestyleProjectTab.click();
+
+        WebElement okButton = getDriver().findElement(By.id("ok-button"));
+        okButton.click();
+
+        List<WebElement> configureMenu = getDriver().findElements(By.xpath("//div[@id='tasks']/div"));
+
+        List<String> actualConfigureMenuNames = new ArrayList<>();
+        for (WebElement element: configureMenu){
+            actualConfigureMenuNames.add(element.getText());
+        }
+
+        Assert.assertEquals(actualConfigureMenuNames, expectedConfigureMenuNames);
+
+        int configureMenuQuantity = actualConfigureMenuNames.size();
+
+        Assert.assertEquals(configureMenuQuantity, 6);
+    }
+
+    @Test
+    public void testDoesManageJenkinsMenuItemExist() {
+        final String expectedMenuItemName = "Manage Jenkins";
+        WebElement manageJenkinsMenuItem = getDriver().findElement(By.xpath("//a[@href='/manage']/span[contains(text(), 'Manage')]"));
+
+        Assert.assertEquals(manageJenkinsMenuItem.getText(), expectedMenuItemName);
+    }
+
+    @Test
+    public void testIsManageJenkinsMenuItemClickable() {
+        final String expectedPageHeader = "Manage Jenkins";
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        WebElement manageJenkinsMenuItem = getDriver().findElement(By.xpath("//a[@href='/manage']"));
+        manageJenkinsMenuItem.click();
+
+        WebElement pageHeader = getDriver().findElement(By.tagName("h1"));
+
+        Assert.assertEquals(pageHeader.getText(), expectedPageHeader);
+    }
+
+    @Test
+    public void testDoesSysConfSectionContain4Items() {
+        List<String> expSysConfItemNames = List.of("Configure System", "Global Tool Configuration", "Manage Plugins", "Manage Nodes and Clouds");
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+        getDriver().get(getDriver().getCurrentUrl() + "/manage/");
+        List<WebElement> sysConfItems = getDriver().findElements(By.xpath("//section[@class='jenkins-section jenkins-section--bottom-padding'][1]/descendant::dt"));
+
+        List<String> actSysConfItemNames = new ArrayList<>();
+        for (WebElement sysConfItem: sysConfItems) {
+            actSysConfItemNames.add(sysConfItem.getText());
+        }
+
+        Assert.assertEquals(actSysConfItemNames, expSysConfItemNames);
     }
 }
