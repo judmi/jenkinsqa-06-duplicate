@@ -20,6 +20,8 @@ import java.util.List;
 public class CatGroupTest extends BaseTest {
 
 
+
+
     @FindBy(xpath = "//a[@href='newJob']")
     private WebElement createAJobButton;
 
@@ -38,6 +40,10 @@ public class CatGroupTest extends BaseTest {
     private WebElement saveButton;
     @FindBy(xpath = "//h1[@class='job-index-headline page-headline']")
     private WebElement h1CreatedProject;
+    @FindBy(xpath = "//header[@id = 'page-header']//button")
+    private WebElement dropDownTopMenu;
+    @FindBy(xpath = "//ul[@class='first-of-type']//li")
+    private List<WebElement> dropDownItemsTopMenu;
 
     public WebDriverWait webDriverWait10;
 
@@ -105,10 +111,21 @@ public class CatGroupTest extends BaseTest {
         verifyElementVisible(h1CreatedProject);
         return getText(h1CreatedProject);
     }
-
-
-
-
+    public void clickByJavaScript(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].click();", element);
+    }
+    public boolean isAllItemsAreVisibleAndClickable(List<WebElement> elements){
+        List<WebElement> allItemsDropDown = new ArrayList<>(elements);
+        int count = 0;
+        for (WebElement dropDownItem: allItemsDropDown){
+          if(dropDownItem.isDisplayed()){
+              verifyElementIsClickable(dropDownItem);
+              count ++;
+          }
+        }
+        return elements.size() == count;
+    }
 
     @Test
     public void testNameOfItemsOfLabels() {
@@ -140,5 +157,11 @@ public class CatGroupTest extends BaseTest {
         String actualH1NameOfProject = getH1CreatedProject();
 
         Assert.assertEquals(actualH1NameOfProject,expectedH1NameOfProject);
+    }
+    @Test
+    public void testItemsOfDropDownTopMenuIsVisibleAndClickable(){
+        PageFactory.initElements(getDriver(), this);
+        clickByJavaScript(dropDownTopMenu);
+        Assert.assertTrue(isAllItemsAreVisibleAndClickable(dropDownItemsTopMenu));
     }
 }
