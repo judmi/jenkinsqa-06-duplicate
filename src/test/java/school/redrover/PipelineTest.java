@@ -132,7 +132,7 @@ public class PipelineTest extends BaseTest {
     public void testPipelineBuildNow() {
         getDriver().findElement(newItem).click();
         getWait(2).until(ExpectedConditions.elementToBeClickable(name)).sendKeys(PIPELINE_NAME);
-        getDriver().findElement(pipeline).click();
+        getDriver().findElement(pipelineItem).click();
         getDriver().findElement(okButton).click();
         getWait(2).until(ExpectedConditions.elementToBeClickable(pipelineTrySampleDropDownMenu)).click();
         getDriver().findElement(By.cssSelector("option[value='hello']")).click();
