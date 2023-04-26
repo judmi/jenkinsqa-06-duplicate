@@ -47,7 +47,6 @@ public class CatGroupTest extends BaseTest {
 
     public WebDriverWait webDriverWait10;
 
-
     public final WebDriverWait getWait10() {
         if (webDriverWait10 == null) {
             webDriverWait10 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
@@ -202,7 +201,6 @@ public class CatGroupTest extends BaseTest {
         clickByJavaScript(dropDownTopMenu);
         Assert.assertTrue(isAllItemsAreVisibleAndClickable(dropDownItemsTopMenu));
     }
-}
 
     @Test
     public void testUserAdd() {
