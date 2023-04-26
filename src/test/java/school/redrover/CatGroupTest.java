@@ -9,8 +9,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,10 +22,8 @@ public class CatGroupTest extends BaseTest {
 
     @FindBy(xpath = "//a[@href='newJob']")
     private WebElement createAJobButton;
-
     @FindBy(xpath = "//div[@id='items']//span[@class='label']")
     private List<WebElement> itemsNameOfLabels;
-
     @FindBy(xpath = "//button[@id='ok-button']")
     private WebElement okButton;
     @FindBy(xpath = "//div[@class='add-item-name']/input[@id='name']")
@@ -40,9 +40,12 @@ public class CatGroupTest extends BaseTest {
     private WebElement versionOfJenkins;
     @FindBy(xpath = "//div[@id='tasks']//div[4]/span")
     private WebElement manageJenkinsButton;
+    @FindBy(xpath = "//header[@id = 'page-header']//button")
+    private WebElement dropDownTopMenu;
+    @FindBy(xpath = "//ul[@class='first-of-type']//li")
+    private List<WebElement> dropDownItemsTopMenu;
 
     public WebDriverWait webDriverWait10;
-
 
     public final WebDriverWait getWait10() {
         if (webDriverWait10 == null) {
@@ -112,6 +115,21 @@ public class CatGroupTest extends BaseTest {
         verifyElementVisible(h1CreatedProject);
         return getText(h1CreatedProject);
     }
+    public void clickByJavaScript(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].click();", element);
+    }
+    public boolean isAllItemsAreVisibleAndClickable(List<WebElement> elements){
+        List<WebElement> allItemsDropDown = new ArrayList<>(elements);
+        int count = 0;
+        for (WebElement dropDownItem: allItemsDropDown){
+          if(dropDownItem.isDisplayed()){
+              verifyElementIsClickable(dropDownItem);
+              count ++;
+          }
+        }
+        return elements.size() == count;
+    }
 
     @Test
     public void testNameOfItemsOfLabels() {
@@ -176,6 +194,12 @@ public class CatGroupTest extends BaseTest {
         boolean actualResult = buttonBuildHistory.isDisplayed();
 
         Assert.assertTrue(actualResult);
+    }
+    @Test
+    public void testItemsOfDropDownTopMenuIsVisibleAndClickable(){
+        PageFactory.initElements(getDriver(), this);
+        clickByJavaScript(dropDownTopMenu);
+        Assert.assertTrue(isAllItemsAreVisibleAndClickable(dropDownItemsTopMenu));
     }
 
     @Test
