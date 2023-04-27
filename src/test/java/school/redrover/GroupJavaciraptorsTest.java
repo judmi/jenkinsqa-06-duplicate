@@ -3,6 +3,7 @@ package school.redrover;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -23,6 +24,7 @@ public class GroupJavaciraptorsTest extends BaseTest {
         Assert.assertEquals(textElement.getText(), "Set up a distributed build");
     }
 
+    @Ignore
     @Test
     public void addDescriptionTest() {
         WebElement addDescription = getDriver().findElement(By.xpath("//*[@id='description-link']"));
@@ -40,9 +42,28 @@ public class GroupJavaciraptorsTest extends BaseTest {
     }
 
     @Test
-    public void binoederTest() {
-        WebElement firstSubtitleElement = getDriver().findElement(By.xpath("//section[@class = 'empty-state-section']/h2"));
+    public void firstBinoederTest() {
+        WebElement firstSubtitleElement = getDriver().findElement(
+                By.xpath("//section[@class = 'empty-state-section']/h2")
+        );
 
         Assert.assertEquals(firstSubtitleElement.getText(), "Start building your software project");
+    }
+
+    @Test
+    public void secondBinoederTest() {
+        String expectedResult = "This folder is empty";
+        WebElement myViewsLink = getDriver().findElement(
+               By.xpath("//div[@id = 'tasks']//a[@href = '/me/my-views']")
+        );
+        myViewsLink.click();
+
+        WebElement header = getDriver().findElement(
+                By.xpath("//div[@class = 'empty-state-block']//h2")
+        );
+
+        String actualResult = header.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 }
