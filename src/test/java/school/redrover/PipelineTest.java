@@ -156,7 +156,7 @@ public class PipelineTest extends BaseTest {
         getWait(10).until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//a[@update-parent-class = '.build-row'][text() = '#1']"))).click();
         getDriver().findElement(By.xpath("//span[text() = 'Console Output']")).click();
-        getWait(2).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#main-panel")));
+        getWait(2).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".console-output")));
 
         Assert.assertTrue(getDriver().findElement(By.cssSelector(".console-output")).getText().contains("Finished: SUCCESS"));
     }
