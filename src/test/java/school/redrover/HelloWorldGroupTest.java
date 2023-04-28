@@ -109,11 +109,10 @@ public class HelloWorldGroupTest extends BaseTest{
 
         Assert.assertEquals(fieldError.getText(),text);
     }
-
     @Test
-    public void testCreateNewProject() {
-        WebElement newItem = getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']"));
-        newItem.click();
+    public void testCreateNewProject1() {
+        WebElement newItem1 = getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']"));
+        newItem1.click();
 
         WebElement nameProject = getDriver().findElement(By.id("name"));
         nameProject.sendKeys("First");
@@ -123,9 +122,11 @@ public class HelloWorldGroupTest extends BaseTest{
 
         getDriver().findElement(By.id("ok-button")).click();
         getDriver().findElement(By.name("Submit")).click();
+
         getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//a[@href='/']")).click();
 
         WebElement firstProjectExist = getDriver().findElement(By.xpath("//td/a[@href='job/First/']"));
         Assert.assertEquals(firstProjectExist.getText(), "First");
     }
+
 }
