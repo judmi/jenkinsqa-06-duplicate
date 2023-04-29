@@ -22,7 +22,7 @@ public class AnaBelGroupTest extends BaseTest {
 
         assertEquals(buildHistory.getText(), "Build History");
     }
-
+    @Test
     public void testAddDescription() {
         WebElement button = getDriver().findElement(By.xpath("//a[@id='description-link']"));
         button.click();
@@ -42,9 +42,33 @@ public class AnaBelGroupTest extends BaseTest {
     @Test
     public void testWelcomeJenkins() {
         WebElement welcomeElement = getDriver().findElement(By.xpath("//div[@class='empty-state-block']/h1"));
-
         Assert.assertEquals(welcomeElement.getText(), "Welcome to Jenkins!");
     }
 
+    @Test
+    public  void testRequieredField() throws InterruptedException {
+        WebElement button = getDriver().findElement(By.xpath("//a[@href='newJob']"));
+        button.click();
 
+        Thread.sleep(1000);
+
+        WebElement buttonProject = getDriver().findElement(By.cssSelector(".label"));
+        buttonProject.click();
+
+        WebElement errorMessage = getDriver().findElement(By.cssSelector("#itemname-required"));
+
+        Assert.assertEquals(errorMessage.getText(), "» This field cannot be empty, please enter a valid name");
+    }
+
+        @Test
+    public void testItem() {
+
+        WebElement button = getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']"));
+        button.click();
+
+        WebElement textBox = getDriver().findElement(By.xpath("//input[@name='name']"));
+        textBox.sendKeys("Item");
+    }
 }
+
+
