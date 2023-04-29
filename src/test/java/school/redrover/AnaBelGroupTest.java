@@ -6,6 +6,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
+import static org.testng.Assert.assertEquals;
+
 public class AnaBelGroupTest extends BaseTest {
 
     @Test
@@ -18,7 +20,7 @@ public class AnaBelGroupTest extends BaseTest {
     public void testBuildHistory() {
         WebElement buildHistory = getDriver().findElement(By.xpath("//a[@href ='/view/all/builds']"));
 
-        Assert.assertEquals(buildHistory.getText(), "Build History");
+        assertEquals(buildHistory.getText(), "Build History");
     }
 
     public void testAddDescription() {
@@ -34,6 +36,15 @@ public class AnaBelGroupTest extends BaseTest {
 
         WebElement verify = getDriver().findElement(By.cssSelector("#description>div"));
 
-        Assert.assertEquals(verify.getText(), "testDesctiprion1");
+        assertEquals(verify.getText(), "testDesctiprion1");
     }
+
+    @Test
+    public void testWelcomeJenkins() {
+        WebElement welcomeElement = getDriver().findElement(By.xpath("//div[@class='empty-state-block']/h1"));
+
+        Assert.assertEquals(welcomeElement.getText(), "Welcome to Jenkins!");
+    }
+
+
 }
