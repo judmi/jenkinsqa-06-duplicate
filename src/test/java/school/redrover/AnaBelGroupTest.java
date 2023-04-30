@@ -90,7 +90,7 @@ public class AnaBelGroupTest extends BaseTest {
 
     @Test
     public void testSetUpAgent() {
-        getDriver().findElement(By.xpath("(//a[@href='computer/new'])")).click();
+        getDriver().findElement(By.xpath(("(//a[@class='content-block__link'])[2]"))).click();
 
         Assert.assertEquals(getDriver().findElement
                 (By.xpath("//div[@class='jenkins-app-bar__content']/h1")).getText(),"New node");
