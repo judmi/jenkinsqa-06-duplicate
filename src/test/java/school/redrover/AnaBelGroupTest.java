@@ -38,7 +38,13 @@ public class AnaBelGroupTest extends BaseTest {
 
         assertEquals(verify.getText(), "testDesctiprion1");
     }
-
+    
+    @Test
+    public void testIndicator(){
+        WebElement indicator = getDriver().findElement(By.xpath("//*[@id='visible-sec-am-button']/span"));
+        Assert.assertTrue(indicator.isDisplayed());
+    }
+    
     @Test
     public void testWelcomeJenkins() {
         WebElement welcomeElement = getDriver().findElement(By.xpath("//div[@class='empty-state-block']/h1"));
