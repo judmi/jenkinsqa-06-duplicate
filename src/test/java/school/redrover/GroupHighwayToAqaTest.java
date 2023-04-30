@@ -267,7 +267,6 @@ public class GroupHighwayToAqaTest extends BaseTest {
         String effortMessage=getDriver().findElement(By.id("main-panel")).getText();
         Assert.assertEquals(effortMessage,errorMessage);
     }
-}
 
     @Test
     public void testTitle() {
