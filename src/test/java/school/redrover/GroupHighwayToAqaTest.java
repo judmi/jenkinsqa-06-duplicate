@@ -239,26 +239,35 @@ public class GroupHighwayToAqaTest extends BaseTest {
 
     @Test
     public void testCreateNewProject() throws InterruptedException {
-        String name = "Мой проект";
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 
-        WebElement createNewItemButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath
-                ("//span[@class='task-icon-link']")));
-        createNewItemButton.click();
+        String name ="Мой проект";
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(7));
 
+        getDriver().findElement(NEW_ITEM).click();
         WebElement writeNameOfItem = getDriver().findElement(By.id("name"));
+        Thread.sleep(3000);
         writeNameOfItem.sendKeys(name);
         WebElement chooseProject = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("label")));
         chooseProject.click();
-        WebElement pushOkButton = wait.until(ExpectedConditions.visibilityOfElementLocated
-                (By.xpath("//div[@class='btn-decorator']")));
-        pushOkButton.click();
-        WebElement saveChanges = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("jenkins-button--primary")));
+        getDriver().findElement(OK_BUTTON).click();
+        WebElement saveChanges=wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("jenkins-button--primary")));
         saveChanges.click();
+        String successMessageOfNewProject=getDriver().findElement(By.className("job-index-headline")).getText();
+        Assert.assertEquals(successMessageOfNewProject,"Project "+ name);
 
-        String sucessMesageOfNewProject = getDriver().findElement(By.className("job-index-headline")).getText();
-        Assert.assertEquals(sucessMesageOfNewProject, "Project " + name);
+        getDriver().findElement(DASHBOARD).click();
+        getDriver().findElement(NEW_ITEM).click();
+        getDriver().findElement(By.id("name")).sendKeys(name);
+        WebElement chooseProject1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("label")));
+        chooseProject1.click();
+        getDriver().findElement(OK_BUTTON).click();
+        Thread.sleep(5000);
+        String errorMessage="Error\n" +
+                "A job already exists with the name ‘Мой проект’";
+        String effortMessage=getDriver().findElement(By.id("main-panel")).getText();
+        Assert.assertEquals(effortMessage,errorMessage);
     }
+}
 
     @Test
     public void testTitle() {
