@@ -13,12 +13,11 @@ import java.time.Duration;
 public class Pipeline2Test extends BaseTest {
 
     @Test
-    public void createPipe(){
+    public void TestCreatePipeline(){
         WebDriver driver = getDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         driver.findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
-
 
         WebElement projectName = driver.findElement(By.className("jenkins-input"));
         final String itemName = "My Pipeline";
@@ -36,7 +35,6 @@ public class Pipeline2Test extends BaseTest {
 
         WebElement submitDesc = driver.findElement(By.name("Submit"));
         submitDesc.click();
-
 
         WebElement nameVal = driver.findElement(By.xpath("//div[@id='main-panel']/h1"));
         Assert.assertEquals(nameVal.getText(), "Pipeline " + itemName);
