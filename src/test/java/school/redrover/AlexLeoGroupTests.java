@@ -19,15 +19,6 @@ import java.util.List;
 
 public class AlexLeoGroupTests extends BaseTest {
 
-    private WebDriverWait webDriverWait5;
-
-    private final WebDriverWait getWait5() {
-        if (webDriverWait5 == null) {
-            webDriverWait5 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        }
-        return webDriverWait5;
-    }
-
     private final void verifyElementVisible(WebElement element) {
         getWait5().until(ExpectedConditions.visibilityOf(element));
     }
