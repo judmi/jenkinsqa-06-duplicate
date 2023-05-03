@@ -24,7 +24,7 @@ public class AlexLeoGroupTests extends BaseTest {
 
     private static final By USER_NAME_LINK = By.xpath("//a[@href='/user/admin']");
 
-    private final void verifyElementVisible(WebElement element) {
+    private void verifyElementVisible(WebElement element) {
         getWait5().until(ExpectedConditions.visibilityOf(element));
     }
 
