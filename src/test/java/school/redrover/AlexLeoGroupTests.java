@@ -1,6 +1,5 @@
 package school.redrover;
 
-import jdk.jfr.Description;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -214,7 +213,9 @@ public class AlexLeoGroupTests extends BaseTest {
         Assert.assertEquals(logoutLink, "log out");
     }
 
-    @Description("Verify to the search field functionality")
+    /**
+     Verify to the search field functionality
+     */
     @Test
     public void testSearchField() {
         WebElement searchBox = getDriver().findElement(By.id("search-box"));
