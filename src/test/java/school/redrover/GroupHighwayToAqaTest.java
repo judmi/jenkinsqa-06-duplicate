@@ -478,8 +478,9 @@ public class GroupHighwayToAqaTest extends BaseTest {
         WebElement pipeline = getDriver().findElement(By.xpath("//div[@id='j-add-item-type-standalone-projects']/ul/li[2]"));
         pipeline.click();
         getDriver().findElement(OK_BUTTON).click();
-        WebElement scrollBySelectButton = getDriver().findElement(
-                xpath("//div[@class = 'samples']"));
+        WebElement scrollBySelectButton = wait.until(ExpectedConditions.visibilityOfElementLocated
+                (By.xpath("//div[@class = 'samples']")));
+
         JavascriptExecutor jse = (JavascriptExecutor) getDriver();
         jse.executeScript("arguments[0].scrollIntoView(true)", scrollBySelectButton);
         scrollBySelectButton.click();
