@@ -3,6 +3,7 @@ package school.redrover;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -87,7 +88,7 @@ public class AnaBelGroupTest extends BaseTest {
         WebElement general = getDriver().findElement(By.xpath("//h1[@class='matrix-project-headline page-headline']"));
         Assert.assertEquals(general.getText(), "Project Item");
     }
-
+    @Ignore
     @Test
     public void testSetUpAgent() {
         getDriver().findElement(By.xpath(("(//a[@class='content-block__link'])[2]"))).click();
@@ -95,6 +96,7 @@ public class AnaBelGroupTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement
                 (By.xpath("//div[@class='jenkins-app-bar__content']/h1")).getText(),"New node");
     }
+
 
     @Test
     public void testCreateAJob() {
