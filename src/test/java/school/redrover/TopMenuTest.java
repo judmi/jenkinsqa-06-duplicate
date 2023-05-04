@@ -201,20 +201,20 @@ public class TopMenuTest extends BaseTest {
 
     @Test
     public void testPreviewOfAddedDescriptionWhenClickUserIDButton() {
-
         String expectedPreviewOfAddedDescription = "QA Engineer";
 
-        WebElement userIDButton = getDriver().findElement(By.xpath("//div[@class=\"login page-header__hyperlinks\"]/a[1]/span"));
-        userIDButton.click();
-
-        WebElement addDescriptionButton = getDriver().findElement(By.xpath("//a[@id=\'description-link\']"));
-        addDescriptionButton.click();
-
-        WebElement textArea = getDriver().findElement(By.xpath("//div[@class=\'setting-main help-sibling\']/textarea"));
-        textArea.sendKeys("QA Engineer");
-
-        WebElement previewButton = getDriver().findElement(By.xpath("//div[@class=\'textarea-preview-container\']/a[@class=\'textarea-show-preview\']"));
-        previewButton.click();
+        getDriver()
+                .findElement(By.xpath("//div[@class=\'login page-header__hyperlinks\']/a[1]/span"))
+                .click();
+        getDriver()
+                .findElement(By.xpath("//a[@id=\'description-link\']"))
+                .click();
+        getDriver()
+                .findElement(By.xpath("//div[@class=\'setting-main help-sibling\']/textarea"))
+                .sendKeys("QA Engineer");
+        getDriver()
+                .findElement(By.xpath("//div[@class=\'textarea-preview-container\']/a[@class=\'textarea-show-preview\']"))
+                .click();
 
         WebElement previewDescription = getDriver().findElement(By.xpath("//div[@class=\'textarea-preview\']"));
         String actualPreviewOfAddedDescription = String.valueOf(previewDescription.getText());
