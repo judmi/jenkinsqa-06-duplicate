@@ -1,5 +1,6 @@
 package school.redrover;
 
+import jdk.jfr.Description;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -23,10 +24,6 @@ public class AlexLeoGroupTests extends BaseTest {
     private static final String DESCRIPTION = RandomStringUtils.randomAlphanumeric(130) + "\n\n" + RandomStringUtils.randomAlphanumeric(23);
 
     private static final By USER_NAME_LINK = By.xpath("//a[@href='/user/admin']");
-
-    private void verifyElementVisible(WebElement element) {
-        getWait5().until(ExpectedConditions.visibilityOf(element));
-    }
 
     @Test
     public void testVerifyLogoJenkinsIsPresent() {
@@ -213,9 +210,7 @@ public class AlexLeoGroupTests extends BaseTest {
         Assert.assertEquals(logoutLink, "log out");
     }
 
-    /**
-     Verify to the search field functionality
-     */
+    @Description("Verify to the search field functionality")
     @Test
     public void testSearchField() {
         WebElement searchBox = getDriver().findElement(By.id("search-box"));
@@ -230,7 +225,7 @@ public class AlexLeoGroupTests extends BaseTest {
     public void testNewFreestyleProjectVerification() {
         String nameOfProject = "NewProject2023";
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
-        verifyElementVisible(getDriver().findElement(By.xpath("//div[@id='items']")));
+        getWait5().until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath("//div[@id='items']"))));
         getDriver().findElement(By.cssSelector("#name")).sendKeys(nameOfProject);
 
         getDriver().findElement(By.xpath("//span[.='Freestyle project']")).click();
@@ -245,7 +240,7 @@ public class AlexLeoGroupTests extends BaseTest {
     public void testNewFreestyleProjectDisabledVerification() {
         String nameOfProject = "NewProject2023";
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
-        verifyElementVisible(getDriver().findElement(By.xpath("//div[@id='items']")));
+        getWait5().until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath("//div[@id='items']"))));
         getDriver().findElement(By.cssSelector("#name")).sendKeys(nameOfProject);
 
         getDriver().findElement(By.xpath("//span[.='Freestyle project']")).click();

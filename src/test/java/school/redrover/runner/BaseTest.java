@@ -11,7 +11,6 @@ import java.time.Duration;
 
 public abstract class BaseTest {
 
-    private WebDriverWait wait1;
     private WebDriverWait wait2;
     private WebDriverWait wait5;
     private WebDriverWait wait10;
@@ -83,13 +82,6 @@ public abstract class BaseTest {
             wait5 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         }
         return wait5;
-    }
-
-    public WebDriverWait getWait1() {
-        if (wait1 == null) {
-            wait1 = new WebDriverWait(getDriver(), Duration.ofSeconds(1));
-        }
-        return wait1;
     }
 
     public WebDriverWait getWait2() {
