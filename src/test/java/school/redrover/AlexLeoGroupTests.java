@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -25,15 +24,6 @@ public class AlexLeoGroupTests extends BaseTest {
     private static final String DESCRIPTION = RandomStringUtils.randomAlphanumeric(130) + "\n\n" + RandomStringUtils.randomAlphanumeric(23);
 
     private static final By USER_NAME_LINK = By.xpath("//a[@href='/user/admin']");
-
-    private WebDriverWait webDriverWait5;
-
-    private WebDriverWait getWait5() {
-        if (webDriverWait5 == null) {
-            webDriverWait5 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        }
-        return webDriverWait5;
-    }
 
     @Test
     public void testVerifyLogoJenkinsIsPresent() {
