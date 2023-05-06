@@ -113,4 +113,17 @@ public class NewItemTest extends BaseTest {
         Assert.assertEquals(nameOfCreateProjects.get(0), expectedResult);
         Assert.assertEquals(nameOfCreateProjects.size(), 1);
     }
+
+    @Test
+    public void createPipelineProjectWithInvalidNameTest(){
+        String[] invalidChars = new String[] {"!", "@", "#", "$", "%", "^", "&", "*", ":", ";", "/", "|", "?", "<", ">"};
+        String typeOfProject = "Pipeline";
+        for (String invalidChar : invalidChars) {
+            createProject(invalidChar, typeOfProject);
+            String validationMessage = getDriver().findElement(By.id("itemname-invalid")).getText();
+            Assert.assertEquals(validationMessage, "» ‘" + invalidChar + "’ is an unsafe character");
+            Assert.assertFalse(getDriver().findElement(By.id("ok-button")).isEnabled());
+            getDriver().findElement(By.xpath("//a[contains(text(), 'Dashboard')]")).click();
+        }
+    }
 }
