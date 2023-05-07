@@ -140,6 +140,6 @@ public class NewItemUS0001Test extends BaseTest {
 
         String validationMessage = getDriver().findElement(By.id("itemname-invalid")).getText();
 
-        Assert.assertEquals(validationMessage, "» A job already exists with the name ‘New freestyle project’");
+        Assert.assertEquals(validationMessage, String.format("» A job already exists with the name ‘%s’", expectedResult));
     }
 }
