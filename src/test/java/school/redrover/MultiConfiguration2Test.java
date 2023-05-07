@@ -11,7 +11,7 @@ public class MultiConfiguration2Test extends BaseTest {
     private void createMultiConfigurationProject (){
         getDriver().findElement(By.xpath("//span[contains(text(),'New Item')]/parent::a")).click();
 
-        getWait2().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='name']"))).sendKeys(projectName);
+        getWait10().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='name']"))).sendKeys(projectName);
         getDriver().findElement(By.xpath("//label/span[contains(text(), 'Multi-configuration proj')]")).click();
         getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
 
