@@ -8,6 +8,7 @@ import school.redrover.runner.BaseTest;
 
 public class FooterJenkinsVersionTest extends BaseTest {
     private final String expectedJenkinsVersion = "Jenkins 2.387.2";
+    private final String expectedSiteTitle = "Jenkins";
 
     @Test
     public void testFooterJenkinsVersion() {
@@ -33,4 +34,17 @@ public class FooterJenkinsVersionTest extends BaseTest {
         Assert.assertEquals(actualJenkinsVersion, expectedJenkinsVersion, "Jenkins version does not match");
     }
 
+    @Test
+    public void testClickOnJenkinsVersionOpensSiteOnNodesPage(){
+
+        getDriver().findElement(By.xpath("//span[@class='pane-header-title']/a")).click();
+        getDriver().findElement(By.xpath("//a[@target='_blank']")).click();
+
+        for(String winHandle : getDriver().getWindowHandles()) {
+            getDriver().switchTo().window(winHandle);
+        }
+
+        String actualSiteTitle = getDriver().findElement(By.xpath("//h1[@class='page-title']/span")).getText();
+        Assert.assertEquals(actualSiteTitle, expectedSiteTitle);
+    }
 }
