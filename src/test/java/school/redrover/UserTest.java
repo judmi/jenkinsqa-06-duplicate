@@ -36,10 +36,10 @@ import school.redrover.runner.BaseTest;
             WebElement email = getDriver().findElement(By.xpath("//input[@name='email']"));
             email.sendKeys("admin@gmail.com");
 
-            WebElement createUserButton = getDriver().findElement(By.xpath("//button[normalize-space()='Create User']"));
+            WebElement createUserButton = getDriver().findElement(By.xpath("//button[@name='Submit']"));
             createUserButton.click();
 
-            WebElement createdUser = getDriver().findElement(By.xpath(" //a[normalize-space()='admin']"));
+            WebElement createdUser = getDriver().findElement(By.xpath("//td[contains(text(),'admin')]"));
             Assert.assertEquals(createdUser.getText(), USERDATA);
         }
     }
