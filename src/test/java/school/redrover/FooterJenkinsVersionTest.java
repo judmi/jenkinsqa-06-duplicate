@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 public class FooterJenkinsVersionTest extends BaseTest {
+    private final String expectedJenkinsVersion = "Jenkins 2.387.2";
+
     @Test
     public void testFooterJenkinsVersion() {
 
@@ -20,6 +22,15 @@ public class FooterJenkinsVersionTest extends BaseTest {
         WebElement brandJenkins = getDriver().findElement(By.cssSelector(".page-title >span"));
         Assert.assertEquals(brandJenkins.getText(),"Jenkins");
 
+    }
+
+    @Test
+    public void testFooterJenkinsVersionOnNodesPage() {
+        getDriver().findElement(By.xpath("//span[@class='pane-header-title']/a")).click();
+        WebElement jenkinsVersion = getDriver().findElement(By.xpath("//a[@target='_blank']"));
+        String actualJenkinsVersion = jenkinsVersion.getText();
+
+        Assert.assertEquals(actualJenkinsVersion, expectedJenkinsVersion, "Jenkins version does not match");
     }
 
 }
