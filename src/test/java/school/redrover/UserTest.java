@@ -8,7 +8,6 @@ import school.redrover.runner.BaseTest;
 
 
     public class UserTest extends BaseTest {
-        private static final String USERDATA = "admin";
         @Test
         public void testCreatingUser() throws InterruptedException {
 
@@ -22,16 +21,16 @@ import school.redrover.runner.BaseTest;
             createUser.click();
 
             WebElement userName = getDriver().findElement(By.xpath("//input[@id='username']"));
-            userName.sendKeys(USERDATA);
+            userName.sendKeys("admin");
 
             WebElement password = getDriver().findElement(By.xpath("//input[@name='password1']"));
-            password.sendKeys(USERDATA);
+            password.sendKeys("admin");
 
             WebElement confirmPassword = getDriver().findElement(By.xpath(" //input[@name='password2']"));
-            confirmPassword.sendKeys(USERDATA);
+            confirmPassword.sendKeys("admin");
 
             WebElement fullName = getDriver().findElement(By.xpath("//input[@name='fullname']"));
-            fullName.sendKeys(USERDATA);
+            fullName.sendKeys("admin");
 
             WebElement email = getDriver().findElement(By.xpath("//input[@name='email']"));
             email.sendKeys("admin@gmail.com");
@@ -39,10 +38,8 @@ import school.redrover.runner.BaseTest;
             WebElement createUserButton = getDriver().findElement(By.xpath("//button[@name='Submit']"));
             createUserButton.click();
 
-            Thread.sleep(2000);
-
             WebElement createdUser = getDriver().findElement(By.xpath("//a[text()='admin']"));
-            Assert.assertEquals(createdUser.getText(), USERDATA);
+            Assert.assertEquals(createdUser.getText(),"admin");
         }
     }
 
