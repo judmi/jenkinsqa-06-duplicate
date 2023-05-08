@@ -1,24 +1,47 @@
 package school.redrover;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 import static org.testng.Assert.assertEquals;
-import jdk.jfr.Description;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class HeaderTest extends BaseTest {
     @Test
-    public void testHeaderLogoIcon() {
+    public void testHeaderLogoIcon() throws IOException {
         WebElement logoIcon = getDriver().findElement(By.xpath("//*[@id=\"jenkins-head-icon\"]"));
         Assert.assertTrue(logoIcon.isDisplayed());
+
+        String imageSrc = logoIcon.getAttribute("src");
+        URL imageUrl = new URL(imageSrc);
+        URLConnection urlConnection = imageUrl.openConnection();
+        HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+        httpURLConnection.connect();
+        httpURLConnection.setConnectTimeout(1000);
+
+        assertEquals(httpURLConnection.getResponseCode(), 200);
     }
 
     @Test
-    public void testHeaderLogoText() {
+    public void testHeaderLogoText() throws IOException {
         WebElement logoText = getDriver().findElement(By.xpath("//*[@id=\"jenkins-name-icon\"]"));
         Assert.assertTrue(logoText.isDisplayed());
+
+        String imageSrc = logoText.getAttribute("src");
+        URL imageUrl = new URL(imageSrc);
+        URLConnection urlConnection = imageUrl.openConnection();
+        HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
+        httpURLConnection.connect();
+        httpURLConnection.setConnectTimeout(1000);
+
+        assertEquals(httpURLConnection.getResponseCode(), 200);
     }
 
     @Test
@@ -45,13 +68,11 @@ public class HeaderTest extends BaseTest {
         assertEquals(hoverHelpButtonColor, "rgba(64, 64, 64, 1)");
     }
 
-    @Description("Verify the placeholder text in the search field")
     @Test
     public void testSearchFieldPlaceholder() {
         Assert.assertEquals(getDriver().findElement(By.id("search-box")).getAttribute("placeholder"), "Search (CTRL+K)");
     }
 
-    @Description("Verify the status of autocomplete in the search field")
     @Test
     public void testSearchFieldAutocomplete() {
         Assert.assertEquals(getDriver().findElement(By.id("search-box")).getAttribute("autocomplete"), "off");
@@ -113,8 +134,25 @@ public class HeaderTest extends BaseTest {
         assertEquals(hoverExitButtonBackground, "rgba(64, 64, 64, 1)");
         assertEquals(hoverExitButtonUnderline, "underline");
     }
+
+    @Test
+    public void testCheckIconJenkinsOnHeader(){
+
+        Assert.assertTrue(getDriver().findElement(By.cssSelector("img#jenkins-name-icon")).isDisplayed());
+
+        Assert.assertTrue(getDriver().findElement(By.cssSelector("img#jenkins-head-icon")).isDisplayed());
+    }
+
+    @Test
+    public void testClickLogoReturnToMainPage(){
+
+        getDriver().findElement(By.xpath("//a[@href='/me/my-views']")).click();
+
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Create a job')]"))).click();
+
+        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"jenkins-home-link\"]"))).click();
+
+        WebElement mainPageText = getDriver().findElement(By.xpath("//h1[contains(text(),'Welcome to Jenkins!')]"));
+        Assert.assertEquals(mainPageText.getText(),"Welcome to Jenkins!");
+    }
 }
-
-
-
-
