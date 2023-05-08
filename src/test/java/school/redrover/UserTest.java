@@ -39,7 +39,7 @@ import school.redrover.runner.BaseTest;
             WebElement createUserButton = getDriver().findElement(By.xpath("//button[@name='Submit']"));
             createUserButton.click();
 
-            WebElement createdUser = getDriver().findElement(By.xpath("//td[contains(text(),'admin')]"));
+            WebElement createdUser = getDriver().findElement(By.xpath("(//a[normalize-space()='admin'])[1]"));
             Assert.assertEquals(createdUser.getText(), USERDATA);
         }
     }
