@@ -25,9 +25,9 @@ public class MultiConfigurTest extends BaseTest {
         getDriver().findElement(By.name("Submit")).click();
         getDriver().findElement(By.linkText("Dashboard")).click();
 
-        WebElement nameMultifigurationProject = getDriver().findElement(By.xpath("//td//a//span[1]"));
+        WebElement nameMultiCofigurationProject = getDriver().findElement(By.xpath("//td//a//span[1]"));
 
-        Assert.assertEquals(nameMultifigurationProject.getText(),NAME_OF_PROJECT);
+        Assert.assertEquals(nameMultiCofigurationProject.getText(),NAME_OF_PROJECT);
     }
 
     @Test
@@ -40,5 +40,17 @@ public class MultiConfigurTest extends BaseTest {
         WebElement nameDescription = getDriver().findElement(By.xpath("//div[@id ='description']//div"));
 
         Assert.assertEquals(nameDescription.getText(),DESCRIPTION);
+    }
+
+    @Test
+    public void createMultiConfigurationProjectWithSpaceInsteadName() {
+        getDriver().findElement(By.xpath("//*[@id='tasks']//span/a")).click();
+        getDriver().findElement(By.name("name")).sendKeys(" ");
+        getDriver().findElement(By.xpath("//label//span[text() ='Multi-configuration project']")).click();
+        getDriver().findElement(By.xpath("//div[@class ='btn-decorator']")).click();
+
+        WebElement errorMessage  = getDriver().findElement(By.xpath("//*[@id=\"main-panel\"]/h1"));
+
+        Assert.assertEquals(errorMessage.getText(),"Error");
     }
 }
