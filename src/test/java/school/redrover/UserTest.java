@@ -10,7 +10,7 @@ import school.redrover.runner.BaseTest;
     public class UserTest extends BaseTest {
         private static final String USERDATA = "admin";
         @Test
-        public void testCreatingUser() {
+        public void testCreatingUser() throws InterruptedException {
 
             WebElement manageJenkins = getDriver().findElement(By.xpath("//a[@href='/manage']"));
             manageJenkins.click();
@@ -39,7 +39,9 @@ import school.redrover.runner.BaseTest;
             WebElement createUserButton = getDriver().findElement(By.xpath("//button[@name='Submit']"));
             createUserButton.click();
 
-            WebElement createdUser = getDriver().findElement(By.xpath("//a[.='admin']"));
+            Thread.sleep(2000);
+
+            WebElement createdUser = getDriver().findElement(By.xpath("//a[text()='admin']"));
             Assert.assertEquals(createdUser.getText(), USERDATA);
         }
     }
