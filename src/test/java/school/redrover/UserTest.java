@@ -2,14 +2,20 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
+import java.time.Duration;
 
-    public class UserTest extends BaseTest {
+
+public class UserTest extends BaseTest {
+        private static final String USERDATA = "user1";
         @Test
-        public void testCreatingUser() throws InterruptedException {
+        public void testCreatingUser() {
+            WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
 
             WebElement manageJenkins = getDriver().findElement(By.xpath("//a[@href='/manage']"));
             manageJenkins.click();
@@ -21,25 +27,25 @@ import school.redrover.runner.BaseTest;
             createUser.click();
 
             WebElement userName = getDriver().findElement(By.xpath("//input[@id='username']"));
-            userName.sendKeys("admin");
+            userName.sendKeys(USERDATA);
 
             WebElement password = getDriver().findElement(By.xpath("//input[@name='password1']"));
-            password.sendKeys("admin");
+            password.sendKeys(USERDATA);
 
             WebElement confirmPassword = getDriver().findElement(By.xpath(" //input[@name='password2']"));
-            confirmPassword.sendKeys("admin");
+            confirmPassword.sendKeys(USERDATA);
 
             WebElement fullName = getDriver().findElement(By.xpath("//input[@name='fullname']"));
-            fullName.sendKeys("admin");
+            fullName.sendKeys(USERDATA);
 
             WebElement email = getDriver().findElement(By.xpath("//input[@name='email']"));
-            email.sendKeys("admin@gmail.com");
+            email.sendKeys("user1@gmail.com");
 
             WebElement createUserButton = getDriver().findElement(By.xpath("//button[@name='Submit']"));
             createUserButton.click();
 
-            WebElement createdUser = getDriver().findElement(By.xpath("//a[text()='admin']"));
-            Assert.assertEquals(createdUser.getText(),"admin");
+            WebElement createdUserLink = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[normalize-space()='" + USERDATA + "']")));
+            Assert.assertTrue(createdUserLink.isDisplayed());
         }
     }
 
