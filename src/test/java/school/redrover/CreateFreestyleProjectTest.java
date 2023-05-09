@@ -30,6 +30,7 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
+
     public void testCreateFreestyleProjectWithInvalidName() {
         getDriver().findElement(By.xpath("//a[contains(@href, 'newJob')]")).click();
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(
@@ -48,4 +49,18 @@ public class CreateFreestyleProjectTest extends BaseTest {
         }
     }
 
+    @Test
+    public void testCreateFreestyleWithEmptyName() {
+        WebElement newItem = getWait2().until(ExpectedConditions.elementToBeClickable(By.cssSelector("[href*='/view/all/newJob']")));
+        newItem.click();
+
+        WebElement freestyleProject = getWait2().until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class*='FreeStyleProject']")));
+        freestyleProject.click();
+
+        WebElement okButton = getDriver().findElement(By.cssSelector("#ok-button"));
+        WebElement errorText = getDriver().findElement(By.cssSelector("#itemname-required"));
+
+        Assert.assertEquals(okButton.getAttribute("disabled"), "true");
+        Assert.assertEquals(errorText.getText(), "» This field cannot be empty, please enter a valid name");
+    }
 }
