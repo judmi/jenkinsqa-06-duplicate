@@ -41,6 +41,7 @@ public class UserTest extends BaseTest {
 
             WebElement createdUserLink = getWait2().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[normalize-space()='" + USERDATA + "']")));
             Assert.assertTrue(createdUserLink.isDisplayed());
+
         }
     }
 
