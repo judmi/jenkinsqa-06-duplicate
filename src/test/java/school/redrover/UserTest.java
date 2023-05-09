@@ -40,7 +40,7 @@ public class UserTest extends BaseTest {
 
 
         }
-}
+
         private static final String USERDATA = "user1";
         @Test
         public void testCreatingUser() {
