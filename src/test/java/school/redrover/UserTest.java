@@ -37,8 +37,6 @@ public class UserTest extends BaseTest {
 
             Assert.assertEquals(getDriver().findElement(
                     By.xpath("//tbody/tr[2]/td[2]/a[1]")).getText(), "1");
-
-
         }
 
         private static final String USERDATA = "user1";
@@ -73,7 +71,6 @@ public class UserTest extends BaseTest {
 
             WebElement createdUserLink = getWait2().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[normalize-space()='" + USERDATA + "']")));
             Assert.assertTrue(createdUserLink.isDisplayed());
-
         }
     }
 
