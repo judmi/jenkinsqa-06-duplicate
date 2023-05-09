@@ -206,4 +206,15 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertEquals(actualError, EXPECTED_ERROR);
     }
+
+    @Test
+    public void testOKButtonIsDisabledWhenCreatingFreestyleProjectWithEmptyName() {
+        getDriver().findElement(By.xpath("//a[@href='newJob']/span[@class = 'trailing-icon']")).click();
+        getWait2().until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//ul[@class = 'j-item-options']/li[@tabindex='0']"))).click();
+
+        WebElement okButton = getDriver().findElement(By.id("ok-button"));
+
+        Assert.assertFalse(okButton.getAttribute("disabled").isEmpty());
+    }
 }
