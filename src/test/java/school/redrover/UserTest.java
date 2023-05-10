@@ -92,6 +92,5 @@ public class UserTest extends BaseTest {
         } catch (StaleElementReferenceException e) {
              }
         }
-
     }
 
