@@ -2,6 +2,7 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
@@ -13,6 +14,7 @@ public class CreateFolder3Test extends BaseTest {
     public void testCreateFolder3(){
         WebElement newItem = getDriver().findElement(By.xpath("//div[@class = 'task ']//a[@href='/view/all/newJob']"));
         newItem.click();
+        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@class='icon-folder icon-xlg']")));
 
         WebElement inputField = getDriver().findElement(By.xpath("//input[@class='jenkins-input']"));
         WebElement folderOption = getDriver().findElement(By.xpath("//li[contains(@class,'folder_Folder')]"));
