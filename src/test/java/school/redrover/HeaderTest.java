@@ -19,7 +19,7 @@ public class HeaderTest extends BaseTest {
 
     private static final By NOTIFICATION_ICON = By.id("visible-am-button");
     private static final By MANAGE_JENKINS_LINK = By.xpath("//a[text()='Manage Jenkins']");
-    private static final By HEADER_MANAGE_PAGE = By.xpath("//h1[.='Manage Jenkins']");
+    private static final By HEADER_MANAGE_PAGE = By.xpath("//h1[text()='Manage Jenkins']");
 
 
     @Test
@@ -198,7 +198,7 @@ public class HeaderTest extends BaseTest {
         notificationIcon.click();
 
         WebElement manageJenkinsLink = getWait2().until(ExpectedConditions
-                .visibilityOfElementLocated(MANAGE_JENKINS_LINK));
+                .elementToBeClickable(MANAGE_JENKINS_LINK));
         manageJenkinsLink.click();
 
         String expectedHeader = "Manage Jenkins";
