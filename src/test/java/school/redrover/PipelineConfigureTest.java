@@ -179,7 +179,6 @@ public class PipelineConfigureTest extends BaseTest {
         Assert.assertEquals(actualErrorMessage.getText(), errorMessage);
     }
 
-    @Ignore
     @Test
     public void testDiscardOldBuildsIsChecked0Builds() {
         final String builds = "0";
