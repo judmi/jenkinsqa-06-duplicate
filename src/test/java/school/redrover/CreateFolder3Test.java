@@ -2,13 +2,11 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-public class CreateFolderTest_3 extends BaseTest {
+public class CreateFolder3Test extends BaseTest {
     private final String FOLDER_NAME = "New Folder";
 
     @Test
