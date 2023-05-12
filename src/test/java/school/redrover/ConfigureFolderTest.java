@@ -25,39 +25,55 @@ public class ConfigureFolderTest extends BaseTest {
     private void createFolder(String name){
 
         getDriver().findElement(NEW_ITEM).click();
+
         getWait10().until(ExpectedConditions.presenceOfElementLocated(NAME_FIELD));
         getDriver().findElement(NAME_FIELD).sendKeys(name);
+
         getDriver().findElement(TYPE_FOLDER).click();
+
         getDriver().findElement(OK_BUTTON).click();
+
         getDriver().findElement(DISPLAY_NAME).sendKeys(name);
+
         getDriver().findElement(SAVE_BUTTON).click();
+
         getWait2().until(ExpectedConditions.textToBe(FOLDER_HEADER,name));
     }
 
     @Test
     public void testConfigureFolder(){
-        final String INITIAL_NAME = "New Folder";
-        final String NEW_FOLDER_NAME = "Test Folder 0404";
+        final String INITIAL_NAME = "New_Folder";
+        final String NEW_FOLDER_NAME = "Test Folder_0404";
         final String DESCRIPTION_VALUE = "Test Description of the folder";
 
         createFolder(INITIAL_NAME);
+
         getDriver().findElement(CONFIGURE).click();
+
         getWait10().until(ExpectedConditions.presenceOfAllElementsLocatedBy(DISPLAY_NAME));
         getDriver().findElement(DISPLAY_NAME).clear();
         getDriver().findElement(DISPLAY_NAME).sendKeys(NEW_FOLDER_NAME);
+
         getDriver().findElement(DESCRIPTION).sendKeys(DESCRIPTION_VALUE);
+
         getDriver().findElement(HEALTH_METRICS).click();
+
         getWait2().until(ExpectedConditions.presenceOfElementLocated(ADD_METRICS));
         getDriver().findElement(ADD_METRICS).click();
+
         getDriver().findElement(CHILD_ITEM_TYPE).click();
+
         getDriver().findElement(SAVE_BUTTON).click();
+
         getWait2().until(ExpectedConditions.textToBe(FOLDER_HEADER,NEW_FOLDER_NAME));
+
         getDriver().findElement(CONFIGURE).click();
+
         Assert.assertEquals(getDriver().findElement(DISPLAY_NAME).getAttribute("value"), NEW_FOLDER_NAME);
         Assert.assertEquals(getDriver().findElement(DESCRIPTION).getText(), DESCRIPTION_VALUE);
+
         getDriver().findElement(HEALTH_METRICS).click();
+
         Assert.assertTrue(getWait2().until(ExpectedConditions.presenceOfElementLocated(RECURSIVE_TYPE)).isDisplayed());
-
     }
-
 }
