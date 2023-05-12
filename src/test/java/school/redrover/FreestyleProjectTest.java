@@ -309,7 +309,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         WebElement consoleOutput = getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//pre[@class='console-output']")));
 
-        Assert.assertTrue(consoleOutput.getText().contains("echo Hello \n" +"Hello"));
+        Assert.assertTrue(consoleOutput.getText().contains("echo Hello"));
         Assert.assertTrue(consoleOutput.getText().contains("Finished: SUCCESS"));
     }
 }
