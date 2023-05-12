@@ -2,7 +2,6 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -17,7 +16,7 @@ public class FreestyleProjectAddDescriptionTest extends BaseTest {
     private static final By DESCRIPTION_FIELD = By.xpath("//textarea[@name='description']");
     private static final By CONFIGURE_SAVE_BUTTON = By.xpath("//button[@name='Submit']");
     private static final By PROJECT_DESCRIPTION = By.xpath("//div[@id='description']/div[not(contains(@class, 'jenkins'))]");
-    private static final By CONFIGURE_OPTION = By.xpath("//span[contains(text(), 'Configure')]/ancestor::a");
+    private static final By CONFIGURE_BUTTON = By.xpath("//a[contains(@href, 'configure')]");
 
 
     private void createFreestyleProject(String nameOfProject) {
@@ -34,25 +33,16 @@ public class FreestyleProjectAddDescriptionTest extends BaseTest {
         final String nameOfProject = "Leprechaun";
         createFreestyleProject(nameOfProject);
 
-        WebElement jobProjectName = getDriver().findElement(By.xpath("//span[contains(text(),'" + nameOfProject + "')]/ancestor::a"));
-        WebElement projectDropdownArrow = getDriver().findElement(By.xpath("//span[contains(text(),'" + nameOfProject + "')]/ancestor::a//button[contains(@class, 'chevron')]"));
+        WebElement createdProjectNameInJobs = getDriver().findElement(By.xpath("//span[contains(text(),'" + nameOfProject + "')]/ancestor::a"));
 
-        new Actions(getDriver())
-                .moveToElement(jobProjectName)
-                .moveToElement(projectDropdownArrow)
-                .click(projectDropdownArrow)
-                .perform();
-
-        new Actions(getDriver())
-                .pause(2)
-                .click(getDriver().findElement(CONFIGURE_OPTION))
-                .perform();
+        createdProjectNameInJobs.click();
+        getDriver().findElement(CONFIGURE_BUTTON).click();
 
         String descriptionText = "My project description!";
         getDriver().findElement(DESCRIPTION_FIELD).sendKeys(descriptionText);
         getDriver().findElement(CONFIGURE_SAVE_BUTTON).click();
 
-        Assert.assertEquals(getDriver().findElement(PROJECT_DESCRIPTION).getText(), descriptionText);
+        Assert.assertEquals(getWait2().until(ExpectedConditions.
+                visibilityOfElementLocated((PROJECT_DESCRIPTION))).getText(), descriptionText);
     }
-
 }
