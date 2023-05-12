@@ -40,9 +40,8 @@ public class FreestyleProjectAddDescriptionTest extends BaseTest {
         new Actions(getDriver())
                 .moveToElement(jobProjectName)
                 .moveToElement(projectDropdownArrow)
+                .click(projectDropdownArrow)
                 .perform();
-
-        getDriver().findElement(By.xpath("//span[contains(text(),'" + nameOfProject + "')]/ancestor::a//button[contains(@class, 'chevron')]")).click();
 
         new Actions(getDriver())
                 .pause(2)
