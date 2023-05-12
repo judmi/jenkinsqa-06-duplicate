@@ -166,7 +166,7 @@ public class PipelineProjectTest extends BaseTest {
         clickOutsideOfInputField.click();
 
         WebElement actualErrorMessage = getWait5().until(ExpectedConditions
-                        .visibilityOfElementLocated(By.xpath("//*[@name='strategy']//div[@class='error']")));
+                .visibilityOfElementLocated(By.xpath("//*[@name='strategy']//div[@class='error']")));
 
         Assert.assertTrue(discardOldBuildsCheckbox.isSelected());
         Assert.assertEquals(actualErrorMessage.getText(), errorMessage);
@@ -217,7 +217,7 @@ public class PipelineProjectTest extends BaseTest {
         Assert.assertTrue(disabledWarning.contains("This project is currently disabled"));
         Assert.assertFalse(isPipelineEnabledAfterDisable);
     }
-@Ignore
+
     @Test
     public void addDescriptionPipelineProjectTest(){
         String description = "This is a project for school test";
@@ -238,12 +238,8 @@ public class PipelineProjectTest extends BaseTest {
         Assert.assertTrue(fieldDescription.getText().contains(description));
     }
 
-    @Ignore
-    @Test
+    @Test(dependsOnMethods = "addDescriptionPipelineProjectTest")
     public void disablePipelineProjectTest(){
-        clickTaskButton("New Item");
-        createPipelineProject(EXPECTED_RESULT, "Pipeline");
-
         clickPageButton("Dashboard");
         String statusBeforeDisable = statusOfProject();
 
@@ -254,7 +250,6 @@ public class PipelineProjectTest extends BaseTest {
         clickButtonApply();
 
         clickPageButton("Dashboard");
-
         String statusAfterDisable = statusOfProject();
 
         Assert.assertNotEquals(statusBeforeDisable, statusAfterDisable);
