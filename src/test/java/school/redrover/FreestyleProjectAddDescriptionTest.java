@@ -39,10 +39,12 @@ public class FreestyleProjectAddDescriptionTest extends BaseTest {
 
         new Actions(getDriver())
                 .moveToElement(jobProjectName)
-                .click(projectDropdownArrow)
+                .moveToElement(projectDropdownArrow)
+                .click()
                 .perform();
 
-        WebElement configureOption = getWait2().until(ExpectedConditions.visibilityOfElementLocated(CONFIGURE_OPTION));
+        WebElement configureOption = getWait5().until(ExpectedConditions.visibilityOfElementLocated(CONFIGURE_OPTION));
+
         new Actions(getDriver())
                 .moveToElement(configureOption)
                 .click()
