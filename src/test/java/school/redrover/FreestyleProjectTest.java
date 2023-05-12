@@ -306,7 +306,7 @@ public class FreestyleProjectTest extends BaseTest {
         WebElement firstBuild = getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(), '#1')]")));
         actions.moveToElement(firstBuild).perform();
 
-        WebElement menu = getWait2().until(ExpectedConditions.visibilityOfElementLocated(
+        WebElement menu = getWait2().until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//a[contains(text(), '#1')]/button[@class='jenkins-menu-dropdown-chevron']")));
         menu.click();
 
