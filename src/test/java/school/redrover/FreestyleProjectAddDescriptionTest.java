@@ -40,14 +40,13 @@ public class FreestyleProjectAddDescriptionTest extends BaseTest {
         new Actions(getDriver())
                 .moveToElement(jobProjectName)
                 .moveToElement(projectDropdownArrow)
-                .click(getWait5().until(ExpectedConditions.visibilityOf(projectDropdownArrow)))
                 .perform();
 
-        WebElement configureOption = getWait5().until(ExpectedConditions.visibilityOfElementLocated(CONFIGURE_OPTION));
+        getDriver().findElement(By.xpath("//span[contains(text(),'" + nameOfProject + "')]/ancestor::a//button[contains(@class, 'chevron')]")).click();
 
         new Actions(getDriver())
-                .moveToElement(configureOption)
-                .click()
+                .pause(2)
+                .click(getDriver().findElement(CONFIGURE_OPTION))
                 .perform();
 
         String descriptionText = "My project description!";
