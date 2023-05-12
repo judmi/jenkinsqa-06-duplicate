@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -31,28 +30,24 @@ public class PipelineProjectTest extends BaseTest {
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[text()='%s']", menuButton)))).click();
     }
 
-    public void clickTaskButton(String nameOfTask){
-        List<WebElement> taskIconLinks = getDriver().findElements(By.className("task-icon-link"));
-        List<WebElement> taskLinksText = getDriver().findElements(By.xpath("//*[@id='tasks']/*//span[2]"));
+        public void clickTaskButton(String nameOfTask){
+        List<WebElement> taskLinksText = getDriver().findElements(By.xpath("//div[@id='tasks']//span[2]"));
         List<String> textOfTaskLink = new ArrayList<>();
-        for (WebElement taskLinkText : taskLinksText){
+        for (WebElement taskLinkText : taskLinksText) {
             textOfTaskLink.add(taskLinkText.getText());
         }
 
+        List<WebElement> taskLinks = getWait10().until(
+                ExpectedConditions.visibilityOfAllElements(getDriver().findElements(By.className("task-link-wrapper"))));
+
         Map<WebElement, String> buttonAndTask = new HashMap<>();
-        int i = 0;
-        for (WebElement taskIcon: taskIconLinks) {
-            buttonAndTask.put(taskIconLinks.get(i), textOfTaskLink.get(i));
-            i++;
+        for (int i = 0; i < taskLinks.size(); i++) {
+            buttonAndTask.put(taskLinks.get(i), textOfTaskLink.get(i));
         }
 
-        for (Map.Entry<WebElement, String> entry : buttonAndTask.entrySet()) {
-            if (entry.getValue().equals(nameOfTask)) {
-                entry.getKey().click();
-            } else {
-                System.out.println("Wrong item");
-            }
-        }
+            buttonAndTask.entrySet().stream()
+                .filter(x -> nameOfTask.equals(x.getValue()))
+                .forEach(x -> x.getKey().click());
     }
 
     public void createPipelineProject(String nameOfProject, String typeOfProject){
@@ -70,6 +65,10 @@ public class PipelineProjectTest extends BaseTest {
 
     public void clickButtonApply(){
         findElement(By.name("Apply")).click();
+    }
+
+    public void disableProject(){
+        getWait5().until(ExpectedConditions.elementToBeClickable(By.id("toggle-switch-enable-disable-project"))).click();
     }
 
     public String statusOfProject(){
@@ -171,7 +170,7 @@ public class PipelineProjectTest extends BaseTest {
         clickOutsideOfInputField.click();
 
         WebElement actualErrorMessage = getWait5().until(ExpectedConditions
-                        .visibilityOfElementLocated(By.xpath("//*[@name='strategy']//div[@class='error']")));
+                .visibilityOfElementLocated(By.xpath("//*[@name='strategy']//div[@class='error']")));
 
         Assert.assertTrue(discardOldBuildsCheckbox.isSelected());
         Assert.assertEquals(actualErrorMessage.getText(), errorMessage);
@@ -222,7 +221,7 @@ public class PipelineProjectTest extends BaseTest {
         Assert.assertTrue(disabledWarning.contains("This project is currently disabled"));
         Assert.assertFalse(isPipelineEnabledAfterDisable);
     }
-@Ignore
+
     @Test
     public void addDescriptionPipelineProjectTest(){
         String description = "This is a project for school test";
@@ -243,23 +242,17 @@ public class PipelineProjectTest extends BaseTest {
         Assert.assertTrue(fieldDescription.getText().contains(description));
     }
 
-    @Ignore
-    @Test
+    @Test(dependsOnMethods = "addDescriptionPipelineProjectTest")
     public void disablePipelineProjectTest(){
-        clickTaskButton("New Item");
-        createPipelineProject(EXPECTED_RESULT, "Pipeline");
-
         clickPageButton("Dashboard");
         String statusBeforeDisable = statusOfProject();
 
         clickPageButton(EXPECTED_RESULT);
         clickTaskButton("Configure");
-
-        findElement(By.id("toggle-switch-enable-disable-project")).click();
+        disableProject();
         clickButtonApply();
 
         clickPageButton("Dashboard");
-
         String statusAfterDisable = statusOfProject();
 
         Assert.assertNotEquals(statusBeforeDisable, statusAfterDisable);
