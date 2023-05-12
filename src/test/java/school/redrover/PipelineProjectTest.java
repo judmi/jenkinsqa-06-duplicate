@@ -31,25 +31,22 @@ public class PipelineProjectTest extends BaseTest {
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[text()='%s']", menuButton)))).click();
     }
 
-    public Map <WebElement, String> buttonsAndTasks() {
+        public void clickTaskButton(String nameOfTask){
         List<WebElement> taskLinksText = getDriver().findElements(By.xpath("//div[@id='tasks']//span[2]"));
         List<String> textOfTaskLink = new ArrayList<>();
         for (WebElement taskLinkText : taskLinksText) {
             textOfTaskLink.add(taskLinkText.getText());
         }
 
-        List<WebElement> taskLinks = getWait5().until(
-                ExpectedConditions.visibilityOfAllElements(findElement(By.className("task-link"))));
+        List<WebElement> taskLinks = getWait10().until(
+                ExpectedConditions.visibilityOfAllElements(getDriver().findElements(By.className("task-link-wrapper"))));
 
         Map<WebElement, String> buttonAndTask = new HashMap<>();
         for (int i = 0; i < taskLinks.size(); i++) {
             buttonAndTask.put(taskLinks.get(i), textOfTaskLink.get(i));
         }
-        return buttonAndTask;
-    }
 
-    public void clickTaskButton(String nameOfTask){
-        buttonsAndTasks().entrySet().stream()
+            buttonAndTask.entrySet().stream()
                 .filter(x -> nameOfTask.equals(x.getValue()))
                 .forEach(x -> x.getKey().click());
     }
