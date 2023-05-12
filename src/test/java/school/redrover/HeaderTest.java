@@ -184,6 +184,7 @@ public class HeaderTest extends BaseTest {
 
         Assert.assertEquals(actualHeader.getText(), expectedHeader);
     }
+
     @Ignore
     @Test
     public void testNotificationAndSecurityIcon() {
