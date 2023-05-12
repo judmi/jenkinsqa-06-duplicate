@@ -67,6 +67,10 @@ public class PipelineProjectTest extends BaseTest {
         findElement(By.name("Apply")).click();
     }
 
+    public void disableProject(){
+        getWait5().until(ExpectedConditions.elementToBeClickable(By.id("toggle-switch-enable-disable-project"))).click();
+    }
+
     public String statusOfProject(){
         return getWait2().until(ExpectedConditions.visibilityOfElementLocated(
                 By.className("svg-icon"))).getAttribute("title");
@@ -245,8 +249,7 @@ public class PipelineProjectTest extends BaseTest {
 
         clickPageButton(EXPECTED_RESULT);
         clickTaskButton("Configure");
-
-        findElement(By.id("toggle-switch-enable-disable-project")).click();
+        disableProject();
         clickButtonApply();
 
         clickPageButton("Dashboard");
