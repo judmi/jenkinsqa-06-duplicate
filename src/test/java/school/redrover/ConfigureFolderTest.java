@@ -42,8 +42,8 @@ public class ConfigureFolderTest extends BaseTest {
 
     @Test
     public void testConfigureFolder(){
-        final String INITIAL_NAME = "New_Folder";
-        final String NEW_FOLDER_NAME = "Test Folder_0404";
+        final String INITIAL_NAME = "NewFolder";
+        final String NEW_FOLDER_NAME = "TestFolder0404";
         final String DESCRIPTION_VALUE = "Test Description of the folder";
 
         createFolder(INITIAL_NAME);
