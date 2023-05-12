@@ -39,7 +39,7 @@ public class PipelineProjectTest extends BaseTest {
         }
 
         List<WebElement> taskLinks = getWait5().until(
-                ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("task-link")));
+                ExpectedConditions.visibilityOfAllElements(findElement(By.className("task-link"))));
 
         Map<WebElement, String> buttonAndTask = new HashMap<>();
         for (int i = 0; i < taskLinks.size(); i++) {
