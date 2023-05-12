@@ -26,12 +26,10 @@ public class CreateFolder3Test extends BaseTest {
     @Test(dependsOnMethods = "testCreateFolder")
     public void testDeleteFolder() {
         createFolder(FOLDER_NAME2);
-        WebElement dropDownButton = getDriver().findElement(By.xpath("//span[contains(text(),'"+FOLDER_NAME2+"')]/following-sibling::button"));
-        new Actions(getDriver()).moveToElement(dropDownButton).moveToElement(dropDownButton)
-                                .click(dropDownButton).perform();
 
-        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[normalize-space()='Delete Folder']"))).click();
-        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//form[@action='doDelete']//button[@name='Submit']"))).click();
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'"+FOLDER_NAME2+"')]"))).click();
+        getDriver().findElement(By.xpath("//span[normalize-space()='Delete Folder']")).click();
+        getDriver().findElement(By.xpath("//form[@action='doDelete']//button[@name='Submit']")).click();
 
         Assert.assertTrue(isElementPresent(By.xpath("//table[@id = 'projectstatus']/descendant::span[contains(text(),'"+FOLDER_NAME+"')]")),
                                                          "Other folder is not displayed");
