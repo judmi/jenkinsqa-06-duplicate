@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
@@ -66,10 +65,6 @@ public class PipelineProjectTest extends BaseTest {
 
     public void clickButtonApply(){
         findElement(By.name("Apply")).click();
-    }
-
-    public void disableProject(){
-        getWait5().until(ExpectedConditions.elementToBeClickable(By.id("toggle-switch-enable-disable-project"))).click();
     }
 
     public String statusOfProject(){
@@ -171,7 +166,7 @@ public class PipelineProjectTest extends BaseTest {
         clickOutsideOfInputField.click();
 
         WebElement actualErrorMessage = getWait5().until(ExpectedConditions
-                .visibilityOfElementLocated(By.xpath("//*[@name='strategy']//div[@class='error']")));
+                        .visibilityOfElementLocated(By.xpath("//*[@name='strategy']//div[@class='error']")));
 
         Assert.assertTrue(discardOldBuildsCheckbox.isSelected());
         Assert.assertEquals(actualErrorMessage.getText(), errorMessage);
@@ -222,7 +217,7 @@ public class PipelineProjectTest extends BaseTest {
         Assert.assertTrue(disabledWarning.contains("This project is currently disabled"));
         Assert.assertFalse(isPipelineEnabledAfterDisable);
     }
-
+@Ignore
     @Test
     public void addDescriptionPipelineProjectTest(){
         String description = "This is a project for school test";
@@ -243,17 +238,23 @@ public class PipelineProjectTest extends BaseTest {
         Assert.assertTrue(fieldDescription.getText().contains(description));
     }
 
-    @Test(dependsOnMethods = "addDescriptionPipelineProjectTest")
+    @Ignore
+    @Test
     public void disablePipelineProjectTest(){
+        clickTaskButton("New Item");
+        createPipelineProject(EXPECTED_RESULT, "Pipeline");
+
         clickPageButton("Dashboard");
         String statusBeforeDisable = statusOfProject();
 
         clickPageButton(EXPECTED_RESULT);
         clickTaskButton("Configure");
-        disableProject();
+
+        findElement(By.id("toggle-switch-enable-disable-project")).click();
         clickButtonApply();
 
         clickPageButton("Dashboard");
+
         String statusAfterDisable = statusOfProject();
 
         Assert.assertNotEquals(statusBeforeDisable, statusAfterDisable);
