@@ -2,6 +2,7 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
@@ -14,8 +15,9 @@ public class CreateMultiConfigProjectTest extends BaseTest {
         WebElement buttonNewItem = getDriver().findElement(By.xpath("//a [@href = '/view/all/newJob']"));
         buttonNewItem.click();
 
-        WebElement InputArea = getDriver().findElement(
-                By.xpath("//div [@class = 'add-item-name']// input[@class= 'jenkins-input']"));
+        WebElement InputArea = getWait2().until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div [@class = 'add-item-name']// input[@class= 'jenkins-input']")
+        ));
         InputArea.sendKeys(projectMultiConfigName);
 
         WebElement buttonMultiConfigProject = getDriver().findElement(
