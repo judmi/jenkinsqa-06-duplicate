@@ -42,8 +42,6 @@ public class CreateMultiConfigProjectTest extends BaseTest {
         WebElement NameofMultiConfigProject = getDriver().findElement(
                 By.xpath("//a [@ class = 'jenkins-table__link model-link inside']")
         );
-        String NameofMultiConfigProjectCheack = NameofMultiConfigProject.getText();
-
-        Assert.assertEquals(projectMultiConfigName,NameofMultiConfigProjectCheack);
+        Assert.assertEquals(NameofMultiConfigProject.getText(),projectMultiConfigName);
     }
 }
