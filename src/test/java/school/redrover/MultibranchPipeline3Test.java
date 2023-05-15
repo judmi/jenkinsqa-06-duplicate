@@ -3,6 +3,7 @@ package school.redrover;
 import com.sun.jna.Structure;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -44,10 +45,10 @@ public class MultibranchPipeline3Test extends BaseTest {
     public void testMoveMultibranchPipelineToFolderByDrop() {
         TestUtils.createFolder(this,"Folder1",true);
         TestUtils.createMultibranchPipeline(this,"MultibranchPipeline1", true);
-        new Actions(getDriver())
-                .moveToElement(getDriver().findElement(By.xpath("//span[text() = 'MultibranchPipeline1']")))
+        new Actions(getDriver()).
+                moveToElement(getDriver().findElement(By.xpath("//span[text() = 'MultibranchPipeline1']")))
                 .perform();
-        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='job/MultibranchPipeline1/']/button[@class = 'jenkins-menu-dropdown-chevron']"))).click();
+        getDriver().findElement(By.xpath("//a[@href='job/MultibranchPipeline1/']/button[@class = 'jenkins-menu-dropdown-chevron']")).sendKeys(Keys.RETURN);
         getDriver().findElement(By.xpath("//a[@href='/job/MultibranchPipeline1/move']")).click();
         WebElement folderList = getDriver().findElement(By.xpath("//select[@name='destination']"));
         getWait2().until(ExpectedConditions.elementToBeClickable(folderList)).click();
@@ -64,4 +65,5 @@ public class MultibranchPipeline3Test extends BaseTest {
 
         Assert.assertEquals(actualMultibranchPipeline2.getText(), expectedMultibranchPipeline);
     }
+
 }
