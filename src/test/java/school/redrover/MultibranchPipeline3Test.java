@@ -1,22 +1,14 @@
 package school.redrover;
 
-import com.sun.jna.Structure;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
-import org.openqa.selenium.support.ui.Select;
 import school.redrover.runner.TestUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MultibranchPipeline3Test extends BaseTest {
 
@@ -41,6 +33,7 @@ public class MultibranchPipeline3Test extends BaseTest {
 
         Assert.assertEquals(actualMultibranchPipeline2.getText(), expectedMultibranchPipeline);
     }
+
     @Test
     public void testMoveMultibranchPipelineToFolderByDrop() {
         TestUtils.createFolder(this,"Folder1",true);
@@ -69,4 +62,13 @@ public class MultibranchPipeline3Test extends BaseTest {
         Assert.assertEquals(actualMultibranchPipeline2.getText(), expectedMultibranchPipeline);
     }
 
+    @Test
+    public void testCreateMultibranchPipelineWithoutDescription() {
+        TestUtils.createMultibranchPipeline(this,"MyMultibranchPipeline", false);
+
+        getWait2().until(ExpectedConditions
+                .textToBePresentInElement(getDriver().findElement(By.xpath("//h1")), "MyMultibranchPipeline"));
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "MyMultibranchPipeline");
+    }
 }
