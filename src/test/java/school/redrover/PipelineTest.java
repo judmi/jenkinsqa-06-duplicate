@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+import school.redrover.runner.TestUtils;
 
 import java.time.Duration;
 
@@ -177,7 +178,7 @@ public class PipelineTest extends BaseTest {
                 .getText().substring(9), PIPELINE_NAME);
     }
 
-    @Ignore
+
     @Test
     public void testAddingDescriptionToPipeline() {
         getDriver().findElement(By.xpath("//a[normalize-space()='New Item']")).click();
@@ -213,15 +214,7 @@ public class PipelineTest extends BaseTest {
     public void testRenamePipeline() {
         final String newPipelineName = PIPELINE_NAME + "new";
 
-        getDriver().findElement(newItem).click();
-
-        WebElement fieldEnterName = getWait5().until(ExpectedConditions.presenceOfElementLocated(name));
-        fieldEnterName.sendKeys(PIPELINE_NAME);
-        getDriver().findElement(pipelineItem).click();
-        getDriver().findElement(okButton).click();
-        getWait5().until(ExpectedConditions.elementToBeClickable(saveButton)).click();
-
-        getDriver().findElement(dashboard).click();
+        TestUtils.createPipeline(this, PIPELINE_NAME, true);
 
         getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[href='job/" + PIPELINE_NAME + "/']"))).click();
         getDriver().findElement(By.cssSelector("a[href='/job/" + PIPELINE_NAME + "/confirm-rename']")).click();
@@ -234,6 +227,7 @@ public class PipelineTest extends BaseTest {
         Assert.assertTrue(getDriver().findElement(By.id("main-panel")).getText().contains(newPipelineName));
     }
 
+    @Ignore
     @Test
     public void testDeletePipeline() {
         getDriver().findElement(newItem).click();
@@ -252,5 +246,21 @@ public class PipelineTest extends BaseTest {
         getDriver().switchTo().alert().accept();
 
         Assert.assertFalse(getDriver().findElement(By.id("main-panel")).getText().contains(PIPELINE_NAME));
+    }
+
+    @Test
+    public void testCreatingBasicPipelineProjectThroughJenkinsUI() {
+
+        getDriver().findElement(By.xpath("//a[normalize-space()='New Item']")).click();
+
+        getDriver().findElement(By.id("name")).sendKeys(PIPELINE_NAME);
+        getDriver().findElement(By.xpath("//span[normalize-space()='Pipeline']")).click();
+        getDriver().findElement(By.id("ok-button")).click();
+
+        getDriver().findElement(By.xpath("//button[@data-section-id='pipeline']")).click();
+        WebElement optionInDefinitionField = getDriver()
+                .findElement(By.xpath("((//div[@class='jenkins-form-item'])[2]//select//option)[1]"));
+
+        Assert.assertEquals(optionInDefinitionField.getText(), "Pipeline script");
     }
 }

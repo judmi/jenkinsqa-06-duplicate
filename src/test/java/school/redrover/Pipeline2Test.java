@@ -58,7 +58,7 @@ public class Pipeline2Test extends BaseTest {
         WebElement typeProject = getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob"));
         typeProject.click();
         getDriver().findElement(By.id("ok-button")).click();
-        getDriver().findElement(By.name("Submit")).click();
+        getWait2().until(ExpectedConditions.elementToBeClickable(getDriver().findElement(By.name("Submit")))).click();
         getDriver().findElement(By.xpath("//div[@id='breadcrumbBar']//a[@href='/']")).click();
 
         WebElement projectExist = getDriver().findElement(By.xpath("//td/a[@class='jenkins-table__link model-link inside']"));
@@ -103,19 +103,15 @@ public class Pipeline2Test extends BaseTest {
         WebElement dashboardLink = getDriver().findElement(By.xpath("//a[@href='/'][@class='model-link']"));
         dashboardLink.click();
 
-        WebElement pipelineInList = getDriver().findElement(
-                By.xpath("//a[@class ='jenkins-table__link model-link inside']/button[@class='jenkins-menu-dropdown-chevron']"));
-        pipelineInList.sendKeys(Keys.RETURN);
+        getWait2().until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//a[@class ='jenkins-table__link model-link inside']/button[@class='jenkins-menu-dropdown-chevron']")))
+                .sendKeys(Keys.RETURN);
 
-        getWait5().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li[@id='yui-gen4']/a[@href='#']")));
+        getWait5().until(ExpectedConditions.presenceOfElementLocated(By.linkText("Delete Pipeline"))).click();
 
-        WebElement deletePipelineDropdownList = getDriver().findElement(By.xpath("//li[@id='yui-gen4']/a[@href='#']"));
-        deletePipelineDropdownList.click();
+        getWait2().until(ExpectedConditions.alertIsPresent()).accept();
 
-        Alert alert = getDriver().switchTo().alert();
-        alert.accept();
-
-        Assert.assertFalse(getDriver().findElement(By.id("main-panel")).getText().contains(PIPELINE_NAME),"Pipeline is not shown");
+        Assert.assertFalse(getDriver().findElement(By.id("main-panel")).getText().contains(PIPELINE_NAME),"Pipeline is not deleted");
     }
 
     @Test
@@ -123,16 +119,16 @@ public class Pipeline2Test extends BaseTest {
         String name = "Pipeline";
         List<String> symbol = Arrays.asList("!", "@", "#", "?", "$", "%", "^", "&", "*", "[", "]", "\\", "|", "/");
 
-        for (int i = 0; i < symbol.size(); i++) {
+        for (String s : symbol) {
             WebElement newItem = getDriver().findElement(By.xpath("//div[@id='tasks']//a[@href='/view/all/newJob']"));
             newItem.click();
             WebElement itemName = getDriver().findElement(By.id("name"));
-            itemName.sendKeys(name + symbol.get(i));
+            itemName.sendKeys(name + s);
             WebElement typeProject = getDriver().findElement(By.className("org_jenkinsci_plugins_workflow_job_WorkflowJob"));
             typeProject.click();
 
             Assert.assertEquals(getDriver().findElement(By.id("itemname-invalid")).getText(),
-                    "» ‘" + symbol.get(i) + "’ is an unsafe character");
+                    "» ‘" + s + "’ is an unsafe character");
 
             getDriver().findElement(By.id("ok-button")).click();
 
@@ -140,7 +136,7 @@ public class Pipeline2Test extends BaseTest {
             Assert.assertEquals((getDriver().findElement(By.xpath("//div[@id='main-panel']/h1"))).
                     getText(), "Error");
             Assert.assertEquals((getDriver().findElement(By.xpath("//div[@id='main-panel']/p"))).
-                    getText(), "‘" + symbol.get(i) + "’ is an unsafe character");
+                    getText(), "‘" + s + "’ is an unsafe character");
             getDriver().findElement(By.xpath("//a[contains(text(),'All')]")).click();
         }
     }

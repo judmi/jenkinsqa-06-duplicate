@@ -4,12 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
 import java.util.concurrent.TimeUnit;
 
 public class CreateFreestyleProjectTest extends BaseTest {
+
+    private static final By DASHBOARD_BUTTON = By.linkText("Dashboard");
 
     @Test
     public void testCreateFreestyleProject() {
@@ -30,7 +33,6 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-
     public void testCreateFreestyleProjectWithInvalidName() {
         getDriver().findElement(By.xpath("//a[contains(@href, 'newJob')]")).click();
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(
@@ -90,8 +92,9 @@ public class CreateFreestyleProjectTest extends BaseTest {
         Assert.assertEquals(projectName.getText(), myProjectName);
     }
 
+
     @Test
-    public void testCreateFreestyleProject2(){
+    public void testCreateFreestyleProject2() {
         final String testData = "Test";
         getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(testData);
@@ -104,24 +107,21 @@ public class CreateFreestyleProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCreateFolderTestFreestyleProgect() {
+    public void testCreateFreestyleProject3() {
+        String freestyleProjectName = "New job no.3";
 
-        final String nameOfProject = "Project Test1";
+        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
 
-       WebElement newItem =  getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']"));
-       newItem.click();
-       WebElement projectName =   getDriver().findElement(By.xpath("//input[@name = 'name']"));
-       projectName.sendKeys("Test1");
-       WebElement freestyleProgect = getDriver().findElement(By.xpath("//li[@class = 'hudson_model_FreeStyleProject']"));
-       freestyleProgect.click();
-       WebElement buttonOk = getDriver().findElement(By.xpath("//button[@class = 'jenkins-button jenkins-button--primary jenkins-buttons-row--equal-width']"));
-       getWait2().until(ExpectedConditions.elementToBeClickable(buttonOk)).click();
-       WebElement saveButton = getDriver().findElement(By.xpath("//button[@name = 'Submit']"));
-       saveButton.click();
-       WebElement projectTest1 = getDriver().findElement(By.xpath("//h1[text() = 'Project Test1']"));
+        getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys(freestyleProjectName);
+        getDriver().findElement(By.xpath("//li[@class='hudson_model_FreeStyleProject']")).click();
+        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
 
-       Assert.assertEquals(projectTest1.getText(),nameOfProject);
+        getWait5().until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[@name='Submit']"))).click();
 
+        getDriver().findElement(DASHBOARD_BUTTON).click();
 
+        Assert.assertEquals(getDriver().findElement(
+                By.xpath("//tr[@id='job_New job no.3']/td[3]/a")).getText(),freestyleProjectName);
     }
 }
