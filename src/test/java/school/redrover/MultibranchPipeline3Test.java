@@ -57,8 +57,7 @@ public class MultibranchPipeline3Test extends BaseTest {
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//select/option[contains(text(),'Folder')]"))).click();
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='jenkins-button jenkins-button--primary ']"))).click();
         String expectedMultibranchPipeline = "MultibranchPipeline1";
-        WebElement actualMultibranchPipeline = getDriver().findElement(By.xpath("//h1"));
-        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1")));
+        WebElement actualMultibranchPipeline = getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1")));
         Assert.assertEquals(actualMultibranchPipeline.getText(), expectedMultibranchPipeline);
 
         new Actions(getDriver())
