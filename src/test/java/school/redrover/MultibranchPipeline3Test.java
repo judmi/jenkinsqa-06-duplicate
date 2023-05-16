@@ -51,6 +51,7 @@ public class MultibranchPipeline3Test extends BaseTest {
                 .perform();
         getDriver().findElement(By.xpath("//a[@href='job/MultibranchPipeline1/']/button[@class = 'jenkins-menu-dropdown-chevron']")).sendKeys(Keys.RETURN);
         getDriver().findElement(By.xpath("//a[@href='/job/MultibranchPipeline1/move']")).click();
+        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div [@id = 'main-panel']")));
         WebElement folderList = getDriver().findElement(By.xpath("//select[@name='destination']"));
         getWait2().until(ExpectedConditions.elementToBeClickable(folderList)).click();
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//select/option[contains(text(),'Folder')]"))).click();
