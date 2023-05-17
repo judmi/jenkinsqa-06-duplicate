@@ -10,7 +10,7 @@ import school.redrover.runner.BaseTest;
 import static org.openqa.selenium.By.xpath;
 
 
-public class CreatePipelineWithScriptTest extends BaseTest {
+public class Pipeline9Test extends BaseTest {
     private static final By SCRIPT_BUTTON = xpath("//div[@class = 'samples']/select");
     String name = "Мой проект";
 
