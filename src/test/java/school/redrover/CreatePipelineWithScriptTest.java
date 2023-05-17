@@ -15,7 +15,7 @@ public class CreatePipelineWithScriptTest extends BaseTest {
     String name = "Мой проект";
 
     @Test
-    public void testCreateNewPipelineWithScript() throws InterruptedException {
+    public void testCreateNewPipelineWithScript(){
 
         getDriver().findElement(xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.id("name")).sendKeys(name);
