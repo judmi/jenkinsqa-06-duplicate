@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 import static org.openqa.selenium.By.xpath;
 
-
 public class Pipeline9Test extends BaseTest {
     private static final By SCRIPT_BUTTON = xpath("//div[@class = 'samples']/select");
     String name = "Мой проект";
@@ -19,7 +18,8 @@ public class Pipeline9Test extends BaseTest {
 
         getDriver().findElement(xpath("//a[@href='/view/all/newJob']")).click();
         getDriver().findElement(By.id("name")).sendKeys(name);
-        getDriver().findElement(xpath("//div[@id='j-add-item-type-standalone-projects']/ul/li[2]")).click();
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath
+                ("//li[@class = 'org_jenkinsci_plugins_workflow_job_WorkflowJob']"))).click();
         getDriver().findElement(xpath("//button[@id='ok-button']")).click();
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(SCRIPT_BUTTON));
 
@@ -28,8 +28,7 @@ public class Pipeline9Test extends BaseTest {
         selectPipelineScript.selectByVisibleText("Scripted Pipeline");
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.name("Submit"))).click();
 
-         WebElement nameOfPipeline = getDriver().findElement(xpath("//h1[@class='job-index-headline page-headline']"));
-        String nameOfPipeline1 = nameOfPipeline.getText();
-        Assert.assertEquals(nameOfPipeline1, "Pipeline " + name);
+        Assert.assertEquals(getDriver().findElement(xpath("//h1[@class='job-index-headline page-headline']")).getText(),
+                "Pipeline " + name);
     }
 }
