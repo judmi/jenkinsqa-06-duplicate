@@ -8,14 +8,20 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 
-
 public class MultiConfigurationTest extends BaseTest {
     private static final String MULTI_CONFIGURATION_NAME = RandomStringUtils.randomAlphanumeric(5);
+    private static final String MULTI_CONFIGURATION_NEW_NAME = RandomStringUtils.randomAlphabetic(5);
     private static final String DESCRIPTION = "Description";
     private static final String DESCRIPTION_RANDOM = RandomStringUtils.randomAlphanumeric(5);
     private static final By OK_BUTTON = By.cssSelector("#ok-button");
     private static final By SAVE_BUTTON = By.name("Submit");
     private static final By GO_TO_DASHBOARD_BUTTON = By.linkText("Dashboard");
+
+    private String getProjectNewName() {
+        getWait5();
+        return getDriver().findElement(By.xpath("//h1[contains(@class, 'matrix-project-headline page-headline')]"))
+                .getText();
+    }
 
     private void createMultiConfigurationProject() {
         getDriver().findElement(By.linkText("New Item")).click();
@@ -65,7 +71,7 @@ public class MultiConfigurationTest extends BaseTest {
 
     @Test
     public void testRenameMultiConfigurationProject() {
-        this.createMultiConfigurationProject();
+        createMultiConfigurationProject();
 
         WebElement renameButton = getDriver().findElement(By.xpath("//body/div[@id='page-body']/div[@id='side-panel']/div[@id='tasks']/div[7]/span[1]/a[1]"));
         renameButton.click();
@@ -77,4 +83,50 @@ public class MultiConfigurationTest extends BaseTest {
         Assert.assertEquals(renameName.getText(), "Project " + MULTI_CONFIGURATION_NAME + MULTI_CONFIGURATION_NAME);
     }
 
+    @Test
+    public void testRenameMultiConfigurationProjectFromDashboard() {
+        createMultiConfigurationProject();
+
+        getDriver().findElement(By.linkText("Dashboard")).click();
+        getDriver().findElement(By.xpath("//a[contains(@class,'jenkins-table__link model-link inside')]"))
+                .click();
+        getDriver()
+                .findElement(By.xpath("//a[@href = '/job/" + MULTI_CONFIGURATION_NAME + "/confirm-rename']"))
+                .click();
+
+        WebElement newName = getDriver().findElement(By.xpath("//input[@checkdependson='newName']"));
+
+        newName.clear();
+        newName.sendKeys(MULTI_CONFIGURATION_NEW_NAME);
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        Assert.assertEquals(getProjectNewName(), ("Project " + MULTI_CONFIGURATION_NEW_NAME));
+    }
+
+    @Test
+    public void testDisabledMultiConfigurationProject() {
+        getDriver().findElement(By.linkText("New Item")).click();
+        getDriver().findElement(By.id("name")).sendKeys(MULTI_CONFIGURATION_NAME);
+        WebElement projectButton = getWait10().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Multi-configuration project']")));
+        projectButton.click();
+        getDriver().findElement(OK_BUTTON).click();
+        getDriver().findElement(By.cssSelector("label.jenkins-toggle-switch__label ")).click();
+        getDriver().findElement(SAVE_BUTTON).click();
+
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("form#enable-project")).getText().trim().substring(0, 34), "This project is currently disabled");
+    }
+
+    @Test
+    public void testProjectDisabled() {
+        getDriver().findElement(By.linkText("New Item")).click();
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//input[@id='name']"))).sendKeys("Project001");
+        getDriver().findElement(By.xpath("//li[@class='hudson_matrix_MatrixProject']")).click();
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='ok-button']"))).click();
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.cssSelector("label.jenkins-toggle-switch__label"))).click();
+        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+
+        Assert.assertTrue(getWait10().until(ExpectedConditions.textToBePresentInElement(
+                getDriver().findElement(By.xpath("//form[@id='enable-project']")), "This project is currently disabled")));
+    }
 }
