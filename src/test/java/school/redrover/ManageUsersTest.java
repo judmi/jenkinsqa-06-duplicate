@@ -1,14 +1,12 @@
 package school.redrover;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
+
 public class ManageUsersTest extends BaseTest {
     private final By MANAGE_JENKINS = By.xpath("//a[@href='/manage']");
     private final By MANAGE_USERS = By.xpath("//a[@href='securityRealm/']");
@@ -35,10 +33,38 @@ public class ManageUsersTest extends BaseTest {
         getDriver().findElement(SUBMIT).click();
 
         Assert.assertTrue(getWait2().until(ExpectedConditions
-                .presenceOfElementLocated(USERS_TABLE)).getText().contains(username));
+                .visibilityOfElementLocated(USERS_TABLE)).getText().contains(username));
     }
 
     @Test(dependsOnMethods = "testCreateUser")
+    public void testMakeChangesToUserProfile()  {
+        JavascriptExecutor js = (JavascriptExecutor)getDriver();
+
+        getDriver().findElement(MANAGE_JENKINS).click();
+        getDriver().findElement(MANAGE_USERS).click();
+
+        WebElement user = getDriver().findElement(By.xpath("//a[@href='user/jabbathehutt/']"));
+        new Actions(getDriver()).moveToElement(user).perform();
+        WebElement chevron = getDriver().findElement(By
+                .xpath("//a[@href='user/jabbathehutt/']/button"));
+        js.executeScript("arguments[0].click();", chevron);
+
+        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'bd']")));
+
+        getDriver().findElement(By.xpath("//a[@href ='/user/jabbathehutt/configure']")).click();
+
+        WebElement fullNameField = getWait2().until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//input[@name='_.fullName']")));
+        fullNameField.clear();
+        fullNameField.sendKeys("Jabbka");
+
+        getDriver().findElement(SUBMIT).click();
+
+        Assert.assertEquals(getDriver().findElement(By
+                .xpath("//h1")).getText(), "Jabbka");
+    }
+
+    @Test(dependsOnMethods = "testMakeChangesToUserProfile")
     public void testDeleteUserFromUserList() {
         getDriver().findElement(MANAGE_JENKINS).click();
         getDriver().findElement(MANAGE_USERS).click();
@@ -46,10 +72,10 @@ public class ManageUsersTest extends BaseTest {
         getDriver().findElement(SUBMIT).click();
 
         Assert.assertFalse(getWait2().until(ExpectedConditions
-                .presenceOfElementLocated(USERS_TABLE)).getText().contains("Chewbacca"));
+                .visibilityOfElementLocated(USERS_TABLE)).getText().contains("Chewbacca"));
     }
 
-    @Test (dependsOnMethods = {"testCreateUser","testDeleteUserFromUserList"})
+    @Test(dependsOnMethods =  "testDeleteUserFromUserList")
     public void testLogInWithDeletedUserCredentials() {
         getDriver().findElement(By.xpath("//a[@href= '/logout']")).click();
         getDriver().findElement(By.id("j_username")).sendKeys("Chewbacca");
@@ -57,35 +83,9 @@ public class ManageUsersTest extends BaseTest {
         getDriver().findElement(SUBMIT).click();
 
         Assert.assertEquals(getDriver().findElement(By
-                .xpath("//div[contains(@class, 'alert-danger')]")).getText(),
+                        .xpath("//div[contains(@class, 'alert-danger')]")).getText(),
                 "Invalid username or password");
     }
-    @Ignore
-    @Test
-    public void testMakeChangesToUserProfile() {
-        JavascriptExecutor js = (JavascriptExecutor)getDriver();
-
-        getDriver().findElement(MANAGE_JENKINS).click();
-        getDriver().findElement(MANAGE_USERS).click();
-
-        WebElement user = getDriver().findElement(By.xpath("//a[@href='user/mr_churchill/']"));
-        new Actions(getDriver()).moveToElement(user).perform();
-        WebElement chevron = getDriver().findElement(By
-                .xpath("//a[@href='user/mr_churchill/']/button"));
-        js.executeScript("arguments[0].click();", chevron);
-
-        getWait2().until(ExpectedConditions.elementToBeClickable(By
-            .xpath("//a[@href='/user/mr_churchill/configure']"))).click();
-
-        WebElement fullNameField = getDriver().findElement(By.xpath("//input[@name='_.fullName']"));
-        fullNameField.clear();
-        fullNameField.sendKeys("Chepchik");
-        getDriver().findElement(SUBMIT).click();
-
-        Assert.assertEquals(getDriver().findElement(By
-                .xpath("//h1")).getText(), "Chepchik");
-    }
-
 }
 
 
