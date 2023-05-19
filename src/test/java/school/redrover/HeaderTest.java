@@ -40,7 +40,7 @@ public class HeaderTest extends BaseTest {
     private static final By ADMIN_BTN = By.xpath("//a[@href='/user/admin']");
     private static final By LOGOUT_BTN = By.xpath("//a[@href='/logout']");
     private static final By POP_UP_SCREEN_OF_THE_NOTIFICATION_BTN = By.id("visible-am-list");
-  
+
     private void openAdminDropdownMenu() {
         WebElement dropDownMenu = getWait2().until(ExpectedConditions.presenceOfElementLocated(By.xpath
                 ("//a[@href='/user/admin']/button")));
@@ -325,6 +325,23 @@ public class HeaderTest extends BaseTest {
         getDriver().findElement(ADMIN_BTN).click();
         Assert.assertTrue(getWait2().until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//a[@href='/user/admin']/button[@class='jenkins-menu-dropdown-chevron']"))).isDisplayed());
+    }
+
+    public void iconChangeColor(By el){
+        String colorBefore = getDriver().findElement(el).getCssValue("background-color");
+        String colorAfter = "";
+        new Actions(getDriver()).moveToElement(getDriver().findElement(el)).perform();
+        colorAfter = getDriver().findElement(el).getCssValue("background-color");
+
+        Assert.assertNotEquals(colorBefore, colorAfter);
+    }
+
+     @Test
+    public void testNotificationIcon(){
+        iconChangeColor(NOTIFICATION_ICON);
+        getDriver().findElement(NOTIFICATION_ICON).click();
+        String actualRes = getDriver().findElement(MANAGE_JENKINS_LINK).getText();
+        Assert.assertEquals(actualRes, "Manage Jenkins");
     }
 
 }
