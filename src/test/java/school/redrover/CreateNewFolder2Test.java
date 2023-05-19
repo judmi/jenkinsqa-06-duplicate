@@ -17,7 +17,6 @@ public class CreateNewFolder2Test extends BaseTest {
         getDriver().findElement(By.xpath("//input[@class='jenkins-input']")).sendKeys(folderName);
 
         getDriver().findElement(By.xpath("//div[@id='j-add-item-type-nested-projects']/ul[@class='j-item-options']/li[1]")).click();
-
         getDriver().findElement(By.xpath("//*[@id='ok-button']")).click();
 
         getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
