@@ -25,6 +25,7 @@ public class CreateNewFolder2Test extends BaseTest {
         WebElement checkEnd = getDriver().findElement(By.xpath("//table[@class='jenkins-table  sortable']/tbody/tr[@id='job_Folder100']/td/a/span"));
 
         String check2 = "Folder100";
+
         Assert.assertEquals(checkEnd.getText(),check2);
         }
 }
