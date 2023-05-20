@@ -3,7 +3,6 @@ package school.redrover.model;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
 
@@ -27,5 +26,10 @@ public class ProjectPage extends BasePage {
 
     public WebElement getNameProject() {
         return getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#main-panel>h1")));
+    }
+
+    public RenameProjectPage clickRename() {
+        getDriver().findElement(By.linkText("Rename")).click();
+        return new RenameProjectPage(getDriver());
     }
 }
