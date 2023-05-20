@@ -63,11 +63,11 @@ public class MultiConfigurationTest extends BaseTest {
     public void testRenameMultiConfigurationProjectFromDashboard() {
 
         WebElement newName = new MainPage(getDriver())
-                .clickProjectName(MULTI_CONFIGURATION_NAME)
+                .navigateToProjectPage()
                 .clickRename()
                 .enterNewName(MULTI_CONFIGURATION_NEW_NAME)
                 .submitNewName()
-                .getProjectName();
+                .getNameProject();
 
         Assert.assertEquals(newName.getText(), ("Project " + MULTI_CONFIGURATION_NEW_NAME));
     }
