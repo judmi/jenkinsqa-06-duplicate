@@ -2,6 +2,7 @@ package school.redrover.model;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
 
@@ -15,5 +16,15 @@ public class ProjectPage extends BasePage {
         getWait5().until(ExpectedConditions.elementToBeClickable(getDriver()
                 .findElement(By.cssSelector("#jenkins-head-icon")))).click();
         return new MainPage(getDriver());
+    }
+
+    public RenameProjectPage clickRename() {
+        getDriver().findElement(By.linkText("Rename")).click();
+        return new RenameProjectPage(getDriver());
+    }
+
+    public WebElement getProjectName(){
+        return getDriver().findElement(By.xpath("//h1"));
+
     }
 }
