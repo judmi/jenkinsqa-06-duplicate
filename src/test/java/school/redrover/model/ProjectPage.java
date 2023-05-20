@@ -18,13 +18,18 @@ public class ProjectPage extends BasePage {
         return new MainPage(getDriver());
     }
 
+    public MainPage navigateToMainPageByBreadscrumbs() {
+        getWait2().until(ExpectedConditions.elementToBeClickable(getDriver()
+                        .findElement(By.xpath("//ol[@id='breadcrumbs']//li[1]")))).click();
+        return new MainPage(getDriver());
+    }
+
+    public WebElement getNameProject() {
+        return getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#main-panel>h1")));
+    }
+
     public RenameProjectPage clickRename() {
         getDriver().findElement(By.linkText("Rename")).click();
         return new RenameProjectPage(getDriver());
-    }
-
-    public WebElement getProjectName(){
-        return getDriver().findElement(By.xpath("//h1"));
-
     }
 }
