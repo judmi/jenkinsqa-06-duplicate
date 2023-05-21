@@ -13,7 +13,7 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    public  NewJobPage newItem() {
+    public  NewJobPage clickNewItem() {
         getDriver().findElement(By.cssSelector(".task-link-wrapper>a[href$='newJob']")).click();
         return new NewJobPage(getDriver());
     }

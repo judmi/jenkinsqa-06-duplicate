@@ -13,7 +13,7 @@ public class MultiConfigurationProject2Test extends BaseTest {
         final String nameOfProject = "MyMultiConfigurationProject";
 
         WebElement projectName = new MainPage(getDriver())
-                .newItem()
+                .clickNewItem()
                 .enterItemName(nameOfProject)
                 .selectMultiConfigurationProjectAndOk()
                 .saveConfigurePageAndGoToProjectPage()
