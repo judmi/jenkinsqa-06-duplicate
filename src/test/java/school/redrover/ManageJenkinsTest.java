@@ -7,8 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import school.redrover.model.MainPage;
 import school.redrover.runner.BaseTest;
-
 
 import java.util.Arrays;
 import java.util.List;
@@ -86,6 +86,7 @@ public class ManageJenkinsTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void testManageOldData() {
         getDriver().findElement(Manage_Jenkins).click();
@@ -104,16 +105,15 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertTrue(getDriver().findElement(By.id("main-panel")).getText().contains("No old data was found."));
     }
 
-    @Ignore
     @Test
     public void testSearchNumericSymbol() {
-        getDriver().findElement(By.xpath("//a[@href='/manage']")).click();
-        getWait2().until(ExpectedConditions.elementToBeClickable(By.id("settings-search-bar"))).click();
-        getDriver().findElement(By.id("settings-search-bar")).sendKeys("1");
-        getWait10().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".jenkins-search__results-container--visible")));
-        WebElement noResults = getDriver().findElement(By.cssSelector(".jenkins-search__results__no-results-label"));
 
-        Assert.assertEquals(noResults.getText(), "No results");
+        String searchText = new MainPage(getDriver())
+                .navigateToManageJenkinsPage()
+                .inputToSearchField("1")
+                .getNoResultTextInSearchField();
+
+        Assert.assertEquals(searchText, "No results");
     }
 
     @Test

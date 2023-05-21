@@ -69,4 +69,9 @@ public class MainPage extends BasePage {
         getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(2));
         return this;
     }
+
+    public ManageJenkinsPage navigateToManageJenkinsPage() {
+        getDriver().findElement(By.cssSelector("[href='/manage']")).click();
+        return new ManageJenkinsPage(getDriver());
+    }
 }

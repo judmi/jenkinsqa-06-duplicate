@@ -368,7 +368,7 @@ public class HeaderTest extends BaseTest {
     }
 
     @Ignore
-     @Test
+    @Test
     public void testNotificationIcon(){
         iconChangeColor(NOTIFICATION_ICON);
         getDriver().findElement(NOTIFICATION_ICON).click();
