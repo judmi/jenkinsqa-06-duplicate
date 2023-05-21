@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
-public class RenameMultibranchPipelineTest extends BaseTest {
+public class MultibranchPipeline4Test extends BaseTest {
 
     @Test
     public void testRenameMultibranchPipeline(){
@@ -31,6 +31,6 @@ public class RenameMultibranchPipelineTest extends BaseTest {
 
         WebElement getTitle = getDriver().findElement(By.xpath("//h1"));
 
-        Assert.assertEquals(newName, getTitle.getText());
+        Assert.assertEquals(getTitle.getText(), newName);
     }
 }
