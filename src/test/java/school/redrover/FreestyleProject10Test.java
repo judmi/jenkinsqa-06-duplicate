@@ -23,9 +23,7 @@ public class FreestyleProject10Test extends BaseTest {
 
         WebElement checkResult = getDriver().findElement(By.xpath("//table[@class='jenkins-table  sortable']/tbody/tr[@id='job_FreestyleProject100']/td/a/span"));
 
-        String check2 = "Folder100";
-
-        Assert.assertEquals(checkResult.getText(),check2);
+        Assert.assertEquals(checkResult.getText(),nameProject);
     }
 
 
