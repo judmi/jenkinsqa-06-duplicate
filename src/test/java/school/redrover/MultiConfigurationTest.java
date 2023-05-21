@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.ConfigurePage;
 import school.redrover.model.MainPage;
+import school.redrover.model.MultiConfigurationProjectConfigPage;
 import school.redrover.model.ProjectPage;
 import school.redrover.runner.BaseTest;
 
@@ -76,7 +76,7 @@ public class MultiConfigurationTest extends BaseTest {
         ProjectPage disabledProjPage = new MainPage(getDriver())
                 .newItem()
                 .enterItemName(MULTI_CONFIGURATION_NAME)
-                .selectMultiConfigurationProject()
+                .selectMultiConfigurationProjectAndOk()
                 .toggleDisable()
                 .saveConfigurePageAndGoToProjectPage();
 
@@ -116,10 +116,10 @@ public class MultiConfigurationTest extends BaseTest {
 
     @Test
     public void testCheckGeneralParametersDisplayedAndClickable() {
-        ConfigurePage config = new MainPage(getDriver())
+        MultiConfigurationProjectConfigPage config = new MainPage(getDriver())
                 .newItem()
                 .enterItemName(MULTI_CONFIGURATION_NAME)
-                .selectMultiConfigurationProject();
+                .selectMultiConfigurationProjectAndOk();
 
         boolean checkboxesVisibleClickable = true;
         for (int i = 4; i <= 8; i++) {

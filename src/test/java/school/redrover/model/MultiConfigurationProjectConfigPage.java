@@ -12,7 +12,7 @@ public class MultiConfigurationProjectConfigPage extends BasePage {
         super(driver);
     }
 
-    public ConfigurePage toggleDisable(){
+    public MultiConfigurationProjectConfigPage toggleDisable(){
         getDriver().findElement(By.cssSelector("label.jenkins-toggle-switch__label ")).click();
         return this;
     }
