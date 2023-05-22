@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.model.MainPage;
 import school.redrover.model.MultiConfigurationProjectConfigPage;
@@ -74,13 +75,13 @@ public class MultiConfigurationTest extends BaseTest {
     @Test
     public void testDisabledMultiConfigurationProject() {
         ProjectPage disabledProjPage = new MainPage(getDriver())
-                .newItem()
+                .clickNewItem()
                 .enterItemName(MULTI_CONFIGURATION_NAME)
                 .selectMultiConfigurationProjectAndOk()
                 .toggleDisable()
                 .saveConfigurePageAndGoToProjectPage();
 
-        Assert.assertEquals(disabledProjPage.getEnableForm().getText().trim().substring(0, 34), "This project is currently disabled");
+        Assert.assertEquals(getDriver().findElement(By.cssSelector("form#enable-project")).getText().trim().substring(0, 34), "This project is currently disabled");
     }
 
     @Test(dependsOnMethods = "testDisabledMultiConfigurationProject")
@@ -117,7 +118,7 @@ public class MultiConfigurationTest extends BaseTest {
     @Test
     public void testCheckGeneralParametersDisplayedAndClickable() {
         MultiConfigurationProjectConfigPage config = new MainPage(getDriver())
-                .newItem()
+                .clickNewItem()
                 .enterItemName(MULTI_CONFIGURATION_NAME)
                 .selectMultiConfigurationProjectAndOk();
 
