@@ -96,8 +96,7 @@ public class FreestyleProject4Test extends BaseTest {
         new Actions(getDriver())
                 .moveToElement(getWait10().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='build-status-link']"))))
                 .perform();
-
-        String actualBuildStatus = getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Success')]"))).getText();
-        Assert.assertEquals(actualBuildStatus, expectedBuildStatus);
+        boolean actualBuildStatus = getWait5().until(ExpectedConditions.attributeToBe(By.xpath("//div[@class='tippy-content']"), "innerText", expectedBuildStatus));
+        Assert.assertTrue(actualBuildStatus, "Build is not success");
     }
 }
