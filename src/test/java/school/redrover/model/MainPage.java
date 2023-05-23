@@ -229,4 +229,9 @@ public class MainPage extends BasePage {
         return new RenameFolderPage(getDriver());
     }
 
+    public MultiConfigurationProjectPage clickJobWebElement(String jobName) {
+        getWait5().until(ExpectedConditions.elementToBeClickable(getDriver()
+                .findElement(By.xpath("//span[contains(text(),'" + jobName + "')]")))).click();
+        return new MultiConfigurationProjectPage(getDriver());
+    }
 }
