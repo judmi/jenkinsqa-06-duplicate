@@ -192,6 +192,13 @@ public class MainPage extends BasePage {
         return new RenameProjectPage(getDriver());
     }
 
+
+ 
+    public MyViewsPage clickMyViewsSideMenuLink(){
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/me/my-views']"))).click();
+        return new MyViewsPage(getDriver());
+    }
+  
     public RestApiPage clickOnRestApiLink(){
         getDriver().findElement(By.xpath("//a[contains(@href,'api')]")).click();
 
