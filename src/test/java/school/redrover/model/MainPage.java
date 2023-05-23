@@ -186,6 +186,12 @@ public class MainPage extends BasePage {
         return new MovePage(getDriver());
     }
 
+    public MainPage getMultiConfigPage() {
+        getWait10().until(ExpectedConditions.elementToBeClickable(getDriver()
+                .findElement(By.cssSelector(".jenkins-table__link")))).click();
+        return this;
+    }
+
     public RenameProjectPage selectRenameJobDropDownMenu(String jobName){
         openJobDropDownMenu(jobName);
         getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Rename')]"))).click();
@@ -222,4 +228,5 @@ public class MainPage extends BasePage {
 
         return new RenameFolderPage(getDriver());
     }
+
 }
