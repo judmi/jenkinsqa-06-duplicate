@@ -216,5 +216,10 @@ public class MainPage extends BasePage {
         scrollToElementByJavaScript(getDriver().findElement(By.xpath("//a[contains(text(),'REST API')]")));
         return this;
     }
+  
+    public RenameFolderPage clickRenameInDropDownMenu() {
+        getWait5().until(ExpectedConditions.elementToBeClickable(By.partialLinkText("Rename"))).click();
 
+        return new RenameFolderPage(getDriver());
+    }
 }
