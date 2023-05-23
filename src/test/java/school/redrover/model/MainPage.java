@@ -219,6 +219,7 @@ public class MainPage extends BasePage {
         return new RenameFolderPage(getDriver());
     }
 
+
     public MainPage moveCursorNotificationIcon() {
         new Actions(getDriver())
                 .pause(Duration.ofMillis(500))
@@ -243,6 +244,7 @@ public class MainPage extends BasePage {
                 .perform();
         return new ManageJenkinsPage(getDriver());
     }
+  
     public MultiConfigurationProjectPage clickJobWebElement(String jobName) {
         getWait5().until(ExpectedConditions.elementToBeClickable(getDriver()
                 .findElement(By.xpath("//span[contains(text(),'" + jobName + "')]")))).click();
