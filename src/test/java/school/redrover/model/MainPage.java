@@ -161,9 +161,16 @@ public class MainPage extends BasePage {
         return new RenameProjectPage(getDriver());
     }
 
+    public RestApiPage clickOnRestApiLink(){
+        getDriver().findElement(By.xpath("//a[contains(@href,'api')]")).click();
+
+        return new RestApiPage(getDriver());
+    }
+
     public MovePage selectMoveJobDropDownMenu(String jobName){
         openJobDropDownMenu(jobName);
         getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Move')]"))).click();
         return new MovePage(getDriver());
+
     }
 }
