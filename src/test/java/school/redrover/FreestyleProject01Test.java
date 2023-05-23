@@ -3,8 +3,12 @@ package school.redrover;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import school.redrover.model.FreestyleProjectPage;
 import school.redrover.model.MainPage;
+import school.redrover.model.NewJobPage;
 import school.redrover.runner.BaseTest;
 
 public class FreestyleProject01Test extends BaseTest {
@@ -64,5 +68,25 @@ public class FreestyleProject01Test extends BaseTest {
                 .clickTheEnableProjectButton();
 
                 Assert.assertTrue(getDriver().findElement(By.xpath("//button[text() = 'Disable Project']")).isDisplayed());
+    }
+
+    @Test(dataProvider = "invalidSymbols")
+    public void testCreatingProjectWithInvalidName(String invalidSymbols){
+       String validationMessage = new MainPage(getDriver())
+                .clickNewItem()
+                .selectFreestyleProject()
+                .enterItemName(invalidSymbols)
+                .getItemInvalidMessage();
+
+       boolean okButton = new NewJobPage(getDriver())
+               .isOkButtonEnabled();
+
+        Assert.assertEquals(validationMessage, "» ‘" + invalidSymbols + "’ is an unsafe character");
+        Assert.assertFalse(okButton);
+    }
+
+    @DataProvider(name = "invalidSymbols")
+    public Object[][] invalidSymbols(){
+        return new Object[][] {{"!"},{"@"}, {"#"}, {"$"}, {"%"}, {"^"}, {"&"}, {"*"}, {":"}, {";"}, {"/"}, {"|"}, {"?"}, {"<"}, {">"}};
     }
 }
