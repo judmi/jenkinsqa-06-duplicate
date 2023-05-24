@@ -138,7 +138,7 @@ public class MultiConfigurationTest extends BaseTest {
     public void testBuildNowDropDownMenuMultiConfigurationProject() {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
         MainPage mainPage = new MainPage(getDriver())
-                .clickJobDropdownMenu(MULTI_CONFIGURATION_NAME)
+                .clickOnProjectDropDownMenu(MULTI_CONFIGURATION_NAME)
                 .clickJobDropdownMenuBuildNow()
                 .clickDashboard();
 

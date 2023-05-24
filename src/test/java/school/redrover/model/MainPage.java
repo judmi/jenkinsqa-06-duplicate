@@ -84,12 +84,10 @@ public class MainPage extends BasePage {
     }
 
     public MainPage clickJobDropdownMenu(String jobName) {
-        WebElement projectName = getWait2().until(ExpectedConditions
-                .elementToBeClickable(By.xpath("//a[@href='job/" + jobName + "/']")));
-        WebElement dropdownMenuButton = getDriver().findElement(By.xpath("//a[@href='job/" + jobName + "/']/button"));
+        WebElement projectName = getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='job/" + jobName + "/']")));
         Actions action = new Actions(getDriver());
         action.moveToElement(projectName).perform();
-        action.moveToElement(dropdownMenuButton).click().build().perform();
+        projectName.click();
         return this;
     }
 
