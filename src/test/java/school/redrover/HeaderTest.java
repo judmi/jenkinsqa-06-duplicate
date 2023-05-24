@@ -33,13 +33,6 @@ public class HeaderTest extends BaseTest {
     private static final By LOGOUT_BTN = By.xpath("//a[@href='/logout']");
     private static final By POP_UP_SCREEN_OF_THE_NOTIFICATION_BTN = By.id("visible-am-list");
 
-    private void openAdminDropdownMenu() {
-        WebElement dropDownMenu = getWait2().until(ExpectedConditions.presenceOfElementLocated(By.xpath
-                ("//a[@href='/user/admin']/button")));
-        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
-        executor.executeScript("arguments[0].click();", dropDownMenu);
-    }
-
     @Test
     public void testHeaderLogoIcon() throws IOException {
         WebElement logoIcon = getDriver().findElement(By.xpath("//*[@id=\"jenkins-head-icon\"]"));
@@ -252,19 +245,15 @@ public class HeaderTest extends BaseTest {
                 {By.xpath("//div[@class='bd']//span[.='My Views']"),
                         By.xpath("//a[@href='/user/admin/my-views/']")},
                 {By.xpath("//span[.='Credentials']"),
-                        By.xpath("//h1[.='Credentials']")}
-        };
+                        By.xpath("//h1[.='Credentials']")};
+        }
     }
 
     @Test(dataProvider = "dropDownMenuAndPageLocators")
     public void testOpenTabFromDropdownMenu(By buttonLocator, By pageLocator) {
-        openAdminDropdownMenu();
 
-        getWait5().until(ExpectedConditions.elementToBeClickable(buttonLocator)).click();
-
-        WebElement page = getWait5().until(ExpectedConditions.visibilityOfElementLocated(pageLocator));
-
-        Assert.assertTrue(page.isDisplayed());
+        MainPage mainPage = new MainPage(getDriver())
+                .openTabFromAdminDropdownMenu(buttonLocator, pageLocator);
     }
 
     @Test
@@ -337,16 +326,11 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
-    public void testAdminButtonIsUnderlinedWhenMouseover() {
+    public void testAdminButtonIsUnderlinedWhenMouseOver() {
 
-        Actions act = new Actions(getDriver());
-
-        WebElement adminLink = getWait5().until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//a[@class='model-link'][1]")));
-
-        act.moveToElement(adminLink).perform();
-
-        String textUnderlineAfter = adminLink.getCssValue("text-decoration");
+        String textUnderlineAfter = new MainPage(getDriver())
+                .hoverOverAdminLink()
+                .getTextDecorationValue();
 
         Assert.assertTrue(textUnderlineAfter.contains("underline"));
     }
