@@ -140,7 +140,7 @@ public class MultiConfigurationTest extends BaseTest {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
 
         MainPage mainPage = new MainPage(getDriver())
-                .clickOnProjectDropDownMenu(MULTI_CONFIGURATION_NAME);
+                .clickJobDropDownMenu(MULTI_CONFIGURATION_NAME);
 
         Assert.assertEquals(mainPage.getJobBuildStatus(MULTI_CONFIGURATION_NAME), "Not built");
 

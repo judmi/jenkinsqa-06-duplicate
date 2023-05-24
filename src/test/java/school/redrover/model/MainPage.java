@@ -318,7 +318,7 @@ public class MainPage extends BasePage {
         return new NewViewPage(getDriver());
     }
 
-    public WebElement getWelcomeWebElement(){
+    public WebElement getWelcomeWebElement() {
         return getDriver().findElement(By.xpath("//h1[text()='Welcome to Jenkins!']"));
     }
 
