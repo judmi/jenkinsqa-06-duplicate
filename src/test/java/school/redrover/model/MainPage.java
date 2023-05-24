@@ -84,10 +84,12 @@ public class MainPage extends BasePage {
     }
 
     public MainPage clickJobDropdownMenu(String jobName) {
-        WebElement projectName = getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='job/" + jobName + "/']")));
+        WebElement projectName = getWait2().until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//a[@href='job/" + jobName + "/']")));
+        WebElement dropdownMenuButton = getDriver().findElement(By.xpath("//a[@href='job/" + jobName + "/']/button"));
         Actions action = new Actions(getDriver());
         action.moveToElement(projectName).perform();
-        projectName.click();
+        action.moveToElement(dropdownMenuButton).click().build().perform();
         return this;
     }
 
@@ -259,6 +261,23 @@ public class MainPage extends BasePage {
         getWait5().until(ExpectedConditions.elementToBeClickable(getDriver()
                 .findElement(By.xpath("//span[contains(text(),'" + jobName + "')]")))).click();
         return new MultiConfigurationProjectPage(getDriver());
+    }
 
+    public MainPage clickJobDropdownMenuBuildNow() {
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Build Now']"))).click();
+        getWait5().until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath("//td[@class='pane']//a"))));
+        getWait5().until(ExpectedConditions.invisibilityOf(getDriver().findElement(By.xpath("//td[@class='pane']//a"))));
+        return this;
+    }
+
+    public MainPage clickDashboard() {
+        getWait10().until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#breadcrumbs li a"))).click();
+        return new MainPage(getDriver());
+    }
+
+    public String getJobBuildStatus(String jobName) {
+        WebElement buildStatus = getDriver().findElement(By.id(String.format("job_%s", jobName)))
+                .findElement(By.xpath(".//*[name()='svg']"));
+        return buildStatus.getAttribute("tooltip");
     }
 }
