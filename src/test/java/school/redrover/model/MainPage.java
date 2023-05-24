@@ -283,4 +283,9 @@ public class MainPage extends BasePage {
                 .findElement(By.xpath("//span[contains(text(),'" + jobName + "')]")))).click();
         return new MultiConfigurationProjectPage(getDriver());
     }
+
+    public MainPage selectDashboard() {
+        getDriver().findElement(By.xpath("//ol[@id='breadcrumbs']/li[1]")).click();
+        return new MainPage(getDriver());
+    }
 }
