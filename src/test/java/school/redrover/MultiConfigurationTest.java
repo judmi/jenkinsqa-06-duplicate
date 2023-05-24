@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.model.MainPage;
 import school.redrover.model.MultiConfigurationProjectConfigPage;
+import school.redrover.model.MultiConfigurationProjectPage;
 import school.redrover.model.ProjectPage;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
@@ -137,11 +138,16 @@ public class MultiConfigurationTest extends BaseTest {
     @Test
     public void testBuildNowDropDownMenuMultiConfigurationProject() {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
-        MainPage mainPage = new MainPage(getDriver())
-                .clickOnProjectDropDownMenu(MULTI_CONFIGURATION_NAME)
-                .clickJobDropdownMenuBuildNow()
-                .clickDashboard();
 
-        Assert.assertEquals(mainPage.getJobBuildStatus(MULTI_CONFIGURATION_NEW_NAME), "Success");
+        MainPage mainPage = new MainPage(getDriver())
+                .clickOnProjectDropDownMenu(MULTI_CONFIGURATION_NAME);
+
+        Assert.assertEquals(mainPage.getJobBuildStatus(MULTI_CONFIGURATION_NAME), "Not built");
+
+        MultiConfigurationProjectPage multiConfigurationProjectPage = new MainPage(getDriver())
+                .clickJobDropdownMenuBuildNow()
+                .clickJobMultiConfigurationProject(MULTI_CONFIGURATION_NAME);
+
+        Assert.assertEquals(multiConfigurationProjectPage.getJobBuildStatus(MULTI_CONFIGURATION_NAME), "Success");
     }
 }

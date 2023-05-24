@@ -39,7 +39,7 @@ public class MainPage extends BasePage {
         return new NewJobPage(getDriver());
     }
 
-    public NewJobPage clickCreateAJob(){
+    public NewJobPage clickCreateAJob() {
         WebElement createAJob = getDriver()
                 .findElement(By.xpath("//div[@id='main-panel']//span[text() = 'Create a job']"));
         getWait2().until(ExpectedConditions.elementToBeClickable(createAJob));
@@ -160,7 +160,7 @@ public class MainPage extends BasePage {
         return this;
     }
 
-    public MainPage clickOnSliderDashboardInDropDownMenu(){
+    public MainPage clickOnSliderDashboardInDropDownMenu() {
         new Actions(getDriver()).moveToElement(getDriver().findElement(
                 By.xpath("//div[@id = 'breadcrumbBar']//a"))).perform();
 
@@ -170,7 +170,7 @@ public class MainPage extends BasePage {
         return this;
     }
 
-    public NewJobPage clickNewItemInDashboardDropDownMenu(){
+    public NewJobPage clickNewItemInDashboardDropDownMenu() {
         getWait2().until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//div[@id = 'breadcrumb-menu-target']//span[text()='New Item']")))
                 .click();
@@ -188,24 +188,24 @@ public class MainPage extends BasePage {
         return this;
     }
 
-    public RenameProjectPage selectRenameJobDropDownMenu(String jobName){
+    public RenameProjectPage selectRenameJobDropDownMenu(String jobName) {
         openJobDropDownMenu(jobName);
         getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Rename')]"))).click();
         return new RenameProjectPage(getDriver());
     }
 
-    public MyViewsPage clickMyViewsSideMenuLink(){
+    public MyViewsPage clickMyViewsSideMenuLink() {
         getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/me/my-views']"))).click();
         return new MyViewsPage(getDriver());
     }
-  
-    public RestApiPage clickOnRestApiLink(){
+
+    public RestApiPage clickOnRestApiLink() {
         getDriver().findElement(By.xpath("//a[contains(@href,'api')]")).click();
 
         return new RestApiPage(getDriver());
     }
 
-    public MovePage selectMoveJobDropDownMenu(String jobName){
+    public MovePage selectMoveJobDropDownMenu(String jobName) {
         openJobDropDownMenu(jobName);
         getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Move')]"))).click();
         return new MovePage(getDriver());
@@ -216,7 +216,7 @@ public class MainPage extends BasePage {
         scrollToElementByJavaScript(getDriver().findElement(By.xpath("//a[contains(text(),'REST API')]")));
         return this;
     }
-  
+
     public RenameFolderPage clickRenameInDropDownMenu() {
         getWait5().until(ExpectedConditions.elementToBeClickable(By.partialLinkText("Rename"))).click();
 
@@ -263,14 +263,15 @@ public class MainPage extends BasePage {
 
     public MainPage clickJobDropdownMenuBuildNow() {
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Build Now']"))).click();
-        getWait5().until(ExpectedConditions.visibilityOf(getDriver().findElement(By.xpath("//td[@class='pane']//a"))));
-        getWait5().until(ExpectedConditions.invisibilityOf(getDriver().findElement(By.xpath("//td[@class='pane']//a"))));
         return this;
     }
 
-    public MainPage clickDashboard() {
-        getWait10().until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#breadcrumbs li a"))).click();
-        return new MainPage(getDriver());
+    public MultiConfigurationProjectPage clickJobMultiConfigurationProject(String jobName) {
+        WebElement job = getWait5().until(ExpectedConditions.elementToBeClickable(getDriver()
+                .findElement(By.xpath("//a[@href='job/" + jobName + "/']"))));
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(job).click().perform();
+        return new MultiConfigurationProjectPage(getDriver());
     }
 
     public String getJobBuildStatus(String jobName) {
