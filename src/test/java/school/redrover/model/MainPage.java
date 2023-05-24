@@ -246,7 +246,7 @@ public class MainPage extends BasePage {
                 .click(getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Manage Jenkins']"))))
                 .perform();
         return new ManageJenkinsPage(getDriver());
-
+    }
     public MainPage hoverOverAdminLink() {
         Actions act = new Actions(getDriver());
         WebElement adminLink = getWait5().until(ExpectedConditions.visibilityOfElementLocated(

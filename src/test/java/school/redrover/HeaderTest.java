@@ -245,8 +245,8 @@ public class HeaderTest extends BaseTest {
                 {By.xpath("//div[@class='bd']//span[.='My Views']"),
                         By.xpath("//a[@href='/user/admin/my-views/']")},
                 {By.xpath("//span[.='Credentials']"),
-                        By.xpath("//h1[.='Credentials']")};
-        }
+                        By.xpath("//h1[.='Credentials']")}
+        };
     }
 
     @Test(dataProvider = "dropDownMenuAndPageLocators")
