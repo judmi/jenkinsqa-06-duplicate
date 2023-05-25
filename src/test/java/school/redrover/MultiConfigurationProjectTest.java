@@ -70,6 +70,19 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(projectName.getText(), MULTI_CONFIGURATION_NAME);
     }
 
+    // I've ignored it because of using a method from TestUtils class in a test that uses POM
+    @Ignore
+    @Test
+    public void testCreateMultiConfigurationProjectWithDescriptionTest1() {
+        TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
+
+        MultiConfigurationProjectPage multiCongigProjectWithDescription = new MultiConfigurationProjectPage(getDriver())
+                .getAddDescription(DESCRIPTION)
+                .getSaveButton();
+
+        Assert.assertEquals(multiCongigProjectWithDescription.getInputAdd().getText(),DESCRIPTION);
+    }
+
     @DataProvider(name = "unsafeCharacter")
     public static Object[][] provideUnsafeCharacters() {
         return new Object[][]{{'!'}, {'@'}, {'#'}, {'$'}, {'%'}, {'^'}, {'&'},
