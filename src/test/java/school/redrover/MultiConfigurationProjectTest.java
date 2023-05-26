@@ -9,6 +9,8 @@ import school.redrover.model.MultiConfigurationProjectPage;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -17,8 +19,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import school.redrover.model.*;
-
-import java.util.List;
 
 public class MultiConfigurationProjectTest extends BaseTest {
 
@@ -73,17 +73,16 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(projectName.getText(), MULTI_CONFIGURATION_NAME);
     }
 
-    // I've ignored it because of using a method from TestUtils class in a test that uses POM
     @Ignore
     @Test
     public void testCreateMultiConfigurationProjectWithDescriptionTest1() {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
 
-        MultiConfigurationProjectPage multiCongigProjectWithDescription = new MultiConfigurationProjectPage(getDriver())
+        MultiConfigurationProjectPage multiConfigProjectWithDescription = new MultiConfigurationProjectPage(getDriver())
                 .getAddDescription(DESCRIPTION)
                 .getSaveButton();
 
-        Assert.assertEquals(multiCongigProjectWithDescription.getInputAdd().getText(),DESCRIPTION);
+        Assert.assertEquals(multiConfigProjectWithDescription.getInputAdd().getText(),DESCRIPTION);
     }
 
     @DataProvider(name = "unsafeCharacter")
@@ -105,19 +104,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(invalidMessage, "» ‘" + unsafeSymbol + "’" + " is an unsafe character");
     }
 
-    @Test(dependsOnMethods = "testCreateMultiConfiguration")
-    public void testRenameMultiConfigurationProjectFromDashboard() {
-
-        WebElement newName = new MainPage(getDriver())
-                .navigateToProjectPage()
-                .clickRename()
-                .enterNewName(MULTI_CONFIGURATION_NEW_NAME)
-                .submitNewName()
-                .getNameProject();
-
-        Assert.assertEquals(newName.getText(), ("Project " + MULTI_CONFIGURATION_NEW_NAME));
-    }
-
     @Test
     public void testDisabledMultiConfigurationProject() {
         new MainPage(getDriver())
@@ -131,8 +117,6 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 .getText().trim().substring(0, 34), "This project is currently disabled");
     }
 
-    //    I've ignored it because of using a method from TestUtils class with POM
-    @Ignore
     @Test
     public void testDisableMultiConfigurationProject() {
         TestUtils.createMultiConfigurationProject(this, "MyProject", false);
@@ -144,6 +128,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(enable.getText(),"Enable");
     }
 
+    @Ignore
     @Test (dependsOnMethods = "testCreateMultiConfiguration")
     public void testMultiConfigurationProjectConfigureDisabled() {
         MainPage mainPageName = new MainPage(getDriver());
@@ -167,6 +152,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(enabledProjPage.getDisableButton().getText(), "Disable Project");
     }
 
+    @Ignore
     @Test(dependsOnMethods = {"testDisableMultiConfigurationProject"})
     public void testEnableMultiConfigurationProject() {
         new MainPage(getDriver())
@@ -179,6 +165,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(disableProject.isDisplayed());
     }
 
+    @Ignore
     @Test (dependsOnMethods = "testDisableMultiConfigurationProject")
     public void testMultiConfigurationProjectDisabled() {
         MainPage mainPageName = new MainPage(getDriver());
@@ -190,9 +177,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(enable.getText(),"Disable Project");
     }
 
-    //   When I try to run this test, I've got a message "No test were found". I don't understand what is the problem
-    @Ignore
-    @Test (dependsOnMethods = "testMultiConfigurationProjectDisabled")
+   @Test (dependsOnMethods = "testDisableMultiConfigurationProject")
     public void testMultiConfigurationProjectConfigureEnable() {
         MainPage mainPageName = new MainPage(getDriver());
         mainPageName.getMultiConfigPage();
@@ -205,9 +190,22 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(configPage.getText(),"Enabled");
     }
 
-    //   When I try to run this test, I've got a message "No test were found". I don't understand what is the problem
     @Ignore
-    @Test(dependsOnMethods = "testRenameMultiConfigurationProjectFromDashboard")
+    @Test(dependsOnMethods = "testCreateMultiConfiguration")
+    public void testRenameMultiConfigurationProjectFromDashboard() {
+
+        WebElement newName = new MainPage(getDriver())
+                .navigateToProjectPage()
+                .clickRename()
+                .enterNewName(MULTI_CONFIGURATION_NEW_NAME)
+                .submitNewName()
+                .getNameProject();
+
+        Assert.assertEquals(newName.getText(), ("Project " + MULTI_CONFIGURATION_NEW_NAME));
+    }
+
+    @Ignore
+    @Test(dependsOnMethods = "testCreateMultiConfiguration")
     public void testJobDropdownDelete() {
         MainPage deletedProjPage = new MainPage((getDriver()))
                 .clickJobDropdownMenu(MULTI_CONFIGURATION_NEW_NAME)
@@ -218,9 +216,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(deletedProjPage.getNoJobsMainPageHeader().getText(), "Welcome to Jenkins!");
     }
 
-    //   When I try to run this test, I've got a message "No test were found". I don't understand what is the problem
-    @Ignore
-    @Test(dependsOnMethods = "testEnabledMultiConfigurationProject")
+    @Test(dependsOnMethods = "testCreateMultiConfiguration")
     public void testProjectPageDelete() {
         MainPage deletedProjPage = new MainPage(getDriver())
                 .navigateToProjectPage()
@@ -504,6 +500,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(projects.size(), 0);
     }
 
+    @Ignore
     @Test (dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testAddDescriptionInMultiConfigurationProject(){
         final String textDescription = "Text Description Test";
@@ -552,7 +549,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         WebElement okButton = getWait5().until(ExpectedConditions.elementToBeClickable(By
                 .xpath("//*[@id='ok-button']")));
         okButton.click();
-//
+
         WebElement scrollBySubmitButton = getDriver().findElement(SAVE_BUTTON);
         JavascriptExecutor jse = (JavascriptExecutor) getDriver();
         jse.executeScript("arguments[0].scrollIntoView(true)", scrollBySubmitButton);
