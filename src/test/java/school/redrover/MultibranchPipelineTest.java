@@ -10,6 +10,9 @@ import org.testng.annotations.Test;
 import school.redrover.model.*;
 import school.redrover.runner.BaseTest;
 import java.time.Duration;
+import school.redrover.model.ProjectPage;
+import school.redrover.runner.TestUtils;
+
 
 
 public class MultibranchPipelineTest extends BaseTest {
@@ -39,4 +42,18 @@ public class MultibranchPipelineTest extends BaseTest {
 
         Assert.assertTrue(new MultibranchPipelinePage(getDriver()).multibranchPipeline().getText().contains("MultibranchPipeline"));
     }
-       }
+    @Test
+    public void deleteMultibranchPipelineTest() {
+        new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName("MultibranchPipeline")
+                .selectMultibranchPipelineAndOk()
+                .saveButton()
+                .navigateToMainPageByBreadcrumbs()
+                .clickJobDropDownMenu("MultibranchPipeline")
+                .selectDeleteFromDropDownMenu()
+                .clickYesDeleteJobDropDownMenu();
+
+        Assert.assertEquals(new MainPage(getDriver()).getWelcomeWebElement().getText(), "Welcome to Jenkins!");
+    }
+}
