@@ -43,6 +43,17 @@ public class MultibranchPipelineTest extends BaseTest {
         Assert.assertTrue(new MultibranchPipelinePage(getDriver()).multibranchPipeline().getText().contains("MultibranchPipeline"));
     }
     @Test
+    public void testCreateMultibranchPipelineWithoutDescription() {
+        MultibranchPipelinePage pageWithOutDescription = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName("MineMultibranchPipelineWhitOutDescription")
+                .selectMultibranchPipelineAndOk()
+                .displayName("Random name")
+                .saveButton();
+
+        Assert.assertTrue(new MultibranchPipelineConfigPage(getDriver()).viewDescription().getText().isEmpty());
+    }
+    @Test
     public void deleteMultibranchPipelineTest() {
         new MainPage(getDriver())
                 .clickNewItem()
