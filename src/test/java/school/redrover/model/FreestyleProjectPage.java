@@ -88,4 +88,11 @@ public class FreestyleProjectPage extends BasePage {
                 By.xpath("//a[@href = '/job/" + projectName + "/confirm-rename']"))).click();
         return new RenameFreestyleProjectPage(getDriver());
     }
+
+    public ConsoleOutputPage openConsoleOutputForBuild(){
+        WebElement firstBuild = getWait5().until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[@class='build-status-link']")));
+        firstBuild.click();
+        return new ConsoleOutputPage(getDriver());
+    }
 }
