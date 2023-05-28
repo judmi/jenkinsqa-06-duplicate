@@ -89,9 +89,8 @@ public class FreestyleProjectPage extends BaseModel {
     }
 
     public ConsoleOutputPage openConsoleOutputForBuild(){
-        WebElement firstBuild = getWait5().until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//a[@class='build-status-link']")));
-        firstBuild.click();
+        getWait5().until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[@class='build-status-link']"))).click();
         return new ConsoleOutputPage(getDriver());
     }
 }
