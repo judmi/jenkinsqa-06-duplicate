@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import school.redrover.model.base.BasePage;
+import school.redrover.model.base.BaseModel;
 
-public class PipelineConfigPage extends BasePage {
+public class PipelineConfigPage extends BaseModel {
 
     public PipelineConfigPage(WebDriver driver){
         super(driver);
@@ -29,6 +29,11 @@ public class PipelineConfigPage extends BasePage {
 
     public PipelineConfigPage setDisplayName(String displayName) {
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='_.displayNameOrNull']"))).sendKeys(displayName);
+        return this;
+    }
+
+    public PipelineConfigPage enterDescription(String description) {
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@name='description']"))).sendKeys(description);
         return this;
     }
 }
