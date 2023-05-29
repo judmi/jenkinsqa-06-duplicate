@@ -447,6 +447,6 @@ public class FolderTest extends BaseTest {
                 .clickFolderName(nameFolder)
                 .getNestedFolder(nameMultibranchPipeline);
 
-        Assert.assertTrue(projectNameDisplays.isDisplayed());
+        Assert.assertEquals(projectNameDisplays.getText(),nameMultibranchPipeline);
     }
 }
