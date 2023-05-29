@@ -26,7 +26,6 @@ public class HeaderTest extends BaseTest {
 
     private static final By NOTIFICATION_ICON = By.id("visible-am-button");
     private static final By MANAGE_JENKINS_LINK = By.xpath("//a[text()='Manage Jenkins']");
-    private static final String MANAGE_JENKINS_PAGE_HEADER = "Manage Jenkins";
     private static final By ADMIN_BTN = By.xpath("//a[@href='/user/admin']");
     private static final By LOGOUT_BTN = By.xpath("//a[@href='/logout']");
     private static final By POP_UP_SCREEN_OF_THE_NOTIFICATION_BTN = By.id("visible-am-list");
@@ -196,22 +195,22 @@ public class HeaderTest extends BaseTest {
     @Test
     public void testNotificationAndSecurityIcon() {
 
+        String expectedManageJenkinsPageHeader = "Manage Jenkins";
+
         String backgroundColorBefore = new MainPage(getDriver())
                 .getBackgroundColorNotificationIcon();
 
         String backgroundColorAfter = new MainPage(getDriver())
-                .moveCursorNotificationIcon()
+                .getHeader()
                 .clickNotificationIcon()
                 .getBackgroundColorNotificationIcon();
 
-        new MainPage(getDriver())
-                .clickManageJenkinsLink();
-
-        String actualHeader = new ManageJenkinsPage(getDriver())
+        String actualManageJenkinsPageHeader = new ManageJenkinsPage(getDriver())
+                .clickManageJenkinsLink()
                 .getActualHeader();
 
         Assert.assertNotEquals(backgroundColorBefore, backgroundColorAfter, " The color of icon is not changed");
-        Assert.assertEquals(actualHeader,MANAGE_JENKINS_PAGE_HEADER);
+        Assert.assertEquals(actualManageJenkinsPageHeader,expectedManageJenkinsPageHeader, " The page is not correct");
     }
 
     @Test
