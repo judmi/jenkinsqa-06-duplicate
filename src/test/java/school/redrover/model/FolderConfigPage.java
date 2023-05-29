@@ -54,4 +54,10 @@ public class FolderConfigPage extends BaseModel {
         getDriver().findElement(By.xpath("//a[@class='yuimenuitemlabel']")).click();
         return this;
     }
+
+    public boolean isRecursive(){
+        return getWait10()
+                .until(ExpectedConditions
+                        .presenceOfElementLocated(By.xpath("//input[@name='_.recursive']"))).isDisplayed();
+    }
 }

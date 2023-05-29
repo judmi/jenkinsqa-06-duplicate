@@ -466,10 +466,6 @@ public class FolderTest extends BaseTest {
                         .clickSaveButton();
         Assert.assertEquals(folderPage.getFolderDisplayName(), NEW_FOLDER_NAME);
         Assert.assertEquals(folderPage.getFolderDescription(), DESCRIPTION_VALUE);
-
-        folderPage.clickConfigureSideMenu().clickOnHealthMetricsType();
-        Assert.assertTrue(getWait10()
-                .until(ExpectedConditions
-                        .presenceOfElementLocated(By.xpath("//input[@name='_.recursive']"))).isDisplayed());
+        Assert.assertTrue(folderPage.clickConfigureSideMenu().clickOnHealthMetricsType().isRecursive());
     }
 }
