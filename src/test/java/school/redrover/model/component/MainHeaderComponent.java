@@ -18,7 +18,7 @@ public class MainHeaderComponent<Page extends BasePage<?>> extends BaseComponent
     }
 
     public Page clickNotificationIcon() {
-        getDriver().findElement(By.id("visible-am-button")).click();
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.id("visible-am-button"))).click();
         return getPage();
     }
 

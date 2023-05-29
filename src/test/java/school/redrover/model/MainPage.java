@@ -249,29 +249,8 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return new RenameFolderPage(getDriver());
     }
 
-    public MainPage moveCursorNotificationIcon() {
-        new Actions(getDriver())
-                .pause(Duration.ofMillis(500))
-                .moveToElement(getDriver().findElement(By.id("visible-am-button")))
-                .perform();
-        return this;
-    }
-
-    public MainPage clickNotificationIcon() {
-        getWait5().until(ExpectedConditions.elementToBeClickable(By.id("visible-am-button"))).click();
-        return this;
-    }
-
     public String getBackgroundColorNotificationIcon() {
         return getDriver().findElement(By.id("visible-am-button")).getCssValue("background-color");
-    }
-
-    public MainPage clickManageJenkinsLink() {
-        new Actions(getDriver())
-                .pause(Duration.ofMillis(500))
-                .click(getWait5().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Manage Jenkins']"))))
-                .perform();
-        return new ManageJenkinsPage(getDriver());
     }
 
     public MainPage hoverOverAdminLink() {
