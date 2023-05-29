@@ -449,4 +449,27 @@ public class FolderTest extends BaseTest {
 
         Assert.assertEquals(nestedFolder.getText(), folder2);
     }
+
+    @Test
+    public void testConfigureFolderNameDescriptionHealthMetrics(){
+        final String NEW_FOLDER_NAME = "TestFolder0404";
+        final String DESCRIPTION_VALUE = "Test Description of the folder";
+
+        TestUtils.createFolder(this, NAME, false);
+
+        FolderPage folderPage =
+                new FolderPage(getDriver())
+                        .clickConfigureSideMenu()
+                        .enterDisplayName(NEW_FOLDER_NAME)
+                        .enterDescription(DESCRIPTION_VALUE)
+                        .setHealthMetricsType()
+                        .clickSaveButton();
+        Assert.assertEquals(folderPage.getFolderDisplayName(), NEW_FOLDER_NAME);
+        Assert.assertEquals(folderPage.getFolderDescription(), DESCRIPTION_VALUE);
+
+        folderPage.clickConfigureSideMenu().clickOnHealthMetricsType();
+        Assert.assertTrue(getWait10()
+                .until(ExpectedConditions
+                        .presenceOfElementLocated(By.xpath("//input[@name='_.recursive']"))).isDisplayed());
+    }
 }
