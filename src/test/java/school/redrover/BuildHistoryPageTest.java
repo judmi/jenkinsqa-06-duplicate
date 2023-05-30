@@ -1,6 +1,5 @@
 package school.redrover;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -28,6 +27,7 @@ public class BuildHistoryPageTest extends BaseTest {
     private static final By DESCRIPTION_FIELD = By.xpath("//textarea[@name='description']");
     private static final By DESCRIPTION_TEXT = By.xpath("//div[@id='description']/div[1]");
 
+    private final String freestyleProjectName = "FreestyleName";
 
     @Test
     public void testNavigateToBuildHistoryPage() throws InterruptedException {
@@ -88,8 +88,6 @@ public class BuildHistoryPageTest extends BaseTest {
 
     @Test
     public void testConsoleFreestyleBuildLocation() {
-        final String freestyleProjectName = "FreestyleName";
-
         String consoleOutputText = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName(freestyleProjectName)
@@ -108,4 +106,22 @@ public class BuildHistoryPageTest extends BaseTest {
         Assert.assertEquals(actualLocation, "Building in workspace /var/jenkins_home/workspace/" + freestyleProjectName);
     }
 
+    @Test
+    public void testConsoleOutputFreestyleBuildStartedByUser() {
+        final String currentUser = new MainPage(getDriver()).getCurrentUserName();
+
+        final String userConsoleOutput = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(freestyleProjectName)
+                .selectFreestyleProject()
+                .selectFreestyleProjectAndOk()
+                .clickSave()
+                .selectBuildNow()
+                .clickDashboard()
+                .clickBuildsHistoryButton()
+                .clickProjectBuildConsole(freestyleProjectName)
+                .getStartedByUser();
+
+        Assert.assertEquals(currentUser, userConsoleOutput);
+    }
 }
