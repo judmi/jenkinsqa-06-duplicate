@@ -90,15 +90,14 @@ public class BuildHistoryPageTest extends BaseTest {
     public void testConsoleFreestyleBuildLocation() {
         final String freestyleProjectName = "FreestyleName";
 
-        new MainPage(getDriver())
+        String consoleOutputText = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName(freestyleProjectName)
                 .selectFreestyleProject()
                 .selectFreestyleProjectAndOk()
-                .clickSave().selectBuildNow()
-                .clickDashboard();
-
-        String consoleOutputText = new MainPage(getDriver())
+                .clickSave()
+                .selectBuildNow()
+                .clickDashboard()
                 .clickBuildsHistoryButton()
                 .clickProjectBuildConsole(freestyleProjectName)
                 .getConsoleOutputText();
