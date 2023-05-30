@@ -84,4 +84,36 @@ public class BuildHistoryPageTest extends BaseTest {
 
         Assert.assertEquals(buildDecsription, BUILD_DESCRIPTION);
     }
+
+    @Test
+    public void testConsoleFreestyleBuildLocation() {
+        final String freestyleProjectName = "FreestyleName";
+
+        new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(freestyleProjectName)
+                .selectFreestyleProject()
+                .selectFreestyleProjectAndOk()
+                .clickSave().selectBuildNow()
+                .clickDashboard();
+
+        String consoleOutputText = new MainPage(getDriver())
+                .clickBuildsHistoryButton()
+                .clickProjectBuildConsole(freestyleProjectName)
+                .getConsoleOutputText();
+
+        String actualLocation = getParameterFromConsoleOutput(consoleOutputText, "workspace");
+
+        Assert.assertEquals(actualLocation, "Building in workspace /var/jenkins_home/workspace/" + freestyleProjectName);
+    }
+
+    private String getParameterFromConsoleOutput(String consoleText, String containParameterText) {
+        String[] split = consoleText.split("\n");
+        for (String str : split) {
+            if (str.contains(containParameterText)) {
+                return str;
+            }
+        }
+        return null;
+    }
 }

@@ -45,4 +45,9 @@ public class BuildPage extends BaseModel {
 
         return getBuildHeader().getText().contains("Build #1");
     }
+
+    public ConsoleOutputPage clickProjectBuildConsole(String projectBuildName){
+        getDriver().findElement(By.xpath("//a[contains(@href, '" + projectBuildName + "')  and contains(@href, 'console') and not(contains(@href, 'default'))]")).click();
+        return new ConsoleOutputPage(getDriver());
+    }
 }
