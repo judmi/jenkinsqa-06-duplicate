@@ -427,4 +427,8 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@class='jenkins-table__cell--tight']"))).click();
         return new BuildPage(getDriver());
     }
+
+    public boolean isMainPageOpen() {
+        return getWait5().until(ExpectedConditions.titleContains("Dashboard [Jenkins]"));
+    }
 }
