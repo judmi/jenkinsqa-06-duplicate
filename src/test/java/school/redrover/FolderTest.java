@@ -175,8 +175,9 @@ public class FolderTest extends BaseTest {
         final String description = "Created new folder";
 
         TestUtils.createFolder(this, NAME, false);
-        FolderPage folderPage = new FolderPage(getDriver());
-        folderPage.clickConfigureSideMenu()
+
+        FolderPage folderPage = new FolderPage(getDriver())
+                .clickConfigureSideMenu()
                 .enterDisplayName(displayName)
                 .enterDescription(description)
                 .clickSaveButton();
