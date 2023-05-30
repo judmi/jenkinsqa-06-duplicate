@@ -28,8 +28,6 @@ public class HeaderTest extends BaseTest {
 
     private static final By NOTIFICATION_ICON = By.id("visible-am-button");
     private static final By MANAGE_JENKINS_LINK = By.xpath("//a[text()='Manage Jenkins']");
-    private static final By ADMIN_BTN = By.xpath("//a[@href='/user/admin']");
-    private static final By LOGOUT_BTN = By.xpath("//a[@href='/logout']");
     private static final By POP_UP_SCREEN_OF_THE_NOTIFICATION_BTN = By.id("visible-am-list");
 
     @Test
@@ -284,30 +282,20 @@ public class HeaderTest extends BaseTest {
 
     @Test
     public void testOfIconColorChange() {
-        String notificationIconColorBefore = getDriver().findElement(NOTIFICATION_ICON).getCssValue("background-color");
-        String adminIconColorBefore = getDriver().findElement(ADMIN_BTN).getCssValue("background-color");
-        String logoutIconColorBefore = getDriver().findElement(LOGOUT_BTN).getCssValue("background-color");
+        MainPage mainPage = new MainPage(getDriver());
 
-        new Actions(getDriver())
-                .moveToElement(getDriver().findElement(NOTIFICATION_ICON))
-                .perform();
+        final String notificationIconColorBefore = mainPage.getHeader().getNotificationIconColor();
+        final String adminIconColorBefore = mainPage.getHeader().getAdminIconColor();
+        final String logOutIconColorBefore = mainPage.getHeader().getLogOutIconColor();
 
-        Assert.assertNotEquals(getDriver().findElement(NOTIFICATION_ICON).getCssValue("background-color"),
-                notificationIconColorBefore);
-
-        new Actions(getDriver())
-                .moveToElement(getDriver().findElement(ADMIN_BTN))
-                .perform();
-
-        Assert.assertNotEquals(getDriver().findElement(ADMIN_BTN).getCssValue("background-color"),
-                adminIconColorBefore);
-
-        new Actions(getDriver())
-                .moveToElement(getDriver().findElement(LOGOUT_BTN))
-                .perform();
-
-        Assert.assertNotEquals(getDriver().findElement(LOGOUT_BTN).getCssValue("background-color"),
-                logoutIconColorBefore);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotEquals(mainPage.getHeader().hoverOverNotificationIcon().getNotificationIconColor(),
+                notificationIconColorBefore, "The Notification icon background has not changed");
+        softAssert.assertNotEquals(mainPage.getHeader().hoverOverAdminIcon().getAdminIconColor(), adminIconColorBefore,
+                "The Admin icon background has not changed");
+        softAssert.assertNotEquals(mainPage.getHeader().hoverOverLogOutIcon().getLogOutIconColor(), logOutIconColorBefore,
+                "The LogOut icon background has not changed");
+        softAssert.assertAll();
     }
 
     @Test
