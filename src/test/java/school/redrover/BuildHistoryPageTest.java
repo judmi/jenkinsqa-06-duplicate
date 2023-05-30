@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import school.redrover.model.ConsoleOutputPage;
 import school.redrover.model.MainPage;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
@@ -102,18 +103,10 @@ public class BuildHistoryPageTest extends BaseTest {
                 .clickProjectBuildConsole(freestyleProjectName)
                 .getConsoleOutputText();
 
-        String actualLocation = getParameterFromConsoleOutput(consoleOutputText, "workspace");
+        String actualLocation = new ConsoleOutputPage(getDriver())
+                .getParameterFromConsoleOutput(consoleOutputText, "workspace");
 
         Assert.assertEquals(actualLocation, "Building in workspace /var/jenkins_home/workspace/" + freestyleProjectName);
     }
 
-    private String getParameterFromConsoleOutput(String consoleText, String containParameterText) {
-        String[] split = consoleText.split("\n");
-        for (String str : split) {
-            if (str.contains(containParameterText)) {
-                return str;
-            }
-        }
-        return null;
-    }
 }
