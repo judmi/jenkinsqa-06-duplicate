@@ -50,4 +50,16 @@ public class BuildPage extends BaseModel {
         getDriver().findElement(By.xpath("//a[contains(@href, '" + projectBuildName + "')  and contains(@href, 'console') and not(contains(@href, 'default'))]")).click();
         return new ConsoleOutputPage(getDriver());
     }
+  
+    public String getBooleanParameterName() {
+        return getDriver().findElement(By.xpath("//label[@class='attach-previous ']")).getText();
+    }
+
+    public String getBooleanParameterCheckbox() {
+        return getDriver().findElement(By.xpath("//input[@name='value']")).getAttribute("checked");
+    }
+
+    public String getBooleanParameterDescription() {
+        return getDriver().findElement(By.xpath("//div[@class='jenkins-form-description']")).getText();
+    }
 }
