@@ -391,4 +391,8 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         getDriver().findElement(By.xpath("//div//li//span[contains(text(),'Delete Project')]")).click();
         return this;
     }
+
+    public String getCurrentUserName() {
+        return getDriver().findElement(By.xpath("//a[@class='model-link']/span[contains(@class,'hidden-xs')]")).getAttribute("innerText");
+    }
 }
