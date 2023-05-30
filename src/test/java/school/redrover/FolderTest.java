@@ -497,4 +497,24 @@ public class FolderTest extends BaseTest {
 
         Assert.assertTrue(createdOrganizationFolder.isDisplayed());
     }
+
+    @Test
+    public void testMoveMultibranchPipelineToFolderFromSideMenu() {
+        final String nameMultibranchPipeline = "MultibranchPipeline1";
+        final String nameFolder = "Folder1";
+
+        TestUtils.createFolder(this, nameFolder, true);
+        TestUtils.createMultibranchPipeline(this, nameMultibranchPipeline, true);
+
+        String nameMultibranchPipelineDisplays = new MainPage(getDriver())
+                .clickMultibranchProjectName(nameMultibranchPipeline)
+                .clickMoveOnSideMenu()
+                .selectDestinationFolder()
+                .clickMoveButton()
+                .clickDashboard()
+                .clickFolderName(nameFolder)
+                .getMultibranchPipelineName().getText();
+
+        Assert.assertEquals(nameMultibranchPipelineDisplays,nameMultibranchPipeline);
+    }
 }
