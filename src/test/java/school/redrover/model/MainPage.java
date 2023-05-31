@@ -390,4 +390,10 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
     public String getCurrentUserName() {
         return getDriver().findElement(By.xpath("//a[@class='model-link']/span[contains(@class,'hidden-xs')]")).getAttribute("innerText");
     }
+
+    public MultiConfigurationProjectPage clickMultiConfigurationProject(String MultiConfigurationProjectName) {
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//span[contains(text(),'" + MultiConfigurationProjectName + "')]"))).click();
+        return new MultiConfigurationProjectPage(getDriver());
+    }
 }
