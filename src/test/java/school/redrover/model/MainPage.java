@@ -3,6 +3,7 @@ package school.redrover.model;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.reporters.jq.Main;
 import school.redrover.model.base.BaseMainHeaderPage;
 import school.redrover.model.base.BasePage;
 
@@ -144,11 +145,6 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
     public BuildPage clickBuildsHistoryButton() {
         TestUtils.click(this, getDriver().findElement(By.xpath("//a[@href='/view/all/builds']")));
         return new BuildPage(getDriver());
-    }
-
-    public ViewPage clickNewItemButton() {
-        TestUtils.click(this, getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")));
-        return new ViewPage(getDriver());
     }
 
     public MainPage acceptAlert() {
@@ -384,7 +380,7 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
     public String getCurrentUserName() {
         return getDriver().findElement(By.xpath("//a[@class='model-link']/span[contains(@class,'hidden-xs')]")).getAttribute("innerText");
     }
-
+  
     public MultibranchPipelinePage clickMultibranchProjectName(String projectName) {
         new Actions(getDriver()).moveToElement(getJobWebElement(projectName)).click(getJobWebElement(projectName)).perform();
         return new MultibranchPipelinePage(getDriver());
@@ -411,6 +407,10 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
                 (By.xpath("//div[@id='tasks']/div[2]/span/a"))).click();
         return this;
     }
+
+    public FreestyleProjectPage clickConfigureDropDown() {
+        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.id("breadcrumb-menu")));
+        getDriver().findElement(By.xpath("//div//li//span[contains(text(),'Configure')]")).click();
+        return new FreestyleProjectPage(getDriver());
+    }
 }
-
-
