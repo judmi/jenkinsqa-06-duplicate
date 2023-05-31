@@ -8,9 +8,9 @@ import school.redrover.model.base.BaseMainHeaderPage;
 
 import java.time.Duration;
 
-public abstract class BaseJobPage extends BaseMainHeaderPage<BaseJobPage> {
+public abstract class ProjectPage extends BaseMainHeaderPage<ProjectPage> {
 
-    public BaseJobPage(WebDriver driver) {
+    public ProjectPage(WebDriver driver) {
         super(driver);
     }
 
@@ -39,17 +39,17 @@ public abstract class BaseJobPage extends BaseMainHeaderPage<BaseJobPage> {
 
     }
 
-    public BaseJobPage getDisableClick(){
+    public ProjectPage getDisableClick(){
         getDriver().findElement(By.xpath("//form[@id='disable-project']/button")).click();
         return this;
     }
 
-    public RenamePage<BaseJobPage> clickRename() {
+    public RenamePage<ProjectPage> clickRename() {
         getDriver().findElement(By.linkText("Rename")).click();
         return new RenamePage<>(this);
     }
 
-    public BaseJobPage enableProject(){
+    public ProjectPage enableProject(){
         getWait5().until(ExpectedConditions.elementToBeClickable(getDriver().
                 findElement(By.xpath("//form[@id='enable-project']/button")))).click();
 
