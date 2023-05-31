@@ -186,8 +186,8 @@ public class FolderTest extends BaseTest {
                 .addDescription(description)
                 .clickSaveButton();
 
-        Assert.assertEquals(folderPage.getFolderDisplayName(), displayName);
-        Assert.assertTrue(folderPage.getFolderName().contains("Folder name: " + NAME));
+        Assert.assertEquals(folderPage.getFolderName(), displayName);
+        Assert.assertTrue(folderPage.getOriginalFolderNameIfDisplayNameSet().contains("Folder name: " + NAME));
         Assert.assertEquals(folderPage.getFolderDescription(), description);
     }
 
@@ -450,7 +450,7 @@ public class FolderTest extends BaseTest {
                         .setHealthMetricsType()
                         .addDescription(DESCRIPTION_VALUE)
                         .clickSaveButton();
-        Assert.assertEquals(folderPage.getFolderDisplayName(), NEW_FOLDER_NAME);
+        Assert.assertEquals(folderPage.getFolderName(), NEW_FOLDER_NAME);
         Assert.assertEquals(folderPage.getFolderDescription(), DESCRIPTION_VALUE);
         Assert.assertTrue(folderPage.clickConfigureSideMenu().clickOnHealthMetricsType().isRecursive());
     }
