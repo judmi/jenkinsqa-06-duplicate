@@ -69,7 +69,7 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .enterItemName(PIPELINE_NAME)
                 .selectPipelineAndOk()
-                .enterDescription(textDescription)
+                .addDescription(textDescription)
                 .clickSaveButton()
                 .getDescription()
                 .getText();
@@ -86,7 +86,7 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .enterItemName(PIPELINE_NAME)
                 .selectPipelineAndOk()
-                .enterDescription(description)
+                .addDescription(description)
                 .clickSaveButton()
                 .clickDashboard()
                 .clickPipelineProject(PIPELINE_NAME)
@@ -233,7 +233,7 @@ public class PipelineTest extends BaseTest {
 
         String jobDescription = new PipelinePage(getDriver())
                 .clickConfigureButton()
-                .enterDescription("Pipeline text")
+                .addDescription("Pipeline text")
                 .clickSaveButton()
                 .getDescriptionText();
 
@@ -705,15 +705,15 @@ public class PipelineTest extends BaseTest {
                 .clickNewItem()
                 .enterItemName("Engineer")
                 .selectPipelineAndOk()
-                .sendAreDescriptionInputString(description)
+                .addDescription(description)
                 .clickPreview()
                 .getPreviewText();
         Assert.assertEquals(textPreview, description);
 
-        new ConfigurePage(getDriver())
+        new PipelineConfigPage(new PipelinePage(getDriver()))
                 .clearDescriptionArea()
-                .sendAreDescriptionInputString(newDescription)
-                .selectSaveButton();
+                .addDescription(newDescription)
+                .clickSaveButton();
         String actualDescription = new ProjectPage(getDriver()).getProjectDescription();
         Assert.assertTrue(actualDescription.contains(newDescription), "description not displayed");
     }

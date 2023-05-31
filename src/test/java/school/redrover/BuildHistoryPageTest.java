@@ -30,7 +30,7 @@ public class BuildHistoryPageTest extends BaseTest {
     private final String freestyleProjectName = "FreestyleName";
 
     @Test
-    public void testNavigateToBuildHistoryPage() throws InterruptedException {
+    public void testNavigateToBuildHistoryPage() {
 
         final String expectedBuildHistoryPageUrl = "http://localhost:8080/view/all/builds";
         final String expectedBuildHistoryPageTitle = "All [Jenkins]";
@@ -71,7 +71,7 @@ public class BuildHistoryPageTest extends BaseTest {
 
     @Test
     public void testAddDescriptionToBuild() {
-        String buildDecsription = new MainPage(getDriver())
+        String buildDescription = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName(NAME_PIPELINE)
                 .selectPipelineAndOk()
@@ -83,7 +83,7 @@ public class BuildHistoryPageTest extends BaseTest {
                 .clickSaveButton()
                 .getDescription().getText();
 
-        Assert.assertEquals(buildDecsription, BUILD_DESCRIPTION);
+        Assert.assertEquals(buildDescription, BUILD_DESCRIPTION);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class BuildHistoryPageTest extends BaseTest {
                 .enterItemName(freestyleProjectName)
                 .selectFreestyleProject()
                 .selectFreestyleProjectAndOk()
-                .clickSave()
+                .clickSaveButton()
                 .selectBuildNow()
                 .clickDashboard()
                 .clickBuildsHistoryButton()
