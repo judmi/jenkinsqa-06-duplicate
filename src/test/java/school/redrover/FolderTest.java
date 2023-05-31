@@ -45,10 +45,12 @@ public class FolderTest extends BaseTest {
 
         String actualResult = mainPage.getFolderName().getText();
 
-        WebElement webElement = mainPage.navigateToProjectPage().getNameProject();
+        String folderName = mainPage
+                .clickFolderName(NAME)
+                .getFolderName();
 
         Assert.assertEquals(actualResult, NAME);
-        Assert.assertEquals(webElement.getText(), NAME);
+        Assert.assertEquals(folderName, NAME);
     }
 
     @Test
@@ -266,7 +268,7 @@ public class FolderTest extends BaseTest {
     @Test
     public void testCreateMulticonfigurationProjectInFolder() {
 
-        new MainPage(getDriver())
+       MultiConfigurationProjectPage multiPage = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName("TC 00.04 New item Create Folder")
                 .selectFolderAndOk()
@@ -276,7 +278,7 @@ public class FolderTest extends BaseTest {
                 .selectMultiConfigurationProjectAndOk()
                 .saveConfigurePageAndGoToProjectPage();
 
-        Assert.assertTrue(new ProjectPage(getDriver()).projectsHeadline().getText().contains("Mine Project"));
+        Assert.assertTrue(multiPage.getMultiProjectName().getText().contains("Mine Project"));
     }
 
     @Test

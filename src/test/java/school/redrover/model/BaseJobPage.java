@@ -5,13 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BaseMainHeaderPage;
-import school.redrover.model.base.BaseModel;
 
 import java.time.Duration;
 
-public class ProjectPage extends BaseMainHeaderPage<ProjectPage> {
+public abstract class BaseJobPage extends BaseMainHeaderPage<BaseJobPage> {
 
-    public ProjectPage(WebDriver driver) {
+    public BaseJobPage(WebDriver driver) {
         super(driver);
     }
 
@@ -40,17 +39,17 @@ public class ProjectPage extends BaseMainHeaderPage<ProjectPage> {
 
     }
 
-    public ProjectPage getDisableClick(){
+    public BaseJobPage getDisableClick(){
         getDriver().findElement(By.xpath("//form[@id='disable-project']/button")).click();
         return this;
     }
 
-    public RenamePage<ProjectPage> clickRename() {
+    public RenamePage<BaseJobPage> clickRename() {
         getDriver().findElement(By.linkText("Rename")).click();
         return new RenamePage<>(this);
     }
 
-    public ProjectPage enableProject(){
+    public BaseJobPage enableProject(){
         getWait5().until(ExpectedConditions.elementToBeClickable(getDriver().
                 findElement(By.xpath("//form[@id='enable-project']/button")))).click();
 
