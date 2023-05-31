@@ -54,4 +54,11 @@ public class StatusUserPage extends BaseMainHeaderPage<StatusUserPage> {
         return getDriver().findElement(
                 By.xpath("//div[@id='main-panel']/div[contains(text(), 'ID')]")).getText();
     }
+
+    public ConfigureUserPage clickConfigureSideMenu() {
+        getWait5().until(ExpectedConditions.elementToBeClickable(
+                getDriver().findElement(By.cssSelector("[href$='/configure']")))).click();
+
+        return new ConfigureUserPage(getDriver());
+    }
 }
