@@ -3,6 +3,7 @@ package school.redrover.model;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import school.redrover.model.base.BaseMainHeaderPage;
+import school.redrover.model.base.BaseModel;
 import school.redrover.runner.TestUtils;
 
 public class JobPage extends BaseMainHeaderPage<JobPage> {

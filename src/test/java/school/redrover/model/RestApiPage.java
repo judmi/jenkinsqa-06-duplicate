@@ -20,5 +20,4 @@ public class RestApiPage extends BaseMainHeaderPage<RestApiPage> {
                 By.xpath("//div[@id='main-panel']/h2[contains(text(),'Controlling')]"))).getText()
                 .equals("Controlling the amount of data you fetch");
     }
-
 }
