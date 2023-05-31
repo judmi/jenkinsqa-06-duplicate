@@ -159,7 +159,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Test(dependsOnMethods = "testDisabledMultiConfigurationProject")
     public void testEnabledMultiConfigurationProject() {
         MultiConfigurationProjectPage enabledProjPage = new MainPage(getDriver())
-                .clickMultiConfigurationProject(MULTI_CONFIGURATION_NAME)
+                .clickJobMultiConfigurationProject(MULTI_CONFIGURATION_NAME)
                 .getEnableClick();
 
         Assert.assertEquals(enabledProjPage.getDisableSwitch().getText(), "Disable Project");
@@ -218,7 +218,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
     @Test(dependsOnMethods = "testCreateMultiConfiguration")
     public void testProjectPageDelete() {
         MainPage deletedProjPage = new MainPage(getDriver())
-                .clickMultiConfigurationProject(MULTI_CONFIGURATION_NAME)
+                .clickJobMultiConfigurationProject(MULTI_CONFIGURATION_NAME)
                 .deleteProject();
 
         Assert.assertEquals(deletedProjPage.getTitle(), "Dashboard [Jenkins]");
