@@ -701,7 +701,7 @@ public class PipelineTest extends BaseTest {
                 .clearDescriptionArea()
                 .addDescription(newDescription)
                 .clickSaveButton();
-        String actualDescription = new ProjectPage(getDriver()).getProjectDescription();
+        String actualDescription = new JobPage(getDriver()).getProjectDescription();
         Assert.assertTrue(actualDescription.contains(newDescription), "description not displayed");
     }
 
