@@ -29,13 +29,6 @@ public class PipelineTest extends BaseTest {
     private static final By scriptButton = xpath("//div[@class = 'samples']/select");
     private static final By homePage = By.xpath("//h1[@class= 'job-index-headline page-headline']");
 
-    public void scrollByElement(By by) throws InterruptedException {
-        WebElement scroll = getDriver().findElement(by);
-        new Actions(getDriver())
-                .scrollToElement(scroll)
-                .perform();
-    }
-
     private void createWithoutDescription(String name) {
         getDriver().findElement(By.xpath("//a[@href = 'newJob']")).click();
 
@@ -243,16 +236,15 @@ public class PipelineTest extends BaseTest {
     public void testDiscardOldBuildsPipeline() {
         TestUtils.createPipeline(this, PIPELINE_NAME, false);
 
-        getDriver().findElement(By.xpath("//a[@href='/job/" + PIPELINE_NAME + "/configure']")).click();
-        getDriver().findElement(By.xpath("//label[normalize-space()='Discard old builds']")).click();
+        String jobName = new PipelinePage(getDriver())
+                .clickConfigureButton()
+                .clickDiscardOldBuildsCheckbox()
+                .enterDaysToKeepBuilds("2")
+                .enterMaxOfBuildsToKeep("30")
+                .clickSaveButton()
+                .getProjectName();
 
-        getDriver().findElement(By.name("_.daysToKeepStr")).sendKeys("2");
-        getDriver().findElement(By.xpath("//input[@name='_.numToKeepStr']")).sendKeys("30");
-
-        getDriver().findElement(By.name("Submit")).click();
-
-        Assert.assertEquals("Pipeline " + PIPELINE_NAME,
-                getDriver().findElement(By.cssSelector(".job-index-headline.page-headline")).getText());
+        Assert.assertEquals(jobName,"Pipeline " + PIPELINE_NAME);
     }
 
     @Test(dependsOnMethods = {"testCreatePipeline"})
@@ -529,17 +521,15 @@ public class PipelineTest extends BaseTest {
 
     @Test
     public void testDiscardOldBuildsIsChecked() {
-        createWithoutDescription("test-pipeline");
-        getDriver().findElement(By.xpath("//*[@href='/job/test-pipeline/configure']")).click();
+        TestUtils.createPipeline(this, PIPELINE_NAME, false);
 
-        getDriver().findElement(By.xpath("//label[contains(text(),'Discard old builds')]")).click();
-        getDriver().findElement(By.name("Submit")).click();
+        boolean discardOldBuildsCheckbox = new PipelinePage(getDriver())
+                .clickConfigureButton()
+                .selectDiscardOldBuildsandSave()
+                .clickConfigureButton()
+                .checkboxDiscardOldBuildsIsSelected();
 
-        getDriver().findElement(By.xpath("//*[@href='/job/test-pipeline/configure']")).click();
-
-        WebElement discardOldBuildsCheckbox = getDriver().findElement(By.id("cb2"));
-
-        Assert.assertTrue(discardOldBuildsCheckbox.isSelected());
+        Assert.assertTrue(discardOldBuildsCheckbox);
     }
 
     @Test

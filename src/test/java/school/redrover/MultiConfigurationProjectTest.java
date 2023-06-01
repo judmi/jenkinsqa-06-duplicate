@@ -31,14 +31,14 @@ public class MultiConfigurationProjectTest extends BaseTest {
     private static final String MULTI_CONFIGURATION_NEW_NAME = "MULTI_CONFIGURATION_NEW_NAME";
     private static final By SAVE_BUTTON = By.name("Submit");
 
-    private void createMultiConfigurationProject(String name, Boolean goToHomePage) {
+    private void createMultiConfigurationProject(String name, Boolean goToMainPage) {
         getDriver().findElement(By.linkText("New Item")).click();
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='name']"))).sendKeys(name);
         getDriver().findElement(By.xpath("//label/span[contains(text(), 'Multi-configuration proj')]")).click();
         getWait2().until(ExpectedConditions.elementToBeClickable(By.id("ok-button"))).click();
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@name='Submit']"))).click();
 
-        if (goToHomePage) {
+        if (goToMainPage) {
             getDriver().findElement(By.linkText("Dashboard")).click();
         }
     }
@@ -295,16 +295,14 @@ public class MultiConfigurationProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCreateMultiConfigurationProjectWithDescriptionTest() {
+    public void testCreateProjectWithDescription() {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
+        String nameDescription = new MultiConfigurationProjectPage(getDriver())
+                .getAddDescription(DESCRIPTION)
+                .getSaveButton()
+                .getInputAdd().getText();
 
-        getDriver().findElement(By.xpath("//*[@id='description-link']")).click();
-        getDriver().findElement(By.xpath("//*[@id='description']//textarea")).sendKeys(DESCRIPTION);
-        getDriver().findElement(By.name("Submit")).click();
-
-        WebElement nameDescription = getDriver().findElement(By.xpath("//div[@id ='description']//div"));
-
-        Assert.assertEquals(nameDescription.getText(), DESCRIPTION);
+        Assert.assertEquals(nameDescription, DESCRIPTION);
     }
 
     @DataProvider(name = "unsafe-character")
@@ -353,15 +351,14 @@ public class MultiConfigurationProjectTest extends BaseTest {
     }
 
     @Test
-    public void testCheckExceptionToMultiConfigurationPage() {
-        getDriver().findElement(By.linkText("New Item")).click();
-        WebElement multiconfigButton = getWait10().until(ExpectedConditions
-                .visibilityOfElementLocated(By.xpath("//span[text()='Multi-configuration project']")));
-        multiconfigButton.click();
-        String exceptionText = getDriver().findElement(By
-                .xpath("//div[text() ='» This field cannot be empty, please enter a valid name']")).getText();
+    public void testCheckExceptionOfNameToMultiConfiguration() {
+        String exceptionMessage = new MainPage(getDriver())
+                .clickNewItem()
+                .selectMultiConfigurationProject()
+                .clickButtonOk()
+                .getItemNameRequiredMessage();
 
-        Assert.assertEquals(exceptionText, "» This field cannot be empty, please enter a valid name");
+        Assert.assertEquals(exceptionMessage,"» This field cannot be empty, please enter a valid name");
     }
 
     @Test
@@ -392,18 +389,14 @@ public class MultiConfigurationProjectTest extends BaseTest {
     }
 
     @Test
-    public void testDisableMultiConfigurationProjectFromConfigurationPage() {
-        final String expectedResult = "This project is currently disabled";
-
+    public void testDisableProjectFromConfigurationPage() {
+        final String disableResult = "This project is currently disabled";
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
+        String disableMessage = new MultiConfigurationProjectPage(getDriver())
+                .getDisableClick()
+                .getDisableText();
 
-        getDriver().findElement(By.xpath("//*[@id='description-link']")).click();
-
-        getDriver().findElement(DISABLE_BUTTON_CONFIG_PAGE).click();
-
-        WebElement disableMessage = getDriver().findElement(By.xpath("//*[@id='enable-project']"));
-
-        Assert.assertEquals(disableMessage.getText().substring(0, 34), expectedResult);
+        Assert.assertTrue(disableMessage.contains(disableResult), "Not found such message");
     }
 
     @Test
