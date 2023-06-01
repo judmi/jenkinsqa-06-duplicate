@@ -42,9 +42,10 @@ public class PipelineTest extends BaseTest {
         new WelcomeToJenkinsPage(getDriver())
                 .clickOnWelcomeToJenkinsField()
                 .enterItemName(name)
-                .selectPipelineAndOk();
+                .selectPipelineAndOk()
+                .clickSaveButton();
 
-        return new PipelineConfigPage(getDriver());
+        return new PipelineConfigPage(new PipelinePage(getDriver()));
     }
 
     @Test

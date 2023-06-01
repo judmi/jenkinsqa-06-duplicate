@@ -3,10 +3,8 @@ package school.redrover.model;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.reporters.jq.Main;
 import school.redrover.model.base.BaseMainHeaderPage;
 import school.redrover.model.base.BasePage;
-
 import school.redrover.runner.TestUtils;
 
 import java.util.List;
@@ -368,10 +366,6 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
 
     public boolean isMainPageOpen() {
         return getWait5().until(ExpectedConditions.titleContains("Dashboard [Jenkins]"));
-    }
-
-    public String getCurrentUserName() {
-        return getDriver().findElement(By.xpath("//a[@class='model-link']/span[contains(@class,'hidden-xs')]")).getAttribute("innerText");
     }
 
     public MultibranchPipelinePage clickMultibranchProjectName(String projectName) {
