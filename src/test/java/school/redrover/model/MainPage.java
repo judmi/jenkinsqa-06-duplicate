@@ -79,12 +79,6 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return getDriver().getTitle();
     }
 
-    public JobPage goToJobPage() {
-        WebElement firstJobLink = getDriver().findElement(By.xpath("//td/a"));
-        new Actions(getDriver()).moveToElement(firstJobLink).click(firstJobLink).perform();
-        return new JobPage(getDriver());
-    }
-
     public FolderPage clickFolderName(String FolderName) {
         new Actions(getDriver()).moveToElement(getJobWebElement(FolderName)).click(getJobWebElement(FolderName)).perform();
         return new FolderPage(getDriver());
