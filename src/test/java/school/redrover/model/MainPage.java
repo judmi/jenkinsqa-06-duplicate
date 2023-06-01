@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BaseMainHeaderPage;
 import school.redrover.model.base.BasePage;
+
 import school.redrover.runner.TestUtils;
 
 import java.util.List;
@@ -71,17 +72,11 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
 
     public WebElement getJobWebElement(String jobName) {
         return getWait5().until(ExpectedConditions.elementToBeClickable(getDriver()
-                .findElement(By.xpath("//span[contains(text(),'" + jobName + "')]"))));
+                .findElement(By.xpath("//a[@href='job/" + jobName + "/']"))));
     }
 
     public String getTitle() {
         return getDriver().getTitle();
-    }
-
-    public ProjectPage navigateToProjectPage() {
-        WebElement firstJobLink = getDriver().findElement(By.xpath("//td/a"));
-        new Actions(getDriver()).moveToElement(firstJobLink).click(firstJobLink).perform();
-        return new ProjectPage(getDriver());
     }
 
     public FolderPage clickFolderName(String FolderName) {
@@ -140,9 +135,14 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return new MainPage(getDriver());
     }
 
-    public BuildHistoryPage clickBuildsHistoryButton() {
+    public BuildPage clickBuildsHistoryButton() {
         TestUtils.click(this, getDriver().findElement(By.xpath("//a[@href='/view/all/builds']")));
-        return new BuildHistoryPage(getDriver());
+        return new BuildPage(getDriver());
+    }
+
+    public ViewPage clickNewItemButton() {
+        TestUtils.click(this, getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")));
+        return new ViewPage(getDriver());
     }
 
     public MainPage acceptAlert() {
@@ -174,10 +174,10 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return new NewJobPage(getDriver());
     }
 
-    public MultiConfigurationProjectPage getMultiConfigPage() {
+    public MainPage getMultiConfigPage() {
         getWait10().until(ExpectedConditions.elementToBeClickable(getDriver()
                 .findElement(By.cssSelector(".jenkins-table__link")))).click();
-        return new MultiConfigurationProjectPage(getDriver());
+        return this;
     }
 
     public MainPage dropDownMenuClickDelete(String jobName) {
@@ -287,6 +287,13 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return new FreestyleProjectPage(getDriver());
     }
 
+    public MainPage clickConfigureSideMenu() {
+        getWait5().until(ExpectedConditions.elementToBeClickable(
+                getDriver().findElement(By.cssSelector("[href$='/configure']")))).click();
+
+        return this;
+    }
+
     public List<String> getJobList() {
         return getDriver().findElements(By.cssSelector(".jenkins-table__link"))
                 .stream()
@@ -355,6 +362,7 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         getDriver().findElement(By.xpath(String.format("//span[text()='%s']", folderName))).click();
         return new FolderPage(getDriver());
     }
+
     public WebElement expectedErrorMessage() {
         return getWait10().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(("//div[@id='itemname-required']"))));
     }
@@ -368,6 +376,10 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return getWait5().until(ExpectedConditions.titleContains("Dashboard [Jenkins]"));
     }
 
+    public String getCurrentUserName() {
+        return getDriver().findElement(By.xpath("//a[@class='model-link']/span[contains(@class,'hidden-xs')]")).getAttribute("innerText");
+    }
+
     public MultibranchPipelinePage clickMultibranchProjectName(String projectName) {
         new Actions(getDriver()).moveToElement(getJobWebElement(projectName)).click(getJobWebElement(projectName)).perform();
         return new MultibranchPipelinePage(getDriver());
@@ -377,10 +389,6 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(By.id("breadcrumb-menu")));
         getDriver().findElement(By.xpath("//div//li//span[contains(text(),'Delete Project')]")).click();
         return this;
-    }
-
-    public String getCurrentUserName() {
-        return getDriver().findElement(By.xpath("//a[@class='model-link']/span[contains(@class,'hidden-xs')]")).getAttribute("innerText");
     }
 
     public MultiConfigurationProjectPage clickMultiConfigurationProject(String MultiConfigurationProjectName) {
@@ -408,4 +416,9 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return this;
     }
 
+
+    public PeoplePage clickPeopleOnLeftSideMenu() {
+        getDriver().findElement(By.xpath("//*[@href='/asynchPeople/']")).click();
+        return new PeoplePage(getDriver());
+    }
 }
