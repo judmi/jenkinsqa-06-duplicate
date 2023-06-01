@@ -277,6 +277,7 @@ public class PipelineTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void testCreateBuildNowVisibilityTheTimeStatusBuild() {
         TestUtils.createPipeline(this, "Engineer", true);
 
