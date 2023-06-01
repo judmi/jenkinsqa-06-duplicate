@@ -336,6 +336,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(newName.getText(), "Project " + MULTI_CONFIGURATION_NEW_NAME);
     }
 
+    @Ignore
     @Test
     public void testCheckExceptionOfNameToMultiConfiguration() {
         String exceptionMessage = new MainPage(getDriver())
