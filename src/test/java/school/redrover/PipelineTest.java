@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
@@ -13,8 +12,8 @@ import org.testng.annotations.Test;
 import school.redrover.model.*;
 import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
+import school.redrover.model.WelcomeToJenkinsPage;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,14 +37,14 @@ public class PipelineTest extends BaseTest {
                 .perform();
     }
 
-    private void createWithoutDescription(String name) {
-        getDriver().findElement(By.xpath("//a[@href = 'newJob']")).click();
+    private PipelineConfigPage createWithoutDescription(String name) {
 
-        getDriver().findElement(By.id("name")).sendKeys(name);
-        getDriver().findElement(By.xpath("//*[@id='j-add-item-type-standalone-projects']//li[2]")).click();
-        getDriver().findElement(By.id("ok-button")).click();
+        new WelcomeToJenkinsPage(getDriver())
+                .clickOnWelcomeToJenkinsField()
+                .enterItemName(name)
+                .selectPipelineAndOk();
 
-        getDriver().findElement(By.name("Submit")).click();
+        return new PipelineConfigPage(getDriver());
     }
 
     @Test
@@ -531,6 +530,8 @@ public class PipelineTest extends BaseTest {
 
     @Test
     public void testDiscardOldBuildsIsChecked() {
+
+
         createWithoutDescription("test-pipeline");
         getDriver().findElement(By.xpath("//*[@href='/job/test-pipeline/configure']")).click();
 
