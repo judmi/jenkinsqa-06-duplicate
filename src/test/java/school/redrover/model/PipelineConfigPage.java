@@ -109,4 +109,15 @@ public class PipelineConfigPage extends BaseConfigPage<PipelineConfigPage, Pipel
         getDriver().findElement(By.xpath("//textarea[contains(@name,'parameter.description')]")).sendKeys(description);
         return this;
     }
+
+    public PipelinePage selectDiscardOldBuildsandSave() {
+        getDriver().findElement(By.xpath("//label[contains(text(),'Discard old builds')]")).click();
+        getDriver().findElement(By.name("Submit")).click();
+        return new PipelinePage(getDriver());
+    }
+
+    public boolean checkboxDiscardOldBuildsIsSelected() {
+        getDriver().findElement(By.id("cb2"));
+        return true;
+    }
 }
