@@ -128,6 +128,26 @@ public class BuildPageTest extends BaseTest {
     }
 
     @Test
+    public void testConsoleOutputFreestyleBuildStatus(){
+        final String consoleOutput = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(freestyleProjectName)
+                .selectFreestyleProject()
+                .selectFreestyleProjectAndOk()
+                .clickSaveButton()
+                .selectBuildNow()
+                .clickDashboard()
+                .clickBuildsHistoryButton()
+                .clickProjectBuildConsole(freestyleProjectName)
+                .getConsoleOutputText();
+
+        String actualStatus = new ConsoleOutputPage(getDriver())
+                .getParameterFromConsoleOutput(consoleOutput, "Finished");
+
+        Assert.assertEquals(actualStatus, "Finished: SUCCESS");
+    }
+
+    @Test
     public void verifyStatusBroken() {
 
         final String namePipeline = "New Builds";
