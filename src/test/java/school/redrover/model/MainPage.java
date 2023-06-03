@@ -301,4 +301,8 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
     public WebElement getWelcomeWebElement() {
         return getDriver().findElement(By.xpath("//h1[text()='Welcome to Jenkins!']"));
     }
+    public ManageNodesPage clickBuildExecutorStatus() {
+        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/computer/']"))).click();
+        return new ManageNodesPage(getDriver());
+    }
 }
