@@ -12,7 +12,6 @@ import school.redrover.runner.BaseTest;
 import school.redrover.runner.TestUtils;
 
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
 import static school.redrover.runner.TestUtils.createFreestyleProject;
@@ -36,7 +35,7 @@ public class FreestyleProjectTest extends BaseTest {
 
         Assert.assertEquals(projectName.getText(),FREESTYLE_NAME);
     }
-             
+
     @Test
     public void testCreateFSProjectWithDefaultConfigurations() {
         final String PROJECT_NAME = UUID.randomUUID().toString();
@@ -250,6 +249,16 @@ public class FreestyleProjectTest extends BaseTest {
     }
 
     @Test
+    public void testDeleteFreestyleProject() {
+        FreestyleProjectPage deletedProject = new MyViewsPage(getDriver())
+                .clickNewItem()
+                .enterItemName(FREESTYLE_NAME)
+                .selectFreestyleProjectAndOk()
+                .clickSaveButton()
+                .clickDeleteProject();
+
+        Assert.assertFalse(deletedProject.checkProjectWasDeleted(FREESTYLE_NAME));
+
     public void testEditDescription () {
         String editDescription = new MainPage(getDriver())
                 .clickNewItem()
