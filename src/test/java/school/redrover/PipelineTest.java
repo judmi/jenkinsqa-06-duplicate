@@ -690,6 +690,15 @@ public class PipelineTest extends BaseTest {
                 .getJobName("TestPipeLineJJ");
         Assert.assertEquals(actual, "TestPipeLineJJ");
     }
+
+    @Test(dependsOnMethods = "testCreatePipeLine")
+    public void testOpenCreatedPipeline() {
+        String actualJobName = new MainPage(getDriver())
+                .clickPipelineProject("TestPipeLineJJ")
+                .getProjectName();
+        Assert.assertEquals(actualJobName,"Pipeline TestPipeLineJJ");
+    }
+
     @Test
     public void testCancelPipelineDeletion(){
         final String jobName = "P1";
