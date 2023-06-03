@@ -297,12 +297,23 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         return getDriver().getTitle();
     }
 
-
     public WebElement getWelcomeWebElement() {
         return getDriver().findElement(By.xpath("//h1[text()='Welcome to Jenkins!']"));
     }
+
     public ManageNodesPage clickBuildExecutorStatus() {
         getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/computer/']"))).click();
         return new ManageNodesPage(getDriver());
+    }
+
+    public List<String> getListNamesOfJobs() {
+        List<WebElement> listOfJobs = getDriver().findElements(By.xpath("//tr[contains(@id,'job_')]"));
+
+        return TestUtils.getListNames(listOfJobs);
+    }
+
+    public MainPage clickSortByName() {
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(), 'Name')]"))).click();
+        return this;
     }
 }
