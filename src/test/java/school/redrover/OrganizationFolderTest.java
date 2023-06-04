@@ -84,7 +84,7 @@ public class OrganizationFolderTest extends BaseTest {
                 .clickNewItem()
                 .enterItemName(organizationFolderName)
                 .selectOrganizationFolderAndOk()
-                .selectDescription("Description")
+                .addDescription("Description")
                 .clickSaveButton()
                 .getTextFromDescription();
 
