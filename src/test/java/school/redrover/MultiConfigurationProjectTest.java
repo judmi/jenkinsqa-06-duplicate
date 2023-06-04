@@ -324,11 +324,11 @@ public class MultiConfigurationProjectTest extends BaseTest {
     public void testRenameMultiConfigurationProject() {
         TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
 
-        String newName = new JobPage(getDriver())
+        String newName = new MultiConfigurationProjectPage(getDriver())
                 .clickRename()
                 .enterNewName(MULTI_CONFIGURATION_NEW_NAME)
                 .submitNewName()
-                .getTextFromNameProject();
+                .getMultiProjectName();
 
         Assert.assertEquals(newName, "Project " + MULTI_CONFIGURATION_NEW_NAME);
     }
