@@ -19,7 +19,8 @@ public class OrganizationFolderTest extends BaseTest {
                 .enterItemName(organizationFolderName)
                 .selectOrganizationFolderAndOk()
                 .clickSaveButton()
-                .clickDashboard()
+                .getHeader()
+                .clickLogo()
                 .getProjectNameMainPage(organizationFolderName);
 
         Assert.assertEquals(actualNewFolderName, organizationFolderName);
