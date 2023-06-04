@@ -278,9 +278,9 @@ public class FolderTest extends BaseTest {
                 .clickCreateAJob()
                 .enterItemName("Mine Project")
                 .selectMultiConfigurationProjectAndOk()
-                .saveConfigurePageAndGoToProjectPage();
+                .clickSaveButton();
 
-        Assert.assertTrue(multiPage.getMultiProjectName().getText().contains("Mine Project"));
+        Assert.assertTrue(multiPage.getMultiProjectName().contains("Mine Project"));
     }
 
     @Test
