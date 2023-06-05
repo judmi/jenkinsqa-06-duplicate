@@ -253,7 +253,7 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testDeleteFreestyleProjectDouble() {
-        MainPage mainAfterDeletedProject = new MyViewsPage(getDriver())
+        MainPage mainAfterDeletedProject = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName(FREESTYLE_NAME)
                 .selectFreestyleProjectAndOk()
@@ -441,7 +441,7 @@ public class FreestyleProjectTest extends BaseTest {
     public void testDeleteProjectFromDropdown() {
         final String projectName = "Name";
 
-        MyViewsPage h2text = new MyViewsPage(getDriver())
+        MyViewsPage h2text = new MainPage(getDriver())
                 .clickNewItem()
                 .enterItemName(projectName)
                 .selectFreestyleProjectAndOk()
