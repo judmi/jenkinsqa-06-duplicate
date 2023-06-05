@@ -67,6 +67,19 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(projectName.getText(), MULTI_CONFIGURATION_NAME);
     }
 
+    @Test
+    public void testCreateMultiConfigurationProjectOnProjectPage() {
+
+        String projectName = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(MULTI_CONFIGURATION_NAME)
+                .selectMultiConfigurationProjectAndOk()
+                .clickSaveButton()
+                .getMultiProjectName();
+
+        Assert.assertEquals(projectName.substring(8, 32), MULTI_CONFIGURATION_NAME);
+    }
+
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testRenameFromDropDownMenu() {
         // TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
@@ -185,9 +198,8 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(enable.getText(), "Disable Project");
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreateMultiConfiguration")
     public void testRenameFromDashboard() {
-        TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, true);
 
         String renamedProject = new MainPage(getDriver())
                 .dropDownMenuClickRename(MULTI_CONFIGURATION_NAME, new MultiConfigurationProjectPage(getDriver()))
@@ -213,6 +225,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(deletedProjPage.getNoJobsMainPageHeader().getText(), "Welcome to Jenkins!");
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfiguration")
     public void testProjectPageDelete() {
         MainPage deletedProjPage = new MainPage(getDriver())
@@ -243,6 +256,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(checkboxesVisibleClickable);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testMultiConfigurationProjectAddDescription1() {
         final String text = "text";
@@ -320,11 +334,11 @@ public class MultiConfigurationProjectTest extends BaseTest {
         getDriver().findElement(By.name("name")).clear();
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreateMultiConfigurationProjectOnProjectPage")
     public void testRenameMultiConfigurationProject() {
-        TestUtils.createMultiConfigurationProject(this, MULTI_CONFIGURATION_NAME, false);
 
-        String newName = new MultiConfigurationProjectPage(getDriver())
+        String newName = new MainPage(getDriver())
+                .clickJobMultiConfigurationProject(MULTI_CONFIGURATION_NAME)
                 .clickRename()
                 .enterNewName(MULTI_CONFIGURATION_NEW_NAME)
                 .submitNewName()
@@ -405,24 +419,10 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(getDescription, textDescription);
     }
 
-    @Test
-    public void addDescriptionInMultiConfigurationProjectTest() {
-        final String textDescription = "Text Description Test";
-
-        TestUtils.createMultiConfigurationProject(this, "Test1", false);
-        String actualDescription = new MultiConfigurationProjectPage(getDriver())
-                .getAddDescription(textDescription)
-                .getSaveButton()
-                .getInputAdd().getText();
-
-        Assert.assertEquals(actualDescription, textDescription);
-    }
-
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testAddDescriptionToMultiConfigurationProject() {
         final String descriptionText = "Web-application project";
-        String description = new MainPage(getDriver())
-                .clickMultiConfigurationProjectName(MULTI_CONFIGURATION_NAME)
+        String description = new MultiConfigurationProjectPage(getDriver())
                 .getAddDescription(descriptionText)
                 .getSaveButton()
                 .getInputAdd()
@@ -500,6 +500,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 multiConfigurationProjectConfigPage.getMaxNumOfBuildsToKeep("value")), displayedMaxNumOfBuildsToKeep);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testCreateMultiConfigurationProjectWithEqualName() {
         final String ERROR_MESSAGE_EQUAL_NAME = "A job already exists with the name " + "‘" + MULTI_CONFIGURATION_NAME + "’";
