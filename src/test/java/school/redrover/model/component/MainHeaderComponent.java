@@ -146,4 +146,11 @@ public class MainHeaderComponent<Page extends BasePage<?>> extends BaseComponent
 
         return new PluginsPage(getDriver());
     }
+
+    public MainPage clickDashboardButton() {
+        getWait2().until(ExpectedConditions
+                .presenceOfElementLocated(By.xpath("//a[contains(text(), 'Dashboard')]"))).click();
+
+        return new MainPage(getDriver());
+    }
 }
