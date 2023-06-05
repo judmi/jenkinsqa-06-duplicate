@@ -6,9 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BaseMainHeaderPage;
-
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.openqa.selenium.By.cssSelector;
 
@@ -115,20 +113,15 @@ public class FreestyleProjectPage extends BaseMainHeaderPage<FreestyleProjectPag
         return new RenamePage<>(this);
     }
 
-    public FreestyleProjectPage clickDeleteProject() {
+    public MainPage clickDeleteProject() {
         getWait2().until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//a[@href = '#']//span[text() = 'Delete Project' ]"))).click();
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
-        return this;
+        return new MainPage(getDriver());
     }
 
-    public boolean checkProjectWasDeleted(String projectName) {
-       boolean result = getDriver().findElements(By
-                        .xpath("//a[@class='jenkins-table__link model-link inside']"))
-                .stream().map(WebElement::getText).collect(Collectors.toList()).contains(projectName);
-        return result;
-    }
+
 
     public ConsoleOutputPage openConsoleOutputForBuild(){
         getWait5().until(ExpectedConditions.elementToBeClickable(
