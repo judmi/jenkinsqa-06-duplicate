@@ -51,4 +51,16 @@ public class MultibranchPipelinePage extends BaseMainHeaderPage<MultibranchPipel
         return getWait5().until(ExpectedConditions.visibilityOfElementLocated
                 (By.xpath("//body/div[@id='page-body']/div[@id='main-panel']/h1[1]"))).getText();
     }
+    public MultibranchPipelineConfigPage clickConfigureSideMenu() {
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span/a[contains(@href, 'configure')]"))).click();
+        return new MultibranchPipelineConfigPage(new MultibranchPipelinePage(getDriver()));
+    }
+
+    public String getTextFromDisableMessage() {
+        return getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@method='post']"))).getText();
+    }
+
+    public String getDisplayedName() {
+        return getWait5().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='main-panel']/h1"))).getText().trim();
+    }
 }

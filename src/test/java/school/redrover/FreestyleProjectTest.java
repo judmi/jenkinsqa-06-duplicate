@@ -253,14 +253,14 @@ public class FreestyleProjectTest extends BaseTest {
 
     @Test
     public void testDeleteFreestyleProjectDouble() {
-        FreestyleProjectPage deletedProject = new MyViewsPage(getDriver())
+        MainPage mainAfterDeletedProject = new MyViewsPage(getDriver())
                 .clickNewItem()
                 .enterItemName(FREESTYLE_NAME)
                 .selectFreestyleProjectAndOk()
                 .clickSaveButton()
                 .clickDeleteProject();
 
-        Assert.assertFalse(deletedProject.checkProjectWasDeleted(FREESTYLE_NAME));
+        Assert.assertFalse(mainAfterDeletedProject.verifyJobIsPresent(FREESTYLE_NAME));
     }
 
     public void testEditDescription () {

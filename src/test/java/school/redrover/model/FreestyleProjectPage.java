@@ -118,20 +118,15 @@ public class FreestyleProjectPage extends BaseMainHeaderPage<FreestyleProjectPag
         return new RenamePage<>(this);
     }
 
-    public FreestyleProjectPage clickDeleteProject() {
+    public MainPage clickDeleteProject() {
         getWait2().until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//a[@href = '#']//span[text() = 'Delete Project' ]"))).click();
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
-        return this;
+        return new MainPage(getDriver());
     }
 
-    public boolean checkProjectWasDeleted(String projectName) {
-       boolean result = getDriver().findElements(By
-                        .xpath("//a[@class='jenkins-table__link model-link inside']"))
-                .stream().map(WebElement::getText).collect(Collectors.toList()).contains(projectName);
-        return result;
-    }
+
 
     public ConsoleOutputPage openConsoleOutputForBuild(){
         getWait5().until(ExpectedConditions.elementToBeClickable(

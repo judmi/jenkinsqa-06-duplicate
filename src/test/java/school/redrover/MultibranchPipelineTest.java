@@ -1,8 +1,6 @@
 package school.redrover;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.model.FolderPage;
@@ -15,52 +13,78 @@ import school.redrover.runner.TestUtils;
 import java.util.List;
 
 public class MultibranchPipelineTest extends BaseTest {
-    @Test
-    public void createMultibranchPipelineTest() {
-        MultibranchPipelinePage mainPage = new MainPage(getDriver())
-                .clickNewItem()
-                .enterItemName("MineMultibranchPipeline")
-                .selectMultibranchPipelineAndOk()
-                .enterDisplayName("Random name")
-                .addDescription("Random Description")
-                .clickSaveButton();
 
-        Assert.assertTrue(new MultibranchPipelineConfigPage(new MultibranchPipelinePage(getDriver())).titleMultibranchPipeline().getText().contains("Random name"));
-    }
+    private static final String multibranchPipelineName = "MultibranchPipeline";
+    private static final String multibranchPipelineRenamed = "MultibranchPipelineRenamed";
 
     @Test
-    public void testRenameMultibranchPipeline() {
-        new MainPage(getDriver())
+    public void testCreateMultibranchPipelineWithDisplayName() {
+        final String multibranchPipelineDisplayName = "MultibranchDisplayName";
+
+        String actualDisplayedName = new MainPage(getDriver())
                 .clickNewItem()
-                .enterItemName("MineMultibranchPipeline")
+                .enterItemName(multibranchPipelineName)
                 .selectMultibranchPipelineAndOk()
+                .enterDisplayName(multibranchPipelineDisplayName)
                 .clickSaveButton()
-                .renameMultibranchPipelinePage()
-                .enterNewName("MultibranchPipeline")
-                .submitNewName();
+                .getDisplayedName();
 
-        Assert.assertTrue(new MultibranchPipelinePage(getDriver()).multibranchPipeline().getText().contains("MultibranchPipeline"));
+        Assert.assertEquals(actualDisplayedName, multibranchPipelineDisplayName);
     }
+
+    @Test
+    public void testCreateMultibranchPipelineWithDescription() {
+        String MultibranchPipeline = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(multibranchPipelineName)
+                .selectMultibranchPipelineAndOk()
+                .addDescription("DESCRIPTION")
+                .clickSaveButton()
+                .navigateToMainPageByBreadcrumbs()
+                .clickMultibranchPipelineName(multibranchPipelineName)
+                .getDescription();
+
+        Assert.assertEquals(MultibranchPipeline, "DESCRIPTION");
+    }
+
     @Test
     public void testCreateMultibranchPipelineWithoutDescription() {
         MultibranchPipelinePage pageWithOutDescription = new MainPage(getDriver())
                 .clickNewItem()
-                .enterItemName("MineMultibranchPipelineWhitOutDescription")
+                .enterItemName(multibranchPipelineName)
                 .selectMultibranchPipelineAndOk()
-                .enterDisplayName("Random name")
                 .clickSaveButton();
 
         Assert.assertTrue(new MultibranchPipelineConfigPage(new MultibranchPipelinePage(getDriver())).viewDescription().getText().isEmpty());
     }
-    @Test
-    public void deleteMultibranchPipelineTest() {
-        String WelcomeJenkinsPage = new MainPage(getDriver())
-                .clickNewItem()
-                .enterItemName("MultibranchPipeline")
-                .selectMultibranchPipelineAndOk()
+
+    @Test(dependsOnMethods = "testCreateMultibranchPipelineWithoutDescription")
+    public void testRenameMultibranchPipeline() {
+        String actualDisplayedName = new MainPage(getDriver())
+                .clickMultibranchPipelineName(multibranchPipelineName)
+                .renameMultibranchPipelinePage()
+                .enterNewName(multibranchPipelineRenamed)
+                .submitNewName()
+                .getDisplayedName();
+
+        Assert.assertEquals(actualDisplayedName, multibranchPipelineRenamed);
+    }
+
+    @Test(dependsOnMethods = "testRenameMultibranchPipeline")
+    public void testDisableMultibranchPipeline() {
+        String actualDisableMessage = new MainPage(getDriver())
+                .clickMultibranchPipelineName(multibranchPipelineRenamed)
+                .clickConfigureSideMenu()
+                .clickDisable()
                 .clickSaveButton()
-                .navigateToMainPageByBreadcrumbs()
-                .dropDownMenuClickDeleteFolders("MultibranchPipeline")
+                .getTextFromDisableMessage();
+        Assert.assertTrue(actualDisableMessage.contains("This Multibranch Pipeline is currently disabled"));
+    }
+
+    @Test(dependsOnMethods = "testDisableMultibranchPipeline")
+    public void testDeleteMultibranchPipeline() {
+        String WelcomeJenkinsPage = new MainPage(getDriver())
+                .dropDownMenuClickDeleteFolders(multibranchPipelineRenamed)
                 .clickYes()
                 .getWelcomeWebElement()
                 .getText();
@@ -84,21 +108,6 @@ public class MultibranchPipelineTest extends BaseTest {
                 .getMultibranchPipelineName();
 
         Assert.assertTrue(nameMultibranchPipeline.isDisplayed());
-    }
-
-    @Test
-    public void testCreateMultibranchPipelineWithDescription() {
-        String MultibranchPipeline = new MainPage(getDriver())
-                .clickNewItem()
-                .enterItemName("RandomName")
-                .selectMultibranchPipelineAndOk()
-                .addDescription("DESCRIPTION")
-                .clickSaveButton()
-                .navigateToMainPageByBreadcrumbs()
-                .clickMultibranchPipelineName("RandomName")
-                .getDescription();
-
-        Assert.assertEquals(MultibranchPipeline, "DESCRIPTION");
     }
 
     @Test
