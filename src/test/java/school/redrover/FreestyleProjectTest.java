@@ -405,11 +405,12 @@ public class FreestyleProjectTest extends BaseTest {
     public void testDeleteFreestyleProject() {
         final String projName = FREESTYLE_NAME + " New";
 
-        MainPage mainAfterDeletedProject = new MainPage(getDriver())
+        boolean isProjectPresent = new MainPage(getDriver())
                 .clickFreestyleProjectName(projName)
-                .clickDeleteProject();
+                .clickDeleteProject()
+                .verifyJobIsPresent(projName);
 
-        Assert.assertFalse(mainAfterDeletedProject.verifyJobIsPresent(projName));
+        Assert.assertFalse(isProjectPresent);
     }
 
     @Test
