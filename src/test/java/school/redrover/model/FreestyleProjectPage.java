@@ -22,7 +22,7 @@ public class FreestyleProjectPage extends BaseMainHeaderPage<FreestyleProjectPag
     public FreestyleProjectPage selectBuildNow() {
         getDriver().findElement(cssSelector("[href*='build?']")).click();
         getWait5().until(ExpectedConditions
-                .presenceOfElementLocated(By.xpath("//div[@class='pane build-name']")));
+                .presenceOfElementLocated(By.xpath("//td[@class='build-row-cell']")));
         return this;
     }
 
