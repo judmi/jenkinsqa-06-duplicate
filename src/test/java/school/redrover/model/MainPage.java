@@ -335,4 +335,12 @@ public class MainPage extends BaseMainHeaderPage<MainPage> {
         getDriver().switchTo().alert().dismiss();
         return this;
     }
+
+    public String getTitleValueOfBuildStatusIconElement() {
+        WebElement buildStatusIcon
+                = getWait5().until(ExpectedConditions
+                .presenceOfElementLocated(By.xpath("(//*[name()='svg'][@title='Success'])[1]")));
+        return buildStatusIcon.getAttribute("title");
+
+    }
 }

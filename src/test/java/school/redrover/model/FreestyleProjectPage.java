@@ -6,7 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BaseMainHeaderPage;
+
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.openqa.selenium.By.cssSelector;
 
@@ -18,6 +21,8 @@ public class FreestyleProjectPage extends BaseMainHeaderPage<FreestyleProjectPag
 
     public FreestyleProjectPage selectBuildNow() {
         getDriver().findElement(cssSelector("[href*='build?']")).click();
+        getWait5().until(ExpectedConditions
+                .presenceOfElementLocated(By.xpath("//td[@class='build-row-cell']")));
         return this;
     }
 
@@ -138,5 +143,14 @@ public class FreestyleProjectPage extends BaseMainHeaderPage<FreestyleProjectPag
         getWait5().until(ExpectedConditions.elementToBeClickable(
                 getDriver().findElement(By.cssSelector("[href$='/move']")))).click();
         return new MovePage<>(this);
+    }
+
+    public int getSizeOfPermalinksList() {
+        getWait2().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2")));
+
+        List<WebElement> permalinks = getDriver()
+                .findElements(By.xpath("//ul[@class='permalinks-list']//li"));
+
+        return permalinks.size();
     }
 }

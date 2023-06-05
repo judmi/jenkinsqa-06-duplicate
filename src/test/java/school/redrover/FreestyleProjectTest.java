@@ -348,28 +348,22 @@ public class FreestyleProjectTest extends BaseTest {
         Assert.assertTrue(new BuildPage(getDriver()).getBuildHeader().isDisplayed(), "build not created");
     }
 
-    @Ignore
-    @Test
-    public void testBuildLinks() {
-        createFreestyleProject(this, "Engineer", true);
+    @Test (dependsOnMethods = "testCreateFreestyleProject")
+    public void testPresenceOfBuildLinksAfterBuild() {
 
-        WebElement buildNowBtn = getDriver().findElement(By.xpath("//*[@class='task '][4]/span/a"));
-        buildNowBtn.click();
+        MainPage mainPage = new MainPage(getDriver())
+                .clickFreestyleProjectName(FREESTYLE_NAME)
+                .selectBuildNow()
+                .getHeader()
+                .clickDashboardButton();
 
-        WebElement dashBoardBtn = getDriver().findElement(By.xpath("//*[@id='breadcrumbs']/li[1]/a"));
-        dashBoardBtn.click();
+        Assert.assertEquals(mainPage.getTitleValueOfBuildStatusIconElement(), "Success");
 
-        WebElement greenCheckmark = getDriver().findElement(By.xpath("//*[@class='svg-icon ']"));
+        int sizeOfPermalinksList = mainPage
+                .clickFreestyleProjectName(FREESTYLE_NAME)
+                .getSizeOfPermalinksList();
 
-        Assert.assertTrue(greenCheckmark.isDisplayed());
-
-        WebElement projectNameBtn = getDriver()
-                .findElement(By.xpath("//*[@class='jenkins-table__link model-link inside']"));
-        projectNameBtn.click();
-
-        WebElement permaLinks = getDriver()
-                .findElement(By.xpath("//*[@class='permalink-link model-link inside tl-tr']"));
-        Assert.assertTrue(permaLinks.isDisplayed());
+        Assert.assertTrue(sizeOfPermalinksList == 4);
     }
 
     @Test
