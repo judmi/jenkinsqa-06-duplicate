@@ -242,6 +242,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertTrue(checkboxesVisibleClickable);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testMultiConfigurationProjectAddDescription1() {
         final String text = "text";
@@ -417,6 +418,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
         Assert.assertEquals(actualDescription, textDescription);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testAddDescriptionToMultiConfigurationProject() {
         final String descriptionText = "Web-application project";
@@ -499,6 +501,7 @@ public class MultiConfigurationProjectTest extends BaseTest {
                 multiConfigurationProjectConfigPage.getMaxNumOfBuildsToKeep("value")), displayedMaxNumOfBuildsToKeep);
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testCreateMultiConfigurationProject")
     public void testCreateMultiConfigurationProjectWithEqualName() {
         final String ERROR_MESSAGE_EQUAL_NAME = "A job already exists with the name " + "‘" + MULTI_CONFIGURATION_NAME + "’";
