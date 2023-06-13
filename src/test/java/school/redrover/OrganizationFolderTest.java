@@ -1,54 +1,107 @@
 package school.redrover;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import com.beust.ah.A;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import school.redrover.model.MainPage;
+import school.redrover.model.OrganizationFolderPage;
 import school.redrover.runner.BaseTest;
 
 public class OrganizationFolderTest extends BaseTest {
 
-    private static final By DASHBOARD = By.xpath("//a[contains(text(),'Dashboard')]");
+    private static final String ORGANIZATION_FOLDER_NAME = "OrgFolder";
+    private static final String ORGANIZATION_FOLDER_RENAMED = "OrgFolderRenamed";
 
     @Test
     public void testCreateOrganizationFolder() {
-        final String expectedNewFolderName = "Project1";
 
-        getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']")).click();
-        getWait2().until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//input[@name='name']"))).sendKeys(expectedNewFolderName);
-        getDriver().findElement(By.xpath("//li[@class='jenkins_branch_OrganizationFolder']")).click();
-        getDriver().findElement(By.xpath("//button[@id='ok-button']")).click();
-        getWait2().until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@name='Submit']"))).click();
-        getDriver().findElement(DASHBOARD).click();
+        String actualNewFolderName = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(ORGANIZATION_FOLDER_NAME)
+                .selectOrganizationFolderAndOk()
+                .clickSaveButton()
+                .getHeader()
+                .clickLogo()
+                .getProjectNameMainPage(ORGANIZATION_FOLDER_NAME);
 
-        String actualNewFolderName = getDriver().findElement(By.xpath("//a[@href='job/Project1/']")).getText();
-
-        Assert.assertEquals(actualNewFolderName, expectedNewFolderName);
+        Assert.assertEquals(actualNewFolderName, ORGANIZATION_FOLDER_NAME);
     }
 
     @Test(dependsOnMethods = "testCreateOrganizationFolder")
     public void testRenameOrganizationFolder() {
-        final String expectedRenamedFolderName = "Project";
 
-        WebElement folderName = getDriver().findElement(By.xpath("//a[@href='job/Project1/']/button"));
-        new Actions(getDriver()).moveToElement(folderName).perform();
-        folderName.sendKeys(Keys.RETURN);
-        getWait2().until(ExpectedConditions.elementToBeClickable(By
-                .xpath("//a[@href='/job/Project1/confirm-rename']"))).click();
+        String actualRenamedFolderName = new MainPage(getDriver())
+                .clickMultiConfigurationProjectName(ORGANIZATION_FOLDER_NAME)
+                .clickRename()
+                .enterNewName(ORGANIZATION_FOLDER_RENAMED)
+                .submitNewName()
+                .getMultiProjectName();
 
-        WebElement folderNameField = getDriver().findElement(By.xpath("//input[@name='newName']"));
-        folderNameField.clear();
-        folderNameField.sendKeys(expectedRenamedFolderName);
-        getDriver().findElement(By.xpath("//button[@name='Submit']")).click();
+        Assert.assertEquals(actualRenamedFolderName, ORGANIZATION_FOLDER_RENAMED);
+    }
 
-        getDriver().findElement(DASHBOARD).click();
+    @Test(dependsOnMethods = "testRenameOrganizationFolder")
+    public void testMoveOrganizationFolderToFolderFromOrganizationFolderPage() {
 
-        String actualRenamedFolderName = getDriver().findElement(By.xpath("//a[@href='job/Project/']")).getText();
+        final String folderName = "TestFolder";
 
-        Assert.assertEquals(actualRenamedFolderName, expectedRenamedFolderName);
+        boolean movedOrgFolderVisibleAndClickable = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(folderName)
+                .selectFolderAndOk()
+                .clickSaveButton()
+                .getHeader()
+                .clickLogo()
+                .dropDownMenuClickMove(ORGANIZATION_FOLDER_RENAMED, new OrganizationFolderPage(getDriver()))
+                .selectDestinationFolder(folderName)
+                .clickMoveButton()
+                .getHeader()
+                .clickLogo()
+                .clickFolderName(folderName)
+                .nestedFolderIsVisibleAndClickable(ORGANIZATION_FOLDER_RENAMED);
+
+        Assert.assertTrue(movedOrgFolderVisibleAndClickable);
+    }
+
+    @Test
+    public void testCreateDisableOrganizationFolder() {
+
+        String disableFolder = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(ORGANIZATION_FOLDER_NAME)
+                .selectOrganizationFolderAndOk()
+                .clickDisable()
+                .clickSaveButton()
+                .getTextFromDisableMessage();
+
+        Assert.assertEquals(disableFolder.trim().substring(0, 46), "This Organization Folder is currently disabled");
+    }
+
+    @Test
+    public void testCreateOrganizationFolderWithDescription() {
+
+        String textFromDescription = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(ORGANIZATION_FOLDER_NAME)
+                .selectOrganizationFolderAndOk()
+                .addDescription("Description")
+                .clickSaveButton()
+                .getTextFromDescription();
+
+        Assert.assertEquals(textFromDescription, "Description");
+    }
+
+    @Ignore
+    @Test(dependsOnMethods = "testCreateOrganizationFolder")
+    public void testDisabledOrganizationFolder() {
+
+        String disabledText = new MainPage(getDriver())
+                .clickJodOrganizationFolder()
+                .clickDisableButton()
+                .getTextFromDisableMessage();
+
+        Assert.assertEquals(disabledText.substring(0,46),"This Organization Folder is currently disabled");
     }
 }

@@ -2,15 +2,14 @@ package school.redrover;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import school.redrover.model.MainPage;
 import school.redrover.runner.BaseTest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ConfigureGlobalSecurityTest extends BaseTest {
@@ -42,5 +41,65 @@ public class ConfigureGlobalSecurityTest extends BaseTest {
             actualTitleTexts.add(element.getText());
         }
         Assert.assertEquals(actualTitleTexts, expectedTitleTexts);
+    }
+
+    @Test
+    public void testCheckNumberOfTitles() {
+        int expectedNumberOfTitles = 10;
+
+        int actualNumberOfTitles = new MainPage(getDriver())
+                .navigateToConfigureGlobalSecurityPage()
+                .getNumberOfTitles();
+
+        Assert.assertEquals(actualNumberOfTitles, expectedNumberOfTitles);
+    }
+
+    @Test
+    public void testCheckNumberOfHelpButton() {
+        int expectedNumberOfHelpButton = 15;
+
+        int actualNumberOfHelpButton = new MainPage(getDriver())
+                .navigateToConfigureGlobalSecurityPage()
+                .getNumberOfHelpButton();
+
+        Assert.assertEquals(actualNumberOfHelpButton, expectedNumberOfHelpButton);
+    }
+
+    @Ignore
+    @Test
+    public void testHostKeyVerificationStrategyDropdownMenuOptions() {
+        List<String> expectedMenuNames = List.of(
+                "Accept first connection",
+                "Known hosts file",
+                "Manually provided keys",
+                "No verification");
+
+        List<String> actualMenuNames = new MainPage(getDriver())
+                .navigateToManageJenkinsPage()
+                .clickConfigureGlobalSecurity()
+                .navigateToHostKeyVerificationStrategyDropdownAndClick()
+                .getDropDownMenuTexts();
+
+        Assert.assertEquals(actualMenuNames, expectedMenuNames);
+    }
+
+    @Test
+    public void testAPICheckboxesAreClickable() {
+        boolean allChecksAreOk = new MainPage(getDriver())
+                .navigateToManageJenkinsPage()
+                .clickConfigureGlobalSecurity()
+                .checkAPICheckBoxes();
+
+        Assert.assertTrue(allChecksAreOk);
+    }
+
+    @Test
+    public void testRadioButtonsAreClickable() {
+        boolean allChecksAreOk = new MainPage(getDriver())
+                .navigateToManageJenkinsPage()
+                .clickConfigureGlobalSecurity()
+                .checkRadioButtons();
+
+        Assert.assertTrue(allChecksAreOk);
     }
 }

@@ -1,171 +1,120 @@
 package school.redrover;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import school.redrover.model.MainPage;
+import school.redrover.model.MultibranchPipelineConfigPage;
+import school.redrover.model.MultibranchPipelinePage;
 import school.redrover.runner.BaseTest;
+import school.redrover.runner.TestUtils;
 
-import java.time.Duration;
+import java.util.List;
 
 public class MultibranchPipelineTest extends BaseTest {
 
-    @FindBy(xpath = "//a[@href='/view/all/newJob']")
-    private WebElement newItemButton;
-    @FindBy(xpath = "//input[@id = 'name']")
-    private WebElement stringSearchItemName;
-    @FindBy(xpath = "//span[text() = 'Multibranch Pipeline']")
-    private WebElement multibranchPipelineButton;
-    @FindBy(xpath = "//button[@id = 'ok-button']")
-    private WebElement saveButton;
-    @FindBy(xpath = "//input[@name = '_.displayNameOrNull']")
-    private WebElement displayNameField;
-    @FindBy(xpath = "//textarea[@name = '_.description']")
-    private WebElement descriptionField;
-    @FindBy(xpath = "//div[@id='main-panel']//h1")
-    private WebElement multibranchPipelineDisplayName;
-    @FindBy(xpath = "//span[text()='Organization Folder']")
-    private WebElement organizationFolderLabel;
-    @FindBy(xpath = "//label[text()='Abort builds']")
-    private WebElement abortBuildsLabel;
-    @FindBy(xpath = "//div[@id='orphaned-item-strategy']")
-    private WebElement orphanedItemStrategy;
-    @FindBy(xpath = "//div[normalize-space()='Child Scan Triggers']")
-    private  WebElement childScanTriggers;
-    @FindBy(xpath = "//div[contains(@class,'jenkins-form-item jenkins-form-item--tight')]"
-            + "//div//div[contains(@class,'optionalBlock-container "
-            + "jenkins-form-item jenkins-form-item--tight')]"
-            + "//select[contains(@name,'_.interval')]")
-    private WebElement intervalDropDownMenu;
-    @FindBy(xpath = "//div[contains(@class,'jenkins-form-item jenkins-form-item--tight')]"
-            + "//div//div[contains(@class,'optionalBlock-container "
-            + "jenkins-form-item jenkins-form-item--tight')]//option"
-            + "[contains(@value,'7')]")
-    private WebElement interval7d;
-    @FindBy(xpath = "//button[@name='Submit']")
-    private WebElement buttonSubmitSave;
-    @FindBy(xpath = "//div[@id='view-message']")
-    private WebElement actualResult;
-    public WebDriverWait webDriverWait10;
+    private static final String NAME = "MultibranchPipeline";
+    private static final String RENAMED = "MultibranchPipelineRenamed";
 
-    public final WebDriverWait getWait10() {
-        if (webDriverWait10 == null) {
-            webDriverWait10 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+    @Test
+    public void testCreateMultibranchPipelineWithDisplayName() {
+        final String multibranchPipelineDisplayName = "MultibranchDisplayName";
+
+        MultibranchPipelinePage multibranchPipelinePage = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(NAME)
+                .selectMultibranchPipelineAndOk()
+                .enterDisplayName(multibranchPipelineDisplayName)
+                .clickSaveButton();
+
+        Assert.assertEquals(multibranchPipelinePage.getDisplayedName(), multibranchPipelineDisplayName);
+        Assert.assertTrue(multibranchPipelinePage.metadataFolderIconIsDisplayed(), "error was not shown Metadata Folder icon");
+    }
+
+    @Test
+    public void testCreateMultibranchPipelineWithDescription() {
+        String MultibranchPipeline = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(NAME)
+                .selectMultibranchPipelineAndOk()
+                .addDescription("DESCRIPTION")
+                .clickSaveButton()
+                .navigateToMainPageByBreadcrumbs()
+                .clickMultibranchPipelineName(NAME)
+                .getDescription();
+
+        Assert.assertEquals(MultibranchPipeline, "DESCRIPTION");
+    }
+
+    @Test
+    public void testCreateMultibranchPipelineWithoutDescription() {
+        MultibranchPipelinePage pageWithOutDescription = new MainPage(getDriver())
+                .clickNewItem()
+                .enterItemName(NAME)
+                .selectMultibranchPipelineAndOk()
+                .clickSaveButton();
+
+        Assert.assertTrue(new MultibranchPipelineConfigPage(new MultibranchPipelinePage(getDriver())).viewDescription().getText().isEmpty());
+    }
+
+    @Test(dependsOnMethods = "testCreateMultibranchPipelineWithoutDescription")
+    public void testRenameMultibranchPipeline() {
+        String actualDisplayedName = new MainPage(getDriver())
+                .clickMultibranchPipelineName(NAME)
+                .renameMultibranchPipelinePage()
+                .enterNewName(RENAMED)
+                .submitNewName()
+                .getDisplayedName();
+
+        Assert.assertEquals(actualDisplayedName, RENAMED);
+    }
+
+    @Test(dependsOnMethods = "testRenameMultibranchPipeline")
+    public void testDisableMultibranchPipeline() {
+        String actualDisableMessage = new MainPage(getDriver())
+                .clickMultibranchPipelineName(RENAMED)
+                .clickConfigureSideMenu()
+                .clickDisable()
+                .clickSaveButton()
+                .getTextFromDisableMessage();
+        Assert.assertTrue(actualDisableMessage.contains("This Multibranch Pipeline is currently disabled"));
+    }
+
+    @Test(dependsOnMethods = "testDisableMultibranchPipeline")
+    public void testDeleteMultibranchPipeline() {
+        String WelcomeJenkinsPage = new MainPage(getDriver())
+                .dropDownMenuClickDeleteFolders(RENAMED)
+                .clickYes()
+                .getWelcomeWebElement()
+                .getText();
+
+        Assert.assertEquals(WelcomeJenkinsPage, "Welcome to Jenkins!");
+    }
+
+    @Test (dependsOnMethods = "testCreateMultibranchPipelineWithDisplayName")
+    public void testChooseDefaultIcon() {
+        MultibranchPipelinePage multibranchPipelinePage = new MainPage(getDriver())
+                .clickMultibranchPipelineName(NAME)
+                .clickConfigureSideMenu()
+                .clickAppearance()
+                .selectDefaultIcon()
+                .clickSaveButton();
+        Assert.assertTrue(multibranchPipelinePage.defaultIconIsDisplayed(), "error was not shown default icon");
+    }
+
+    @Test
+    public void createMultiPipeline(){
+        for (int i = 0 ;i < 4; i++){
+            String jobName = "M0"+i;
+            TestUtils.createMultibranchPipeline(this,jobName,true);
         }
-        return webDriverWait10;
+        MainPage mainPage = new MainPage(getDriver());
+        List<String> jobs = mainPage.getJobList();
+        Assert.assertTrue(jobs.size()==4);
     }
-
-    public final void verifyElementVisible(WebElement element) {
-        getWait10().until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public WebElement verifyElementClickable(WebElement element) {
-        return getWait10().until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    public void clickNewItemButton() {
-        verifyElementVisible(newItemButton);
-        verifyElementClickable(newItemButton).click();
-    }
-
-    public void enterAnItemName() {
-        stringSearchItemName.sendKeys("TestName");
-    }
-
-    public void enterAnItemNameTest() {
-        stringSearchItemName.sendKeys("Test");
-    }
-
-    public void clickMultibranchPipeline() {
-        verifyElementVisible(multibranchPipelineButton);
-        verifyElementClickable(multibranchPipelineButton).click();
-    }
-
-    public void clickOrganizationFolderLabel() {
-        verifyElementVisible(organizationFolderLabel);
-        verifyElementClickable(organizationFolderLabel).click();
-    }
-
-    public void clickAbortBuildsLabel() {
-        verifyElementVisible(abortBuildsLabel);
-        verifyElementClickable(abortBuildsLabel).click();
-    }
-
-    public void clickIntervalDropDownMenu() {
-        verifyElementVisible(intervalDropDownMenu);
-        verifyElementClickable(intervalDropDownMenu).click();
-    }
-
-    public void clickInterval7d() {
-        verifyElementVisible(interval7d);
-        verifyElementClickable(interval7d).click();
-    }
-
-    public void clickSave() {
-        verifyElementVisible(buttonSubmitSave);
-        verifyElementClickable(buttonSubmitSave).click();
-    }
-
-    public void enterTinaInDisplayNameField() {
-        verifyElementClickable(displayNameField).click();
-        displayNameField.sendKeys("Tina", Keys.ENTER);
-    }
-
-    public void enterNameInDisplayNameField() {
-        verifyElementClickable(displayNameField).click();
-        displayNameField.sendKeys("Test");
-    }
-    public void enterValueInDescriptionField() {
-        verifyElementClickable(descriptionField).click();
-        descriptionField.sendKeys("Test");
-    }
-    public void clickOkButton() {
-        verifyElementVisible(saveButton);
-        verifyElementClickable(saveButton).click();
-    }
-
-    public void scrollByElement(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("arguments[0].scrollIntoView();", element);
-    }
-
-    @Test
-    public void createMultibranchPipelineTest() {
-        final String expectedRes = "Tina";
-        PageFactory.initElements(getDriver(), this);
-        clickNewItemButton();
-        enterAnItemName();
-        clickMultibranchPipeline();
-        clickOkButton();
-        enterValueInDescriptionField();
-        enterTinaInDisplayNameField();
-
-        Assert.assertEquals(multibranchPipelineDisplayName.getText(), expectedRes );
-    }
-    @Ignore
-    @Test
-    public void testCreateOrganizationFolder() {
-        final String expectedResult = "Test";
-        PageFactory.initElements(getDriver(), this);
-        clickNewItemButton();
-        enterAnItemNameTest();
-        clickOrganizationFolderLabel();
-        clickOkButton();
-        enterNameInDisplayNameField();
-        enterValueInDescriptionField();
-        scrollByElement(orphanedItemStrategy);
-        clickAbortBuildsLabel();
-        scrollByElement(childScanTriggers);
-        clickIntervalDropDownMenu();
-        clickInterval7d();
-        clickSave();
-
-        Assert.assertEquals(actualResult.getText(), expectedResult);
+    @Test(dependsOnMethods = "createMultiPipeline")
+    public void testFindCreatedMultibranchPipelineOnDashboard(){
+        MainPage mainPage = new MainPage(getDriver());
+        boolean status = mainPage.verifyJobIsPresent("M00");
+        Assert.assertTrue(status);
     }
 }
