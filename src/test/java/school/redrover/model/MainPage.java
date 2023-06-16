@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import school.redrover.model.base.BasePage;
 
-public class DashboardPage extends BasePage {
+public class MainPage extends BasePage {
 
-    public DashboardPage(WebDriver driver) {
+    public MainPage(WebDriver driver) {
         super(driver);
     }
 

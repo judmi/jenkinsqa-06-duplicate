@@ -54,7 +54,6 @@ public class ProjectPage extends BasePage {
         return new ProjectPage(getDriver());
     }
 
-
     public WebElement textOfNewDescription() {
         return getDriver().findElement(By.xpath("//div[@id='description']/div"));
     }

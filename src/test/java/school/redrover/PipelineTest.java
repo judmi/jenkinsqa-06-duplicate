@@ -2,7 +2,7 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.DashboardPage;
+import school.redrover.model.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class PipelineTest extends BaseTest {
@@ -12,7 +12,7 @@ public class PipelineTest extends BaseTest {
 
     @Test
     public void testCreateNewPipelineWithScript() {
-        String createNewPipeline = new DashboardPage(getDriver())
+        String createNewPipeline = new MainPage(getDriver())
                 .chooseNewItem()
                 .chooseNameForProject(NamePipeline)
                 .choosePipeline()
@@ -28,7 +28,7 @@ public class PipelineTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithScript")
     public void testRenamePipeline() {
-       String newNameOfPipeline = new DashboardPage(getDriver())
+       String newNameOfPipeline = new MainPage(getDriver())
                .clickOnProject()
                .clickOnRenameProject()
                .clearOldName()
@@ -42,7 +42,7 @@ public class PipelineTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithScript")
     public void testDisablePipeline() {
-        String disableProject =  new DashboardPage(getDriver())
+        String disableProject =  new MainPage(getDriver())
                 .clickOnProject()
                 .chooseDisableProject()
                 .projectIsDisabled()
@@ -53,7 +53,7 @@ public class PipelineTest extends BaseTest {
 
     @Test(dependsOnMethods = {"testCreateNewPipelineWithScript", "testDisablePipeline"})
     public void testEnablePipeline() {
-        String enableProject = new DashboardPage(getDriver())
+        String enableProject = new MainPage(getDriver())
                 .clickOnProject()
                 .pushDisable()
                 .pushEnable()
@@ -65,7 +65,7 @@ public class PipelineTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithScript")
     public void testAddDescription() {
-        String projectWithNewDescription = new DashboardPage(getDriver())
+        String projectWithNewDescription = new MainPage(getDriver())
                 .clickOnProject()
                 .clickAddDescription()
                 .AddNewDescription()

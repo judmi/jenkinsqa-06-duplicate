@@ -22,9 +22,9 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public DashboardPage login() {
+    public MainPage login() {
         getDriver().findElement(By.name("Submit")).click();
-        return new DashboardPage(getDriver());
+        return new MainPage(getDriver());
     }
 
     public boolean invalidLogin() {

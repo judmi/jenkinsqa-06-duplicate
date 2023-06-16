@@ -21,10 +21,10 @@ public class RenameProjectPage extends BasePage {
         newName.sendKeys(NamePipeline);
         return this;
     }
-    public DashboardPage submitRename() {
+    public MainPage submitRename() {
         WebElement submitNewName = getDriver().findElement(By.xpath("//button [@name='Submit']"));
         submitNewName.click();
-        return new DashboardPage(getDriver());
+        return new MainPage(getDriver());
     }
 
 
