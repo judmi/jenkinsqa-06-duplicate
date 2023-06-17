@@ -1,11 +1,23 @@
 package school.redrover.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import school.redrover.model.base.BasePage;
 
 public class CreateUserPage extends BasePage {
+    @FindBy(xpath = "//input[@name = 'username']")
+    private WebElement userNameField;
+    @FindBy(xpath = "//input[@name = 'password1']")
+    private WebElement passwordField;
+    @FindBy(xpath = "//input[@name = 'password2']")
+    private WebElement confirmPasswordField;
+    @FindBy(xpath = "//input[@name = 'fullname']")
+    private WebElement fullNameField;
+    @FindBy(xpath = "//input[@name = 'email']")
+    private WebElement emailField;
+    @FindBy(xpath = "//button[@name = 'Submit']")
+    private WebElement createUserBtn;
 
 
     public CreateUserPage(WebDriver driver) {
@@ -23,27 +35,26 @@ public class CreateUserPage extends BasePage {
     }
 
     private void fillInUserNameField(String userName) {
-        getDriver().findElement(By.xpath("//input[@name = 'username']")).sendKeys(userName);
+        userNameField.sendKeys(userName);
     }
 
     private void fillInPasswordField(String password) {
-        getDriver().findElement(By.xpath("//input[@name = 'password1']")).sendKeys(password);
+        passwordField.sendKeys(password);
     }
 
     private void fillInConfirmPasswordField(String password) {
-        getDriver().findElement(By.xpath("//input[@name = 'password2']")).sendKeys(password);
+        confirmPasswordField.sendKeys(password);
     }
 
     private void fillInFullNameField(String userName) {
-        getDriver().findElement(By.xpath("//input[@name = 'fullname']")).sendKeys(userName);
+        fullNameField.sendKeys(userName);
     }
 
     private void fillInEmailField(String email) {
-        getDriver().findElement(By.xpath("//input[@name = 'email']")).sendKeys(email);
+        emailField.sendKeys(email);
     }
 
     private void clickCreateUserBtn() {
-        getWait2().until(ExpectedConditions.elementToBeClickable(By
-                .xpath("//button[@name = 'Submit']"))).click();
+        createUserBtn.click();
     }
 }

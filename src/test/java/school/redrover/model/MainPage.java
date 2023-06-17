@@ -3,9 +3,12 @@ package school.redrover.model;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import school.redrover.model.base.BasePage;
 
 public class MainPage extends BasePage {
+    @FindBy(xpath = "//a[@href = '/manage']")
+    private WebElement manageJenkinsTab;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -22,7 +25,7 @@ public class MainPage extends BasePage {
     }
 
     public ManageJenkinsPage clickManageJenkinsTab() {
-        getDriver().findElement(By.xpath("//a[@href = '/manage']")).click();
+        manageJenkinsTab.click();
         return new ManageJenkinsPage(getDriver());
     }
 
