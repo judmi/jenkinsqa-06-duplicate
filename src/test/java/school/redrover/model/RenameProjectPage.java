@@ -7,6 +7,7 @@ import school.redrover.model.base.BasePage;
 
 public class RenameProjectPage extends BasePage {
     String NamePipeline = "My Pipeline1";
+
     public RenameProjectPage(WebDriver driver) {
         super(driver);
     }
@@ -16,11 +17,13 @@ public class RenameProjectPage extends BasePage {
         oldName.clear();
         return this;
     }
-    public RenameProjectPage writeNewName(){
+
+    public RenameProjectPage writeNewName() {
         WebElement newName = getDriver().findElement(By.xpath("//input [@name='newName']"));
         newName.sendKeys(NamePipeline);
         return this;
     }
+
     public MainPage submitRename() {
         WebElement submitNewName = getDriver().findElement(By.xpath("//button [@name='Submit']"));
         submitNewName.click();
