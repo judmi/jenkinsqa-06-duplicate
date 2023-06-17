@@ -23,22 +23,22 @@ public class ProjectPage extends BasePage {
     public ProjectPage chooseDisableProject() {
         WebElement disableProject = getDriver().findElement(By.xpath("//button[@class='jenkins-button  ']"));
         disableProject.click();
-        return new ProjectPage(getDriver());
+        return this;
     }
     public ProjectPage pushDisable() {
         WebElement disableProject = getDriver().findElement(By.xpath("//button[@name='Submit']"));
         disableProject.click();
-        return new ProjectPage(getDriver());
+        return this;
     }
     public ProjectPage pushEnable() {
         WebElement enableProject= getDriver().findElement(By.xpath("//button[@name='Submit']"));
         enableProject.click();
-        return new ProjectPage(getDriver());
+        return this;
     }
     public ProjectPage clickAddDescription() {
         WebElement addDescription = getDriver().findElement(By.id("description-link"));
         addDescription.click();
-        return new ProjectPage(getDriver());
+        return this;
     }
 
     public ProjectPage AddNewDescription() {
@@ -51,7 +51,7 @@ public class ProjectPage extends BasePage {
         WebElement saveNewDescription = getDriver().findElement
                 (By.xpath("//button[@class='jenkins-button jenkins-button--primary ']"));
         saveNewDescription.click();
-        return new ProjectPage(getDriver());
+        return this;
     }
 
     public WebElement textOfNewDescription() {
