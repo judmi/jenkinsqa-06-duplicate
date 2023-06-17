@@ -2,6 +2,7 @@ package school.redrover.model.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import school.redrover.model.ProjectPage;
 
 import java.time.Duration;
 
@@ -41,4 +42,4 @@ public abstract class BasePage {
         }
         return wait10;
     }
-}
+   }
