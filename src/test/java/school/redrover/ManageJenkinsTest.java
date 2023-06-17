@@ -19,7 +19,5 @@ public class ManageJenkinsTest extends BaseTest {
                 .fillInCredentialsAndSubmit(userName, password, email)
                 .isUserExist(userName);
         Assert.assertTrue(isUserCreated);
-
-
     }
 }
