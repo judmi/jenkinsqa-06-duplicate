@@ -34,7 +34,7 @@ public class PipelineTest extends BaseTest {
                 .clearOldName()
                 .writeNewName()
                 .submitRename()
-                .getNewNameOfProjectAfterRenaming()
+                .getNewNameOfProjectAfterRename()
                 .getText();
 
         Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
