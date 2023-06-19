@@ -7,10 +7,12 @@ import school.redrover.model.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class ManageJenkinsTest extends BaseTest {
+
+    private final String userName = new Faker().name().firstName();
+    private final String password = new Faker().internet().password();
+
     @Test
     public void testCreateNewUser() {
-        String userName = new Faker().name().firstName();
-        String password = new Faker().internet().password();
         String email = new Faker().internet().emailAddress();
         boolean isUserCreated = new MainPage(getDriver())
                 .clickManageJenkinsTab()
@@ -19,5 +21,16 @@ public class ManageJenkinsTest extends BaseTest {
                 .fillInCredentialsAndSubmit(userName, password, email)
                 .isUserExist(userName);
         Assert.assertTrue(isUserCreated);
+    }
+
+    @Test(dependsOnMethods = "testCreateNewUser")
+    public void testDeleteUser() {
+        boolean isUserInDatabase = new MainPage(getDriver())
+                .getUsersDataBase()
+                .clickDeleteInDropdownMenu(userName)
+                .clickYesBtn()
+                .getUsersDataBase()
+                .isUserExist(userName);
+        Assert.assertFalse(isUserInDatabase);
     }
 }
