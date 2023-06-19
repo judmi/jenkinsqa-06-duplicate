@@ -56,4 +56,21 @@ public class TestUtils {
         baseTest.getDriver().findElement(By.xpath("//label/span[contains(text(), 'Organization Folder')]")).click();
         saveProject(baseTest, goToHomePage);
     }
+    public enum JobType {
+        FreestyleProject(1),
+        Pipeline(2),
+        MultiConfigurationProject(3),
+        Folder(4),
+        MultibranchPipeline(5),
+        OrganizationFolder(6);
+
+        public int getPosition(){
+            return position;
+        }
+
+        private final int position;
+        JobType(int position) {
+            this.position = position;
+        }
+    }
 }
