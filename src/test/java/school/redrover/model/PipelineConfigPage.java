@@ -12,9 +12,9 @@ public class PipelineConfigPage extends BasePage {
     public PipelineConfigPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy(xpath = "//div[@class = 'samples']/select")
+    @FindBy (xpath = "//div[@class = 'samples']/select")
     private WebElement scriptMenu;
-    @FindBy(name = "Submit")
+    @FindBy (name = "Submit")
     private WebElement submit;
 
     public PipelineConfigPage selectNewScript() {

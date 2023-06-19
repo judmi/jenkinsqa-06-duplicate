@@ -1,6 +1,5 @@
 package school.redrover.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,28 +9,27 @@ public class ProjectPage extends BasePage {
     public ProjectPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy(xpath = "//h1[@class='job-index-headline page-headline']")
+    @FindBy (xpath = "//h1[@class='job-index-headline page-headline']")
     private WebElement titleOfNewProject;
-    @FindBy(linkText=("Rename"))
+    @FindBy (linkText=("Rename"))
     private WebElement renameProject;
-    @FindBy(xpath = "//button[@class='jenkins-button  ']")
+    @FindBy (xpath = "//button[@class='jenkins-button  ']")
     private WebElement disableProject;
-    @FindBy(xpath = "//button[@name='Submit']")
+    @FindBy (xpath = "//button[@name='Submit']")
     private WebElement confirmDisableProject;
-    @FindBy(xpath = "//button[@name='Submit']")
+    @FindBy (xpath = "//button[@name='Submit']")
     private WebElement confirmEnableProject;
-
-    @FindBy( id = "description-link")
+    @FindBy ( id = "description-link")
     private WebElement addDescription;
-    @FindBy(xpath = "//textarea[@name='description']")
+    @FindBy (xpath = "//textarea[@name='description']")
     private WebElement writeNewDescription;
-    @FindBy(xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
+    @FindBy (xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
     private WebElement saveNewDescription;
-    @FindBy(xpath = "//div[@id='description']/div")
+    @FindBy (xpath = "//div[@id='description']/div")
     private WebElement textOfNewDescription;
-    @FindBy(xpath = "//form[@id='enable-project']")
+    @FindBy (xpath = "//form[@id='enable-project']")
     private WebElement projectIsDisabled;
-    @FindBy(xpath = "//button[@name = 'Submit']")
+    @FindBy (xpath = "//button[@name = 'Submit']")
     private WebElement projectIsEnable;
     public WebElement getTitleOfNewProject() {
         return titleOfNewProject;
