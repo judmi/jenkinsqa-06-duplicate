@@ -1,1 +1,2 @@
-# JenkinsQA_06 Only for members of Highway to AQA Group!
+# JenkinsQA_06
+A copy of [JenkinsQA_06](https://github.com/RedRoverSchool/JenkinsQA_06) project developed by Highway To AQA group ([RedRover.school](https://redrover.school/)).

@@ -23,32 +23,32 @@ public class PipelineTest extends BaseTest {
                 .getTitleOfNewProject()
                 .getText();
 
-        Assert.assertEquals(createNewPipeline,"Pipeline " + NamePipeline);
+        Assert.assertEquals(createNewPipeline, "Pipeline " + NamePipeline);
     }
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithScript")
     public void testRenamePipeline() {
-       String newNameOfPipeline = new MainPage(getDriver())
-               .clickOnProject()
-               .clickOnRenameProject()
-               .clearOldName()
-               .writeNewName()
-               .submitRename()
-               .getNewNameOfProjectAfterRenaming()
-               .getText();
+        String newNameOfPipeline = new MainPage(getDriver())
+                .clickOnProject()
+                .clickOnRenameProject()
+                .clearOldName()
+                .writeNewName()
+                .submitRename()
+                .getNewNameOfProjectAfterRenaming()
+                .getText();
 
-                Assert.assertEquals(newNameOfPipeline,"Pipeline " + NamePipeline + 1);
+        Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
     }
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithScript")
     public void testDisablePipeline() {
-        String disableProject =  new MainPage(getDriver())
+        String disableProject = new MainPage(getDriver())
                 .clickOnProject()
                 .chooseDisableProject()
                 .projectIsDisabled()
                 .getText();
 
-        Assert.assertEquals(disableProject,DisabledProject);
+        Assert.assertEquals(disableProject, DisabledProject);
     }
 
     @Test(dependsOnMethods = {"testCreateNewPipelineWithScript", "testDisablePipeline"})
@@ -73,6 +73,6 @@ public class PipelineTest extends BaseTest {
                 .textOfNewDescription()
                 .getText();
 
-        Assert.assertEquals(projectWithNewDescription,"Мой переименованный, c измененными настройками Pipeline");
+        Assert.assertEquals(projectWithNewDescription, "Мой переименованный, c измененными настройками Pipeline");
     }
 }
