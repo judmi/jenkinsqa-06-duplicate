@@ -15,11 +15,12 @@ public class LoginPage extends BasePage {
     }
     @FindBy (name = "j_username")
     private WebElement login;
+
     @FindBy (name = "j_password")
     private WebElement password;
+
     @FindBy (name = "Submit")
     private WebElement Submit;
-
 
     public LoginPage inputLogin() {
         login.sendKeys("login");

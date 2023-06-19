@@ -9,12 +9,16 @@ import school.redrover.model.base.BasePage;
 public class MainPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/manage']")
     private WebElement manageJenkinsTab;
+
     @FindBy(xpath ="//a[@href='/view/all/newJob']")
     private WebElement newItemButton;
+
     @FindBy (xpath = "//h1[@class='job-index-headline page-headline']")
     private WebElement titleOfNewProject;
+
     @FindBy (xpath = "//a[@class='jenkins-table__link model-link inside']")
     private WebElement chooseProject;
+
     @FindBy (xpath="//h1 [@class='job-index-headline page-headline']")
     private WebElement nameOfProjectAfterRename;
 

@@ -11,26 +11,37 @@ public class ProjectPage extends BasePage {
     }
     @FindBy (xpath = "//h1[@class='job-index-headline page-headline']")
     private WebElement titleOfNewProject;
+
     @FindBy (linkText=("Rename"))
     private WebElement renameProject;
+
     @FindBy (xpath = "//button[@class='jenkins-button  ']")
     private WebElement disableProject;
+
     @FindBy (xpath = "//button[@name='Submit']")
     private WebElement confirmDisableProject;
+
     @FindBy (xpath = "//button[@name='Submit']")
     private WebElement confirmEnableProject;
+
     @FindBy ( id = "description-link")
     private WebElement addDescription;
+
     @FindBy (xpath = "//textarea[@name='description']")
     private WebElement writeNewDescription;
+
     @FindBy (xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
     private WebElement saveNewDescription;
+
     @FindBy (xpath = "//div[@id='description']/div")
     private WebElement textOfNewDescription;
+
     @FindBy (xpath = "//form[@id='enable-project']")
     private WebElement projectIsDisabled;
+
     @FindBy (xpath = "//button[@name = 'Submit']")
     private WebElement projectIsEnable;
+
     public WebElement getTitleOfNewProject() {
         return titleOfNewProject;
     }

@@ -14,6 +14,7 @@ public class PipelineConfigPage extends BasePage {
     }
     @FindBy (xpath = "//div[@class = 'samples']/select")
     private WebElement scriptMenu;
+
     @FindBy (name = "Submit")
     private WebElement submit;
 

@@ -13,8 +13,10 @@ public class NewItemPage extends BasePage {
     }
     @FindBy (id = "name")
     private WebElement name;
+
     @FindBy (xpath = "//li[@class = 'org_jenkinsci_plugins_workflow_job_WorkflowJob']")
     private WebElement choosePipeline;
+
     @FindBy(xpath = "//button[@id='ok-button']")
     private WebElement chooseOkButton;
 

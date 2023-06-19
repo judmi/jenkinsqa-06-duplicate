@@ -14,8 +14,10 @@ public class RenameProjectPage extends BasePage {
 
     @FindBy (xpath = "//input [@name='newName']")
     private WebElement oldName;
+
     @FindBy (xpath = "//input [@name='newName']")
     private WebElement newName;
+
     @FindBy (xpath = "//button [@name='Submit']")
     private WebElement submitNewName;
 
