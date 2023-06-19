@@ -8,14 +8,14 @@ import school.redrover.model.base.BasePage;
 public class ManageJenkinsPage extends BasePage {
 
     @FindBy(xpath = "//a[@href = 'securityRealm/']")
-    private WebElement manageUsersSection;
+    WebElement manageUsersSection;
 
     public ManageJenkinsPage(WebDriver driver) {
         super(driver);
     }
 
-    public UsersPage clickManageUsersSection() {
+    public UsersDatabasePage clickManageUsersSection() {
         manageUsersSection.click();
-        return new UsersPage(getDriver());
+        return new UsersDatabasePage(getDriver());
     }
 }

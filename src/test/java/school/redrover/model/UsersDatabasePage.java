@@ -1,7 +1,6 @@
 package school.redrover.model;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -11,14 +10,14 @@ import school.redrover.model.base.BasePage;
 
 import java.util.List;
 
-public class UsersPage extends BasePage {
+public class UsersDatabasePage extends BasePage {
 
     @FindBy(xpath = "//a[@href = 'addUser']")
-    private WebElement createUserBtn;
+    WebElement createUserBtn;
     @FindBy(xpath = "//a[@class ='jenkins-table__link model-link inside']")
-    private List<WebElement> usersTable;
+    List<WebElement> usersTable;
 
-    public UsersPage(WebDriver driver) {
+    public UsersDatabasePage(WebDriver driver) {
         super(driver);
     }
 
@@ -36,20 +35,20 @@ public class UsersPage extends BasePage {
         }
         return false;
     }
-    public void clickDeleteInDropdownMenu(String userName) {
+
+    public UserPage clickDeleteInDropdownMenu(String userName) {
         Actions action = new Actions(getDriver());
         action
                 .moveToElement(getDriver().findElement(By
                         .xpath("//a[@href = 'user/" + userName.toLowerCase() + "/']")))
-                .pause(3000)
                 .moveToElement(getDriver().findElement(By
                         .xpath("//a[@href = 'user/" +
                                 userName.toLowerCase() + "/']/button[@class = 'jenkins-menu-dropdown-chevron']")))
                 .click()
-                .pause(10000)
-                .moveToElement(getDriver().findElement(By
-                        .xpath("//li[@id = 'yui-gen16']")))
-////                .click()
                 .perform();
+        getWait2().until(ExpectedConditions.visibilityOfElementLocated(By
+                        .xpath("//a[@href = '/user/" + userName.toLowerCase() + "/delete']")))
+                .click();
+        return new UserPage(getDriver());
     }
 }
