@@ -1,10 +1,8 @@
 package school.redrover.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
 
 
@@ -14,31 +12,38 @@ public class LoginPage extends BasePage {
         super(driver);
     }
     @FindBy (name = "j_username")
-    private WebElement login;
+    private WebElement loginField;
 
     @FindBy (name = "j_password")
-    private WebElement password;
+    private WebElement passwordField;
 
     @FindBy (name = "Submit")
     private WebElement Submit;
 
-    public LoginPage inputLogin() {
-        login.sendKeys("login");
+    @FindBy (xpath = "//div[@class = 'alert alert-danger']")
+    private WebElement loginForm;
+
+    public LoginPage inputLogin(String login) {
+        loginField.sendKeys(login);
         return this;
     }
 
-    public LoginPage inputPassword() {
-       password.sendKeys("password");
+    public LoginPage inputPassword(String password) {
+       passwordField.sendKeys(password);
         return this;
     }
 
-    public MainPage login() {
+    public MainPage signInClick() {
         Submit.click();
         return new MainPage(getDriver());
     }
+    public LoginPage signInWithInvalidCredentials(){
+        Submit.click();
+        return this;
+    }
 
     public boolean invalidLogin() {
-        String text = login.getText();
+        String text = loginForm.getText();
         return text.contains("Invalid username or password");
     }
 }

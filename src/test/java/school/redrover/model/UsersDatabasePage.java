@@ -13,9 +13,10 @@ import java.util.List;
 public class UsersDatabasePage extends BasePage {
 
     @FindBy(xpath = "//a[@href = 'addUser']")
-    WebElement createUserBtn;
+    private WebElement createUserBtn;
+
     @FindBy(xpath = "//a[@class ='jenkins-table__link model-link inside']")
-    List<WebElement> usersTable;
+    private List<WebElement> usersTable;
 
     public UsersDatabasePage(WebDriver driver) {
         super(driver);
