@@ -1,8 +1,8 @@
 package school.redrover.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy ;
 import school.redrover.model.base.BasePage;
 
 public class RenameProjectPage extends BasePage {
@@ -12,24 +12,27 @@ public class RenameProjectPage extends BasePage {
         super(driver);
     }
 
+    @FindBy (xpath = "//input [@name='newName']")
+    private WebElement oldName;
+
+    @FindBy (xpath = "//input [@name='newName']")
+    private WebElement newName;
+
+    @FindBy (xpath = "//button [@name='Submit']")
+    private WebElement submitNewName;
+
     public RenameProjectPage clearOldName() {
-        WebElement oldName = getDriver().findElement(By.xpath("//input [@name='newName']"));
         oldName.clear();
         return this;
     }
 
     public RenameProjectPage writeNewName() {
-        WebElement newName = getDriver().findElement(By.xpath("//input [@name='newName']"));
         newName.sendKeys(NamePipeline);
         return this;
     }
 
     public MainPage submitRename() {
-        WebElement submitNewName = getDriver().findElement(By.xpath("//button [@name='Submit']"));
         submitNewName.click();
         return new MainPage(getDriver());
     }
-
-
 }
-
