@@ -37,10 +37,6 @@ public class MainPage extends BasePage {
         return new ProjectPage(getDriver());
     }
 
-    public WebElement getNewNameOfProjectAfterRenaming() {
-        return getDriver().findElement(By.xpath("//h1 [@class='job-index-headline page-headline']"));
-    }
-
     public UsersDatabasePage getUsersDataBase() {
         clickManageJenkinsTab()
                 .clickManageUsersSection();
