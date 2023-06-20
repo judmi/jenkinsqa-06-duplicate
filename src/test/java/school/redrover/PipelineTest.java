@@ -1,9 +1,11 @@
 package school.redrover;
 
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.model.MainPage;
 import school.redrover.runner.BaseTest;
+
 
 public class PipelineTest extends BaseTest {
     final String NamePipeline = "My Pipeline";
@@ -34,7 +36,7 @@ public class PipelineTest extends BaseTest {
                 .clearOldName()
                 .writeNewName()
                 .submitRename()
-                .getNewNameOfProjectAfterRename()
+                .getNewNameOfProjectAfterRenaming()
                 .getText();
 
         Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);

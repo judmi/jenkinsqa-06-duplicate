@@ -11,6 +11,9 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/manage']")
     WebElement manageJenkinsTab;
 
+    @FindBy(xpath = "//a[@href = '/logout']")
+    WebElement logout;
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -45,5 +48,10 @@ public class MainPage extends BasePage {
         clickManageJenkinsTab()
                 .clickManageUsersSection();
         return new UsersDatabasePage(getDriver());
+    }
+
+    public LoginPage clickLogout(){
+        logout.click();
+        return new LoginPage(getDriver());
     }
 }
