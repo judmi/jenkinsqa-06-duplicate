@@ -14,7 +14,9 @@ public class MulticonfigurationProjectConfigPage extends BasePage {
         super(driver);
     }
 
-    public void clickSaveButton() {
+    public ProjectPage clickSaveButton() {
         getWait2().until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+
+        return new ProjectPage(getDriver());
     }
 }
