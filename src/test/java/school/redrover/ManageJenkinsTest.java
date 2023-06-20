@@ -36,12 +36,12 @@ public class ManageJenkinsTest extends BaseTest {
 
     @Test(dependsOnMethods = {"testCreateNewUser", "testDeleteUser"})
     public void testLoginWithCredentialsOfDeletedUser() {
-        boolean isErrorMessageAppear = new MainPage(getDriver())
+        boolean wasErrorMessageAppeared = new MainPage(getDriver())
                 .clickLogout()
                 .inputLogin(userName)
                 .inputPassword(password)
                 .signInWithInvalidCredentials()
-                .invalidLogin();
-        Assert.assertTrue(isErrorMessageAppear);
+                .isInvalidLoginMessageShown();
+        Assert.assertTrue(wasErrorMessageAppeared);
     }
 }
