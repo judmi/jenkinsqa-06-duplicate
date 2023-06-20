@@ -46,7 +46,7 @@ public class MainPage extends BasePage {
         return new UsersDatabasePage(getDriver());
     }
 
-    public LoginPage clickLogout(){
+    public LoginPage clickLogout() {
         logout.click();
         return new LoginPage(getDriver());
     }

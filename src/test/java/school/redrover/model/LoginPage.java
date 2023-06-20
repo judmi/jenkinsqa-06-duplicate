@@ -21,7 +21,7 @@ public class LoginPage extends BasePage {
     private WebElement Submit;
 
     @FindBy (xpath = "//div[@class = 'alert alert-danger']")
-    private WebElement logonForm;
+    private WebElement loginForm;
 
     public LoginPage inputLogin(String login) {
         loginField.sendKeys(login);
@@ -43,7 +43,7 @@ public class LoginPage extends BasePage {
     }
 
     public boolean invalidLogin() {
-        String text = logonForm.getText();
+        String text = loginForm.getText();
         return text.contains("Invalid username or password");
     }
 }
