@@ -88,5 +88,3 @@ public class ProjectPage extends BasePage {
         return projectIsEnable;
     }
 }
-
-

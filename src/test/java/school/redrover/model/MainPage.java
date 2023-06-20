@@ -3,11 +3,12 @@ package school.redrover.model;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
 
 public class MainPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/manage']")
-    private WebElement manageJenkinsTab;
+    WebElement manageJenkinsTab;
 
     @FindBy(xpath ="//a[@href='/view/all/newJob']")
     private WebElement newItemButton;
@@ -35,7 +36,7 @@ public class MainPage extends BasePage {
     }
 
     public ManageJenkinsPage clickManageJenkinsTab() {
-        manageJenkinsTab.click();
+        getWait10().until(ExpectedConditions.elementToBeClickable(manageJenkinsTab)).click();
         return new ManageJenkinsPage(getDriver());
     }
 
@@ -47,5 +48,11 @@ public class MainPage extends BasePage {
 
     public WebElement getNewNameOfProjectAfterRename() {
         return nameOfProjectAfterRename;
+    }
+
+    public UsersDatabasePage getUsersDataBase() {
+        clickManageJenkinsTab()
+                .clickManageUsersSection();
+        return new UsersDatabasePage(getDriver());
     }
 }
