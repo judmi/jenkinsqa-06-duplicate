@@ -7,17 +7,17 @@ import school.redrover.model.base.BasePage;
 
 public class CreateUserPage extends BasePage {
     @FindBy(xpath = "//input[@name = 'username']")
-    private WebElement userNameField;
+    WebElement userNameField;
     @FindBy(xpath = "//input[@name = 'password1']")
-    private WebElement passwordField;
+    WebElement passwordField;
     @FindBy(xpath = "//input[@name = 'password2']")
-    private WebElement confirmPasswordField;
+    WebElement confirmPasswordField;
     @FindBy(xpath = "//input[@name = 'fullname']")
-    private WebElement fullNameField;
+    WebElement fullNameField;
     @FindBy(xpath = "//input[@name = 'email']")
-    private WebElement emailField;
+    WebElement emailField;
     @FindBy(xpath = "//button[@name = 'Submit']")
-    private WebElement createUserBtn;
+    WebElement createUserBtn;
 
     public CreateUserPage(WebDriver driver) {
         super(driver);
