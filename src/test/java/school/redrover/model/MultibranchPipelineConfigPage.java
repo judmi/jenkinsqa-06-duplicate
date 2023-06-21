@@ -23,16 +23,14 @@ public class MultibranchPipelineConfigPage extends BasePage {
         displayNameField.sendKeys(nameAndDescriptionOfProject);
         return this;
     }
+
     public MultibranchPipelineConfigPage addDescription() {
         descriptionTextarea.sendKeys(nameAndDescriptionOfProject);
         return this;
     }
+
         public MultibranchPipelineConfigPage addChooseBranchSources(){
             branchSourcesMenu.click();
         return this;
     }
-
-
-
-
 }
