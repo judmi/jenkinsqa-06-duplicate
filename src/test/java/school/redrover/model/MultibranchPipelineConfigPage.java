@@ -16,19 +16,19 @@ public class MultibranchPipelineConfigPage extends BasePage {
     private WebElement descriptionTextarea;
 
     @FindBy(xpath ="//span[@id='yui-gen1']")
-    private WebElement addBranchSourcesMenu;
+    private WebElement branchSourcesMenu;
     public MultibranchPipelineConfigPage(WebDriver driver){super(driver);}
 
     public MultibranchPipelineConfigPage displayNameOfMultibranchPipeline() {
         displayNameField.sendKeys(nameAndDescriptionOfProject);
         return this;
     }
-    public MultibranchPipelineConfigPage description() {
+    public MultibranchPipelineConfigPage addDescription() {
         descriptionTextarea.sendKeys(nameAndDescriptionOfProject);
         return this;
     }
-        public MultibranchPipelineConfigPage chooseBranchSources(){
-            addBranchSourcesMenu.click();
+        public MultibranchPipelineConfigPage addChooseBranchSources(){
+            branchSourcesMenu.click();
         return this;
     }
 
