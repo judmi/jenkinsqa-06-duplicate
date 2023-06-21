@@ -4,7 +4,10 @@ import com.github.javafaker.Faker;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.model.MainPage;
+import school.redrover.model.ManageJenkinsPage;
 import school.redrover.runner.BaseTest;
+
+
 
 public class ManageJenkinsTest extends BaseTest {
 
@@ -15,7 +18,7 @@ public class ManageJenkinsTest extends BaseTest {
     public void testCreateNewUser() {
         String email = new Faker().internet().emailAddress();
         boolean isUserCreated = new MainPage(getDriver())
-                .clickManageJenkinsTab()
+                .clickLinkFromSidebarMenu(MainPage.LinkFromSidebarMenu.MANAGE_JENKINS, new ManageJenkinsPage(getDriver()))
                 .clickManageUsersSection()
                 .clickCrateUserBtn()
                 .fillInCredentialsAndSubmit(userName, password, email)

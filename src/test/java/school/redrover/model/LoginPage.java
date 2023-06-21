@@ -19,7 +19,7 @@ public class LoginPage extends BasePage {
     private WebElement passwordField;
 
     @FindBy(name = "Submit")
-    private WebElement Submit;
+    private WebElement submit;
 
     @FindBy(xpath = "//div[@class = 'alert alert-danger']")
     private WebElement loginForm;
@@ -35,12 +35,12 @@ public class LoginPage extends BasePage {
     }
 
     public MainPage signInClick() {
-        Submit.click();
+        submit.click();
         return new MainPage(getDriver());
     }
 
     public LoginPage signInWithInvalidCredentials() {
-        Submit.click();
+        submit.click();
         return this;
     }
 
