@@ -9,6 +9,7 @@ public class ProjectPage extends BasePage {
     public ProjectPage(WebDriver driver) {
         super(driver);
     }
+
     @FindBy (xpath = "//h1[@class='job-index-headline page-headline']")
     private WebElement titleOfProjectField;
 

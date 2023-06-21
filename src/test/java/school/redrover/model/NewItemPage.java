@@ -1,6 +1,5 @@
 package school.redrover.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,8 +18,11 @@ public class NewItemPage extends BasePage{
     @FindBy(xpath = "//button[@id='ok-button']")
     private WebElement chooseOkButton;
 
-    public NewItemPage chooseNameForProject(String namePipeline) {
-        nameField.sendKeys("My Pipeline");
+    @FindBy(xpath = "//li[descendant::input[@value ='hudson.matrix.MatrixProject']]")
+    private WebElement multiconfigurationalProjectItem;
+
+    public NewItemPage chooseNameForProject(String itemName) {
+        name.sendKeys(itemName);
         return this;
     }
 
@@ -34,10 +36,15 @@ public class NewItemPage extends BasePage{
         return (new PipelineConfigPage(getDriver()));
     }
 
-    public MultibranchPipelineConfigPage chooseMultibranchPipelineAndClickOk() {
-        WebElement multibranchPipeline = getDriver().findElement(By.linkText("Multibranch Pipeline"));
-        multibranchPipeline.click();
+    public NewItemPage clickMulticonfigurationalProjectItem() {
+        multiconfigurationalProjectItem.click();
+
+        return this;
+    }
+
+    public MulticonfigurationProjectConfigPage clickOkButtonForMulticonfigurationProject() {
         chooseOkButton.click();
-        return new MultibranchPipelineConfigPage(getDriver());
+
+        return new MulticonfigurationProjectConfigPage(getDriver());
     }
 }
