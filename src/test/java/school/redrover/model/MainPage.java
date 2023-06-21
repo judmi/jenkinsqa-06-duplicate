@@ -9,7 +9,7 @@ import school.redrover.model.base.BasePage;
 
 public class MainPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/manage']")
-    private WebElement manageJenkinsTab;
+    private WebElement manageJenkinsLink;
 
     @FindBy(xpath = "//a[@href = '/logout']")
     private WebElement logoutLink;
@@ -29,7 +29,7 @@ public class MainPage extends BasePage {
     }
 
     public ManageJenkinsPage clickManageJenkinsTab() {
-        getWait10().until(ExpectedConditions.elementToBeClickable(manageJenkinsTab)).click();
+        getWait10().until(ExpectedConditions.elementToBeClickable(manageJenkinsLink)).click();
         return new ManageJenkinsPage(getDriver());
     }
 
