@@ -11,16 +11,18 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy (name = "j_username")
+
+    @FindBy(name = "j_username")
     private WebElement loginField;
 
-    @FindBy (name = "j_password")
+    @FindBy(name = "j_password")
     private WebElement passwordField;
 
     @FindBy (name = "Submit")
     private WebElement submitButton;
 
-    @FindBy (xpath = "//div[@class = 'alert alert-danger']")
+
+    @FindBy(xpath = "//div[@class = 'alert alert-danger']")
     private WebElement loginForm;
 
     public LoginPage inputLogin(String login) {
@@ -29,20 +31,22 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage inputPassword(String password) {
-       passwordField.sendKeys(password);
+        passwordField.sendKeys(password);
         return this;
     }
 
     public MainPage signInClick() {
+
         submitButton.click();
         return new MainPage(getDriver());
     }
     public LoginPage signInWithInvalidCredentials(){
         submitButton.click();
+
         return this;
     }
 
-    public boolean invalidLogin() {
+    public boolean isInvalidLoginMessageShown() {
         String text = loginForm.getText();
         return text.contains("Invalid username or password");
     }
