@@ -4,7 +4,10 @@ import com.github.javafaker.Faker;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import school.redrover.model.MainPage;
+import school.redrover.model.ManageJenkinsPage;
 import school.redrover.runner.BaseTest;
+
+
 
 public class ManageJenkinsTest extends BaseTest {
 
@@ -15,7 +18,7 @@ public class ManageJenkinsTest extends BaseTest {
     public void testCreateNewUser() {
         String email = new Faker().internet().emailAddress();
         boolean isUserCreated = new MainPage(getDriver())
-                .clickManageJenkinsTab()
+                .clickLinkFromSidebarMenu(MainPage.LinkFromSidebarMenu.MANAGE_JENKINS, new ManageJenkinsPage(getDriver()))
                 .clickManageUsersSection()
                 .clickCrateUserBtn()
                 .fillInCredentialsAndSubmit(userName, password, email)
@@ -36,12 +39,12 @@ public class ManageJenkinsTest extends BaseTest {
 
     @Test(dependsOnMethods = {"testCreateNewUser", "testDeleteUser"})
     public void testLoginWithCredentialsOfDeletedUser() {
-        boolean isErrorMessageAppear = new MainPage(getDriver())
+        boolean wasErrorMessageAppeared = new MainPage(getDriver())
                 .clickLogout()
                 .inputLogin(userName)
                 .inputPassword(password)
                 .signInWithInvalidCredentials()
-                .invalidLogin();
-        Assert.assertTrue(isErrorMessageAppear);
+                .isInvalidLoginMessageShown();
+        Assert.assertTrue(wasErrorMessageAppeared);
     }
 }

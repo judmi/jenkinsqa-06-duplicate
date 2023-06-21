@@ -9,10 +9,41 @@ import school.redrover.model.base.BasePage;
 
 public class MainPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/manage']")
-    private WebElement manageJenkinsLink;
+    static WebElement manageJenkinsLink;
+
+    @FindBy(xpath = "//a[@href='/view/all/newJob']")
+    static WebElement newItemLink;
+
+    @FindBy(xpath = "//a[@href = '/asynchPeople/']")
+    static WebElement peopleLink;
+
+    @FindBy(xpath = "//a[@href = '/view/all/builds']")
+    static WebElement buildHistoryLink;
+
+    @FindBy(xpath = "//a[@href = '/me/my-views']")
+    static WebElement myViewsLink;
 
     @FindBy(xpath = "//a[@href = '/logout']")
-    private WebElement logoutLink;
+    private WebElement logout;
+
+    public enum LinkFromSidebarMenu {
+        NEW_ITEM(newItemLink),
+        PEOPLE(peopleLink),
+        BUILD_HISTORY(buildHistoryLink),
+        MANAGE_JENKINS(manageJenkinsLink),
+        MY_VIEWS(myViewsLink);
+
+        private final WebElement locator;
+
+        LinkFromSidebarMenu(WebElement locator) {
+            this.locator = locator;
+        }
+
+        public WebElement getLocator() {
+            return locator;
+        }
+    }
+
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -33,7 +64,6 @@ public class MainPage extends BasePage {
         return new ManageJenkinsPage(getDriver());
     }
 
-
     public ProjectPage clickOnProject() {
         WebElement chooseProject = getDriver().findElement(By.xpath("//a[@class='jenkins-table__link model-link inside']"));
         chooseProject.click();
@@ -41,7 +71,7 @@ public class MainPage extends BasePage {
     }
 
     public UsersDatabasePage getUsersDataBase() {
-        clickManageJenkinsTab()
+        clickLinkFromSidebarMenu(LinkFromSidebarMenu.MANAGE_JENKINS, new ManageJenkinsPage(getDriver()))
                 .clickManageUsersSection();
         return new UsersDatabasePage(getDriver());
     }
@@ -49,5 +79,14 @@ public class MainPage extends BasePage {
     public LoginPage clickLogout() {
         logoutLink.click();
         return new LoginPage(getDriver());
+    }
+
+    private WebElement getLinkfromSidebarMenu(LinkFromSidebarMenu link) {
+        return link.getLocator();
+    }
+
+    public <Page extends BasePage> Page clickLinkFromSidebarMenu(LinkFromSidebarMenu link, Page page) {
+        getLinkfromSidebarMenu(link).click();
+        return page;
     }
 }
