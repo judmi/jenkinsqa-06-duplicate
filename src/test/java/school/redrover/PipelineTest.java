@@ -45,7 +45,7 @@ public class PipelineTest extends BaseTest {
         String disableProject = new MainPage(getDriver())
                 .clickOnProject()
                 .chooseDisableProject()
-                .projectIsDisabled()
+                .makeProjectIsDisabled()
                 .getText();
 
         Assert.assertEquals(disableProject, DisabledProject);
@@ -57,7 +57,7 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .pushDisable()
                 .pushEnable()
-                .projectIsEnable()
+                .makeProjectIsEnable()
                 .getText();
 
         Assert.assertEquals(enableProject, "Enable");
@@ -70,7 +70,7 @@ public class PipelineTest extends BaseTest {
                 .clickAddDescription()
                 .AddNewDescription()
                 .saveDescription()
-                .textOfNewDescription()
+                .getTextOfNewDescription()
                 .getText();
 
         Assert.assertEquals(projectWithNewDescription, "Мой переименованный, c измененными настройками Pipeline");

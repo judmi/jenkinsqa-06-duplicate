@@ -5,18 +5,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import school.redrover.model.base.BasePage;
 
-public class NewItemPage extends BasePage {
-    public NewItemPage(WebDriver driver) {
+public class NewItemPage extends BasePage{
+    public NewItemPage (WebDriver driver) {
         super(driver);
     }
-    @FindBy (id = "name")
-    private WebElement name;
+    @FindBy(id = "name")
+    private WebElement nameField;
 
     @FindBy (xpath = "//li[@class = 'org_jenkinsci_plugins_workflow_job_WorkflowJob']")
-    private WebElement choosePipeline;
+    private WebElement choosenPipelineLink;
 
     @FindBy(xpath = "//button[@id='ok-button']")
-    private WebElement chooseOkButton;
+    private WebElement okButton;
 
     @FindBy(xpath = "//li[descendant::input[@value ='hudson.matrix.MatrixProject']]")
     private WebElement multiconfigurationalProjectItem;
@@ -27,7 +27,7 @@ public class NewItemPage extends BasePage {
     }
 
     public NewItemPage choosePipeline() {
-        choosePipeline.click();
+        choosePipelineLink.click();
         return this;
     }
 

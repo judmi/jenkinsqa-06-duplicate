@@ -9,14 +9,15 @@ import org.openqa.selenium.support.ui.Select;
 import school.redrover.model.base.BasePage;
 
 public class PipelineConfigPage extends BasePage {
-    public PipelineConfigPage(WebDriver driver) {
-        super(driver);
-    }
     @FindBy (xpath = "//div[@class = 'samples']/select")
     private WebElement scriptMenu;
 
     @FindBy (name = "Submit")
-    private WebElement submit;
+    private WebElement submitButton;
+
+    public PipelineConfigPage(WebDriver driver) {
+        super(driver);
+    }
 
     public PipelineConfigPage selectNewScript() {
         getDriver().findElement((By.xpath("//div[@class = 'samples']/select")));
@@ -30,7 +31,7 @@ public class PipelineConfigPage extends BasePage {
     }
 
     public ProjectPage saveChanges() {
-        submit.click();
+        submitButton.click();
         return (new ProjectPage(getDriver()));
     }
 }

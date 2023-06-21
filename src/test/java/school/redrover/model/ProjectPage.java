@@ -9,82 +9,80 @@ public class ProjectPage extends BasePage {
     public ProjectPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy (xpath = "//h1[ancestor::div[@id='main-panel']]")
-    private WebElement titleOfNewProject;
+
+    @FindBy (xpath = "//h1[@class='job-index-headline page-headline']")
+    private WebElement titleOfProjectField;
 
     @FindBy (linkText=("Rename"))
-    private WebElement renameProject;
+    private WebElement renamedProjectField;
 
     @FindBy (xpath = "//button[@class='jenkins-button  ']")
-    private WebElement disableProject;
+    private WebElement disableProjectButton;
 
     @FindBy (xpath = "//button[@name='Submit']")
-    private WebElement confirmDisableProject;
-
-    @FindBy (xpath = "//button[@name='Submit']")
-    private WebElement confirmEnableProject;
+    private WebElement disableEnableProjectButton;
 
     @FindBy ( id = "description-link")
-    private WebElement addDescription;
+    private WebElement addDescriptionLink;
 
     @FindBy (xpath = "//textarea[@name='description']")
-    private WebElement writeNewDescription;
+    private WebElement newDescriptionField;
 
     @FindBy (xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
-    private WebElement saveNewDescription;
+    private WebElement newDescriptionSaveButton;
 
     @FindBy (xpath = "//div[@id='description']/div")
-    private WebElement textOfNewDescription;
+    private WebElement newDescriptionTitle;
 
     @FindBy (xpath = "//form[@id='enable-project']")
-    private WebElement projectIsDisabled;
+    private WebElement projectIsDisabledTitle;
 
     @FindBy (xpath = "//button[@name = 'Submit']")
-    private WebElement projectIsEnable;
+    private WebElement projectIsEnableTitle;
 
     public WebElement getTitleOfNewProject() {
-        return titleOfNewProject;
+        return titleOfProjectField;
     }
 
     public RenameProjectPage clickOnRenameProject() {
-        renameProject.click();
+        renamedProjectField.click();
         return new RenameProjectPage(getDriver());
     }
 
     public ProjectPage chooseDisableProject() {
-        disableProject.click();
+        disableProjectButton.click();
         return this;
     }
     public ProjectPage pushDisable() {
-        confirmDisableProject.click();
+        disableEnableProjectButton.click();
         return this;
     }
     public ProjectPage pushEnable() {
-        confirmEnableProject.click();
+        disableEnableProjectButton.click();
         return this;
     }
     public ProjectPage clickAddDescription() {
-       addDescription.click();
+        addDescriptionLink.click();
         return this;
     }
 
     public ProjectPage AddNewDescription() {
-        writeNewDescription.sendKeys("Мой переименованный, c измененными настройками Pipeline");
+        newDescriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
         return this;
     }
 
     public ProjectPage saveDescription() {
-        saveNewDescription.click();
+        newDescriptionSaveButton.click();
         return this;
     }
 
-    public WebElement textOfNewDescription() {
-        return textOfNewDescription;
+    public WebElement getTextOfNewDescription() {
+        return newDescriptionTitle;
     }
-    public WebElement projectIsDisabled() {
-        return projectIsDisabled;
+    public WebElement makeProjectIsDisabled() {
+        return projectIsDisabledTitle;
     }
-    public WebElement projectIsEnable() {
-        return projectIsEnable;
+    public WebElement makeProjectIsEnable() {
+        return projectIsEnableTitle;
     }
 }

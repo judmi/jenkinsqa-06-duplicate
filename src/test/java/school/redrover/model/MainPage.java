@@ -44,6 +44,7 @@ public class MainPage extends BasePage {
         }
     }
 
+
     public MainPage(WebDriver driver) {
         super(driver);
     }
@@ -76,7 +77,7 @@ public class MainPage extends BasePage {
     }
 
     public LoginPage clickLogout() {
-        logout.click();
+        logoutLink.click();
         return new LoginPage(getDriver());
     }
 
