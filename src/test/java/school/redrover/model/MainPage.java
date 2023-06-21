@@ -9,10 +9,10 @@ import school.redrover.model.base.BasePage;
 
 public class MainPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/manage']")
-    WebElement manageJenkinsTab;
+    private WebElement manageJenkinsTab;
 
     @FindBy(xpath = "//a[@href = '/logout']")
-    WebElement logout;
+    private WebElement logoutLink;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -47,7 +47,7 @@ public class MainPage extends BasePage {
     }
 
     public LoginPage clickLogout() {
-        logout.click();
+        logoutLink.click();
         return new LoginPage(getDriver());
     }
 }
