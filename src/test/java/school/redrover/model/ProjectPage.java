@@ -10,40 +10,45 @@ public class ProjectPage extends BasePage {
         super(driver);
     }
 
-    @FindBy (xpath = "//h1[@class='job-index-headline page-headline']")
+    @FindBy(xpath = "//h1[@class='job-index-headline page-headline']")
     private WebElement titleOfProjectField;
+    @FindBy(xpath = "//h1[@class='matrix-project-headline page-headline']")
+    private WebElement titleOfMulticonfigurationProjectField;
 
-    @FindBy (linkText=("Rename"))
+    @FindBy(linkText = ("Rename"))
     private WebElement renamedProjectField;
 
-    @FindBy (xpath = "//button[@class='jenkins-button  ']")
+    @FindBy(xpath = "//button[@class='jenkins-button  ']")
     private WebElement disableProjectButton;
 
-    @FindBy (xpath = "//button[@name='Submit']")
+    @FindBy(xpath = "//button[@name='Submit']")
     private WebElement disableEnableProjectButton;
 
-    @FindBy ( id = "description-link")
+    @FindBy(id = "description-link")
     private WebElement addDescriptionLink;
 
-    @FindBy (xpath = "//textarea[@name='description']")
+    @FindBy(xpath = "//textarea[@name='description']")
     private WebElement newDescriptionField;
 
-    @FindBy (xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
+    @FindBy(xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
     private WebElement newDescriptionSaveButton;
 
-    @FindBy (xpath = "//div[@id='description']/div")
+    @FindBy(xpath = "//div[@id='description']/div")
     private WebElement newDescriptionTitle;
 
-    @FindBy (xpath = "//form[@id='enable-project']")
+    @FindBy(xpath = "//form[@id='enable-project']")
     private WebElement projectIsDisabledTitle;
 
-    @FindBy (xpath = "//button[@name = 'Submit']")
+    @FindBy(xpath = "//button[@name = 'Submit']")
     private WebElement projectIsEnableTitle;
 
     public WebElement getTitleOfNewProject() {
         return titleOfProjectField;
     }
 
+    public WebElement getTitleOfNewMulticonfigurationProject() {
+        return titleOfMulticonfigurationProjectField;
+}
     public RenameProjectPage clickOnRenameProject() {
         renamedProjectField.click();
         return new RenameProjectPage(getDriver());
