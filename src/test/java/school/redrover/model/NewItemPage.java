@@ -22,17 +22,17 @@ public class NewItemPage extends BasePage{
     private WebElement multiconfigurationalProjectItem;
 
     public NewItemPage chooseNameForProject(String itemName) {
-        name.sendKeys(itemName);
+        nameField.sendKeys(itemName);
         return this;
     }
 
     public NewItemPage choosePipeline() {
-        choosePipelineLink.click();
+        choosenPipelineLink.click();
         return this;
     }
 
     public PipelineConfigPage clickOk() {
-        chooseOkButton.click();
+        okButton.click();
         return (new PipelineConfigPage(getDriver()));
     }
 
@@ -43,8 +43,7 @@ public class NewItemPage extends BasePage{
     }
 
     public MulticonfigurationProjectConfigPage clickOkButtonForMulticonfigurationProject() {
-        chooseOkButton.click();
-
+        okButton.click();
         return new MulticonfigurationProjectConfigPage(getDriver());
     }
 }

@@ -15,8 +15,8 @@ public class MulticonfigurationalProjectTest extends BaseTest {
                 .chooseNameForProject(MULTICONFIGURATIONAL_PROJECT_NAME)
                 .clickMulticonfigurationalProjectItem()
                 .clickOkButtonForMulticonfigurationProject()
-                .clickSaveButton()
-                .getTitleOfNewProject()
+                .saveChanges()
+                .getTitleOfNewMulticonfigurationProject()
                 .getText();
 
         Assert.assertEquals(createdMulticonfigurationalProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME);

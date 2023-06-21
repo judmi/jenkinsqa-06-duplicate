@@ -24,7 +24,7 @@ public class MainPage extends BasePage {
     static WebElement myViewsLink;
 
     @FindBy(xpath = "//a[@href = '/logout']")
-    private WebElement logout;
+    private WebElement logoutLink;
 
     public enum LinkFromSidebarMenu {
         NEW_ITEM(newItemLink),
