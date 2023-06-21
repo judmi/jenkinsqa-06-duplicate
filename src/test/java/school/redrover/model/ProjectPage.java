@@ -14,7 +14,7 @@ public class ProjectPage extends BasePage {
     private WebElement titleOfProjectField;
 
     @FindBy (linkText=("Rename"))
-    private WebElement renameProjectField;
+    private WebElement renamedProjectField;
 
     @FindBy (xpath = "//button[@class='jenkins-button  ']")
     private WebElement disableProjectButton;
@@ -26,10 +26,10 @@ public class ProjectPage extends BasePage {
     private WebElement addDescriptionLink;
 
     @FindBy (xpath = "//textarea[@name='description']")
-    private WebElement NewDescriptionField;
+    private WebElement newDescriptionField;
 
     @FindBy (xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
-    private WebElement NewDescriptionSaveButton;
+    private WebElement newDescriptionSaveButton;
 
     @FindBy (xpath = "//div[@id='description']/div")
     private WebElement newDescriptionTitle;
@@ -45,7 +45,7 @@ public class ProjectPage extends BasePage {
     }
 
     public RenameProjectPage clickOnRenameProject() {
-        renameProjectField.click();
+        renamedProjectField.click();
         return new RenameProjectPage(getDriver());
     }
 
@@ -67,22 +67,22 @@ public class ProjectPage extends BasePage {
     }
 
     public ProjectPage AddNewDescription() {
-        NewDescriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
+        newDescriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
         return this;
     }
 
     public ProjectPage saveDescription() {
-        NewDescriptionSaveButton.click();
+        newDescriptionSaveButton.click();
         return this;
     }
 
-    public WebElement textOfNewDescription() {
+    public WebElement getTextOfNewDescription() {
         return newDescriptionTitle;
     }
-    public WebElement projectIsDisabled() {
+    public WebElement makeProjectIsDisabled() {
         return projectIsDisabledTitle;
     }
-    public WebElement projectIsEnable() {
+    public WebElement makeProjectIsEnable() {
         return projectIsEnableTitle;
     }
 }

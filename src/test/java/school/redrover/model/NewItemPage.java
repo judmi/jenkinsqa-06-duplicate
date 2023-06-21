@@ -13,10 +13,10 @@ public class NewItemPage extends BasePage{
     private WebElement nameField;
 
     @FindBy (xpath = "//li[@class = 'org_jenkinsci_plugins_workflow_job_WorkflowJob']")
-    private WebElement choosePipelineLink;
+    private WebElement choosenPipelineLink;
 
     @FindBy(xpath = "//button[@id='ok-button']")
-    private WebElement chooseOkButton;
+    private WebElement okButton;
 
     @FindBy(xpath = "//li[descendant::input[@value ='hudson.matrix.MatrixProject']]")
     private WebElement multiconfigurationalProjectItem;
