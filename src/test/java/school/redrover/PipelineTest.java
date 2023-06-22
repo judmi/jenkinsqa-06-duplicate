@@ -9,6 +9,7 @@ public class PipelineTest extends BaseTest {
     final String NamePipeline = "My Pipeline";
     final String DisabledProject = "This project is currently disabled\n" +
             "Enable";
+    final String newNamePipeline = "My Pipeline1";
 
     @Test
     public void testCreateNewPipelineWithScript() {
@@ -32,7 +33,7 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .clickOnRenameProject()
                 .clearOldName()
-                .writeNewName()
+                .writeNewName(newNamePipeline)
                 .submitRename()
                 .getTitleOfNewProject()
                 .getText();
