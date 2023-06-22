@@ -10,11 +10,8 @@ public class ProjectPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//h1[@class='job-index-headline page-headline']")
-    private WebElement titleOfProjectField;
-
-    @FindBy(xpath = "//h1[@class='matrix-project-headline page-headline']")
-    private WebElement titleOfMulticonfigurationProjectField;
+    @FindBy (xpath = "//h1[ancestor::div[@id='main-panel']]")
+    private WebElement titleOfNewProject;
 
     @FindBy(linkText = ("Rename"))
     private WebElement renamedProjectField;
@@ -29,27 +26,24 @@ public class ProjectPage extends BasePage {
     private WebElement addDescriptionLink;
 
     @FindBy(xpath = "//textarea[@name='description']")
-    private WebElement newDescriptionField;
+    private WebElement descriptionField;
 
     @FindBy(xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
-    private WebElement newDescriptionSaveButton;
+    private WebElement descriptionSaveButton;
 
     @FindBy(xpath = "//div[@id='description']/div")
-    private WebElement newDescriptionTitle;
+    private WebElement descriptionTitle;
 
-    @FindBy(xpath = "//form[@id='enable-project']")
+    @FindBy(xpath = "//div[@class='warning']")
     private WebElement projectIsDisabledTitle;
 
     @FindBy(xpath = "//button[@name = 'Submit']")
     private WebElement projectIsEnableTitle;
 
-    public WebElement getTitleOfNewProject() {
-        return titleOfProjectField;
+    public String getProjectTitle() {
+        return  titleOfNewProject.getText();
     }
 
-    public WebElement getTitleOfNewMulticonfigurationProject() {
-        return titleOfMulticonfigurationProjectField;
-}
     public RenameProjectPage clickOnRenameProject() {
         renamedProjectField.click();
         return new RenameProjectPage(getDriver());
@@ -73,22 +67,22 @@ public class ProjectPage extends BasePage {
     }
 
     public ProjectPage AddNewDescription() {
-        newDescriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
+        descriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
         return this;
     }
 
     public ProjectPage saveDescription() {
-        newDescriptionSaveButton.click();
+        descriptionSaveButton.click();
         return this;
     }
 
-    public WebElement getTextOfNewDescription() {
-        return newDescriptionTitle;
+    public String getTextOfNewDescription() {
+        return descriptionTitle.getText();
     }
-    public WebElement makeProjectIsDisabled() {
-        return projectIsDisabledTitle;
+    public String getWarningMessage() {
+        return projectIsDisabledTitle.getText();
     }
-    public WebElement makeProjectIsEnable() {
-        return projectIsEnableTitle;
+    public String getProjectIsEnabledConfirmation() {
+        return projectIsEnableTitle.getText();
     }
 }

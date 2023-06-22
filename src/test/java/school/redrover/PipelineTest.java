@@ -21,8 +21,7 @@ public class PipelineTest extends BaseTest {
                 .selectNewScript()
                 .selectScriptedPipelineScript()
                 .saveChanges()
-                .getTitleOfNewProject()
-                .getText();
+                .getProjectTitle();
 
         Assert.assertEquals(createNewPipeline, "Pipeline " + NamePipeline);
     }
@@ -35,8 +34,7 @@ public class PipelineTest extends BaseTest {
                 .clearOldName()
                 .writeNewName(newNamePipeline)
                 .submitRename()
-                .getTitleOfNewProject()
-                .getText();
+                .getProjectTitle();
 
         Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
     }
@@ -46,8 +44,7 @@ public class PipelineTest extends BaseTest {
         String disableProject = new MainPage(getDriver())
                 .clickOnProject()
                 .chooseDisableProject()
-                .makeProjectIsDisabled()
-                .getText();
+                .getWarningMessage();
 
         Assert.assertEquals(disableProject, DisabledProject);
     }
@@ -58,8 +55,7 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .pushDisable()
                 .pushEnable()
-                .makeProjectIsEnable()
-                .getText();
+                .getProjectIsEnabledConfirmation();
 
         Assert.assertEquals(enableProject, "Enable");
     }
@@ -71,8 +67,7 @@ public class PipelineTest extends BaseTest {
                 .clickAddDescription()
                 .AddNewDescription()
                 .saveDescription()
-                .getTextOfNewDescription()
-                .getText();
+                .getTextOfNewDescription();
 
         Assert.assertEquals(projectWithNewDescription, "Мой переименованный, c измененными настройками Pipeline");
     }
