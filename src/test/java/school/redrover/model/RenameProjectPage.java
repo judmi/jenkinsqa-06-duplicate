@@ -28,13 +28,14 @@ public class RenameProjectPage extends BasePage {
         return this;
     }
 
-    public RenameProjectPage writeNewName() {
-        newNameField.sendKeys(NamePipeline);
+    public RenameProjectPage writeNewName(String newName) {
+        newNameField.sendKeys(newName);
         return this;
     }
 
-    public MainPage submitRename() {
+    public ProjectPage submitRename() {
         newNameSaveButton.click();
-        return new MainPage(getDriver());
+
+        return new ProjectPage(getDriver());
     }
 }

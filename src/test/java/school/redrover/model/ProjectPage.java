@@ -12,6 +12,7 @@ public class ProjectPage extends BasePage {
 
     @FindBy(xpath = "//h1[@class='job-index-headline page-headline']")
     private WebElement titleOfProjectField;
+
     @FindBy(xpath = "//h1[@class='matrix-project-headline page-headline']")
     private WebElement titleOfMulticonfigurationProjectField;
 
