@@ -34,7 +34,7 @@ public class ProjectPage extends BasePage {
     @FindBy(xpath = "//div[@id='description']/div")
     private WebElement descriptionTitle;
 
-    @FindBy(xpath = "//div[@class='warning']")
+    @FindBy(xpath = "//form[@id='enable-project']")
     private WebElement projectIsDisabledTitle;
 
     @FindBy(xpath = "//button[@name = 'Submit']")
@@ -76,7 +76,7 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
-    public String getTextOfNewDescription() {
+    public String getDescriptionText() {
         return descriptionTitle.getText();
     }
     public String getWarningMessage() {

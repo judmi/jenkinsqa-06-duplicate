@@ -7,8 +7,7 @@ import school.redrover.runner.BaseTest;
 
 public class PipelineTest extends BaseTest {
     final String NamePipeline = "My Pipeline";
-    final String DisabledProject = "This project is currently disabled\n" +
-            "Enable";
+    final String DisabledProject = "This project is currently disabled\n"+"Enable";
     final String newNamePipeline = "My Pipeline1";
 
     @Test
@@ -67,7 +66,7 @@ public class PipelineTest extends BaseTest {
                 .clickAddDescription()
                 .AddNewDescription()
                 .saveDescription()
-                .getTextOfNewDescription();
+                .getDescriptionText();
 
         Assert.assertEquals(projectWithNewDescription, "Мой переименованный, c измененными настройками Pipeline");
     }
