@@ -34,7 +34,7 @@ public class ProjectPage extends BasePage {
     @FindBy(xpath = "//div[@id='description']/div")
     private WebElement newDescriptionTitle;
 
-    @FindBy(xpath = "//form[@id='enable-project']")
+    @FindBy(xpath = "//div[@class='warning']")
     private WebElement projectIsDisabledTitle;
 
     @FindBy(xpath = "//button[@name = 'Submit']")
@@ -79,10 +79,10 @@ public class ProjectPage extends BasePage {
     public String getTextOfNewDescription() {
         return newDescriptionTitle.getText();
     }
-    public String makeProjectIsDisabled() {
+    public String getConfirmationWhatProjectIsDisabled() {
         return projectIsDisabledTitle.getText();
     }
-    public String makeProjectIsEnable() {
+    public String getConfirmationWhatProjectIsEnable() {
         return projectIsEnableTitle.getText();
     }
 }

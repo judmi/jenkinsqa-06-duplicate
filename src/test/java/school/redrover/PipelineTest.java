@@ -44,7 +44,7 @@ public class PipelineTest extends BaseTest {
         String disableProject = new MainPage(getDriver())
                 .clickOnProject()
                 .chooseDisableProject()
-                .makeProjectIsDisabled();
+                .getConfirmationWhatProjectIsDisabled();
 
         Assert.assertEquals(disableProject, DisabledProject);
     }
@@ -55,7 +55,7 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .pushDisable()
                 .pushEnable()
-                .makeProjectIsEnable();
+                .getConfirmationWhatProjectIsEnable();
 
         Assert.assertEquals(enableProject, "Enable");
     }
