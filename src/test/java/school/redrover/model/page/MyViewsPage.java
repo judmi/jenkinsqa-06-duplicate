@@ -1,4 +1,4 @@
-package school.redrover.model;
+package school.redrover.model.page;
 
 import org.openqa.selenium.WebDriver;
 import school.redrover.model.base.BasePage;

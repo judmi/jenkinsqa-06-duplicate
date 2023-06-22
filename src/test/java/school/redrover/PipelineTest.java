@@ -2,7 +2,7 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
+import school.redrover.model.page.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class PipelineTest extends BaseTest {
@@ -15,7 +15,7 @@ public class PipelineTest extends BaseTest {
     public void testCreateNewPipelineWithScript() {
         String createNewPipeline = new MainPage(getDriver())
                 .chooseNewItem()
-                .chooseNameForProject(NamePipeline)
+                .inputItemName(NamePipeline)
                 .choosePipeline()
                 .clickOk()
                 .selectNewScript()

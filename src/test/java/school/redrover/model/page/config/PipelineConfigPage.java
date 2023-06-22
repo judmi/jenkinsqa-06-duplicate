@@ -1,12 +1,12 @@
-package school.redrover.model;
+package school.redrover.model.page.config;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import school.redrover.model.base.BasePage;
+import school.redrover.model.page.ProjectPage;
 
 public class PipelineConfigPage extends BasePage {
     @FindBy (xpath = "//div[@class = 'samples']/select")

@@ -2,7 +2,7 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
+import school.redrover.model.page.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class MulticonfigurationalProjectTest extends BaseTest {
@@ -13,7 +13,7 @@ public class MulticonfigurationalProjectTest extends BaseTest {
     public void testCreateMulticonfigurationalProject() {
         String createdMulticonfigurationalProject = new MainPage(getDriver())
                 .chooseNewItem()
-                .chooseNameForProject(MULTICONFIGURATIONAL_PROJECT_NAME)
+                .inputItemName(MULTICONFIGURATIONAL_PROJECT_NAME)
                 .clickMulticonfigurationalProjectItem()
                 .clickOkButtonForMulticonfigurationProject()
                 .clickSaveButton()
