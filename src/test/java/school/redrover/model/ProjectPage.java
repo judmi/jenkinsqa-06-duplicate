@@ -26,13 +26,13 @@ public class ProjectPage extends BasePage {
     private WebElement addDescriptionLink;
 
     @FindBy(xpath = "//textarea[@name='description']")
-    private WebElement newDescriptionField;
+    private WebElement descriptionField;
 
     @FindBy(xpath = "//button[@class='jenkins-button jenkins-button--primary ']")
-    private WebElement newDescriptionSaveButton;
+    private WebElement descriptionSaveButton;
 
     @FindBy(xpath = "//div[@id='description']/div")
-    private WebElement newDescriptionTitle;
+    private WebElement descriptionTitle;
 
     @FindBy(xpath = "//div[@class='warning']")
     private WebElement projectIsDisabledTitle;
@@ -40,7 +40,7 @@ public class ProjectPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'Submit']")
     private WebElement projectIsEnableTitle;
 
-    public String getTitleOfNewProject() {
+    public String getProjectTitle() {
         return  titleOfNewProject.getText();
     }
 
@@ -67,22 +67,22 @@ public class ProjectPage extends BasePage {
     }
 
     public ProjectPage AddNewDescription() {
-        newDescriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
+        descriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
         return this;
     }
 
     public ProjectPage saveDescription() {
-        newDescriptionSaveButton.click();
+        descriptionSaveButton.click();
         return this;
     }
 
     public String getTextOfNewDescription() {
-        return newDescriptionTitle.getText();
+        return descriptionTitle.getText();
     }
-    public String getConfirmationWhatProjectIsDisabled() {
+    public String getWarningMessage() {
         return projectIsDisabledTitle.getText();
     }
-    public String getConfirmationWhatProjectIsEnable() {
+    public String getProjectIsEnabledConfirmation() {
         return projectIsEnableTitle.getText();
     }
 }

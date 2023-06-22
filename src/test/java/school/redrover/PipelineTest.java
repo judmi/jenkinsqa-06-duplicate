@@ -21,7 +21,7 @@ public class PipelineTest extends BaseTest {
                 .selectNewScript()
                 .selectScriptedPipelineScript()
                 .saveChanges()
-                .getTitleOfNewProject();
+                .getProjectTitle();
 
         Assert.assertEquals(createNewPipeline, "Pipeline " + NamePipeline);
     }
@@ -34,7 +34,7 @@ public class PipelineTest extends BaseTest {
                 .clearOldName()
                 .writeNewName(newNamePipeline)
                 .submitRename()
-                .getTitleOfNewProject();
+                .getProjectTitle();
 
         Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
     }
@@ -44,7 +44,7 @@ public class PipelineTest extends BaseTest {
         String disableProject = new MainPage(getDriver())
                 .clickOnProject()
                 .chooseDisableProject()
-                .getConfirmationWhatProjectIsDisabled();
+                .getWarningMessage();
 
         Assert.assertEquals(disableProject, DisabledProject);
     }
@@ -55,7 +55,7 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .pushDisable()
                 .pushEnable()
-                .getConfirmationWhatProjectIsEnable();
+                .getProjectIsEnabledConfirmation();
 
         Assert.assertEquals(enableProject, "Enable");
     }
