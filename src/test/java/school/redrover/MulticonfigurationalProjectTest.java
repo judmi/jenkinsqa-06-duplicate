@@ -17,8 +17,7 @@ public class MulticonfigurationalProjectTest extends BaseTest {
                 .clickMulticonfigurationalProjectItem()
                 .clickOkButtonForMulticonfigurationProject()
                 .clickSaveButton()
-                .getTitleOfNewProject()
-                .getText();
+                .getTitleOfNewProject();
 
         Assert.assertEquals(createdMulticonfigurationalProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME);
     }
@@ -31,8 +30,7 @@ public class MulticonfigurationalProjectTest extends BaseTest {
                 .clearOldName()
                 .writeNewName(MULTICONFIGURATIONAL_PROJECT_NAME + "1")
                 .submitRename()
-                .getTitleOfNewProject()
-                .getText();
+                .getTitleOfNewProject();
 
         Assert.assertEquals(renamedMulticonfigurationalProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME + "1");
     }

@@ -40,8 +40,8 @@ public class ProjectPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'Submit']")
     private WebElement projectIsEnableTitle;
 
-    public WebElement getTitleOfNewProject() {
-        return  titleOfNewProject;
+    public String getTitleOfNewProject() {
+        return  titleOfNewProject.getText();
     }
 
     public RenameProjectPage clickOnRenameProject() {
@@ -76,13 +76,13 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
-    public WebElement getTextOfNewDescription() {
-        return newDescriptionTitle;
+    public String getTextOfNewDescription() {
+        return newDescriptionTitle.getText();
     }
-    public WebElement makeProjectIsDisabled() {
-        return projectIsDisabledTitle;
+    public String makeProjectIsDisabled() {
+        return projectIsDisabledTitle.getText();
     }
-    public WebElement makeProjectIsEnable() {
-        return projectIsEnableTitle;
+    public String makeProjectIsEnable() {
+        return projectIsEnableTitle.getText();
     }
 }
