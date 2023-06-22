@@ -10,11 +10,8 @@ public class ProjectPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//h1[@class='job-index-headline page-headline']")
-    private WebElement titleOfProjectField;
-
-    @FindBy(xpath = "//h1[@class='matrix-project-headline page-headline']")
-    private WebElement titleOfMulticonfigurationProjectField;
+    @FindBy (xpath = "//h1[ancestor::div[@id='main-panel']]")
+    private WebElement titleOfNewProject;
 
     @FindBy(linkText = ("Rename"))
     private WebElement renamedProjectField;
@@ -44,12 +41,9 @@ public class ProjectPage extends BasePage {
     private WebElement projectIsEnableTitle;
 
     public WebElement getTitleOfNewProject() {
-        return titleOfProjectField;
+        return  titleOfNewProject;
     }
 
-    public WebElement getTitleOfNewMulticonfigurationProject() {
-        return titleOfMulticonfigurationProjectField;
-}
     public RenameProjectPage clickOnRenameProject() {
         renamedProjectField.click();
         return new RenameProjectPage(getDriver());
