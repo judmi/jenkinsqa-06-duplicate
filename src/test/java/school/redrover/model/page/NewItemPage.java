@@ -28,6 +28,9 @@ public class NewItemPage extends BasePage {
     @FindBy(className = "hudson_model_FreeStyleProject")
     private WebElement freestyleProjectOption;
 
+    @FindBy(id = "itemname-invalid")
+    private WebElement invalidItemNameMessage;
+
     public NewItemPage inputItemName(String itemName) {
         nameField.sendKeys(itemName);
         return this;
@@ -64,5 +67,13 @@ public class NewItemPage extends BasePage {
         okButton.click();
 
         return new FreestyleProjectConfigPage(getDriver());
+    }
+
+    public boolean isOkButtonDisabled() {
+        return !(okButton.isEnabled());
+    }
+
+    public String getInvalidItemNameMessage() {
+        return invalidItemNameMessage.getText();
     }
 }

@@ -1,7 +1,9 @@
 package school.redrover.runner;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.reporters.jq.Main;
 import school.redrover.model.page.MainPage;
 import school.redrover.model.page.NewItemPage;
 
@@ -15,7 +17,8 @@ public class FreestyleProjectTest extends BaseTest{
     public void testCreateWithValidName() {
 
         String projectName = new MainPage(getDriver())
-                .clickLinkFromSidebarMenu(NEW_ITEM, new NewItemPage(getDriver())).inputItemName(PROJECT_NAME)
+                .clickLinkFromSidebarMenu(NEW_ITEM, new NewItemPage(getDriver()))
+                .inputItemName(PROJECT_NAME)
                 .selectFreestyleProject()
                 .clickOkForFreestyleProject()
                 .clickSaveButton()
@@ -23,4 +26,24 @@ public class FreestyleProjectTest extends BaseTest{
 
         Assert.assertEquals(projectName, String.format("Project %s",PROJECT_NAME));
     }
+
+    @DataProvider(name = "unsafe-characters")
+    public Object[][] providerUnsafeCharacters() {
+        return new Object[][]{{"!"}, {"@"}, {"#"}, {"$"}, {"%"}, {"^"}, {"&"}, {"*"}, {"?"}, {"|"}, {">"}, {"["}, {"]"}};
+    }
+
+    @Test(dataProvider = "unsafe-characters")
+    public void testCreateWithUnsafeCharacter(String unsafeCharacter) {
+
+        NewItemPage newItemPage = new MainPage(getDriver())
+                .clickLinkFromSidebarMenu(NEW_ITEM, new NewItemPage(getDriver()))
+                .inputItemName(unsafeCharacter);
+
+
+        Assert.assertEquals(newItemPage.getInvalidItemNameMessage(),
+                String.format("» ‘%s’ is an unsafe character", unsafeCharacter));
+        Assert.assertTrue(newItemPage.isOkButtonDisabled());
+    }
+
+
 }
