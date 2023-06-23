@@ -2,7 +2,7 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
+import school.redrover.model.page.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class PipelineTest extends BaseTest {
@@ -14,14 +14,14 @@ public class PipelineTest extends BaseTest {
     @Test
     public void testCreateNewPipelineWithScript() {
         String createNewPipeline = new MainPage(getDriver())
-                .chooseNewItem()
-                .chooseNameForProject(NamePipeline)
+                .clickNewItem()
+                .inputItemName(NamePipeline)
                 .choosePipeline()
                 .clickOk()
                 .selectNewScript()
                 .selectScriptedPipelineScript()
                 .saveChanges()
-                .getProjectTitle();
+                .getProjectName();
 
         Assert.assertEquals(createNewPipeline, "Pipeline " + NamePipeline);
     }
@@ -34,7 +34,7 @@ public class PipelineTest extends BaseTest {
                 .clearOldName()
                 .writeNewName(newNamePipeline)
                 .submitRename()
-                .getProjectTitle();
+                .getProjectName();
 
         Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
     }

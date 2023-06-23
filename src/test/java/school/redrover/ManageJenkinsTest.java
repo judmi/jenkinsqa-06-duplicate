@@ -3,8 +3,8 @@ package school.redrover;
 import com.github.javafaker.Faker;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
-import school.redrover.model.ManageJenkinsPage;
+import school.redrover.model.page.MainPage;
+import school.redrover.model.page.ManageJenkinsPage;
 import school.redrover.runner.BaseTest;
 
 
