@@ -8,7 +8,6 @@ import school.redrover.runner.BaseTest;
 public class MulticonfigurationalProjectTest extends BaseTest {
     private static final String MULTICONFIGURATIONAL_PROJECT_NAME = "My MC project";
 
-
     @Test
     public void testCreateMulticonfigurationalProject() {
         String createdMulticonfigurationalProject = new MainPage(getDriver())
@@ -33,5 +32,27 @@ public class MulticonfigurationalProjectTest extends BaseTest {
                 .getProjectTitle();
 
         Assert.assertEquals(renamedMulticonfigurationalProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME + "1");
+    }
+
+    @Test(dependsOnMethods = "testRenameMulticonfigurationalProject")
+    public void testDisableMulticonfigurationalProject() {
+        String disableProjectConfirmation = new MainPage(getDriver())
+                .clickOnProject()
+                .chooseDisableProject()
+                .getWarningMessage();
+
+        Assert.assertEquals(disableProjectConfirmation, "This project is currently disabled\n" + "Enable");
+    }
+
+    @Test(dependsOnMethods = "testDisableMulticonfigurationalProject")
+    public void testEnableMulticonfigurationalProject() {
+        String enableProjectConfirmation = new MainPage(getDriver())
+                .clickOnProject()
+                .pushDisable()
+                .pushEnable()
+                .getProjectIsEnabledConfirmation();
+
+        Assert.assertEquals(enableProjectConfirmation, "Enable");
+
     }
 }
