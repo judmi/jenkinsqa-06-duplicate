@@ -60,11 +60,6 @@ public class MainPage extends BasePage {
         return getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']"));
     }
 
-    public ManageJenkinsPage clickManageJenkinsTab() {
-        getWait10().until(ExpectedConditions.elementToBeClickable(manageJenkinsLink)).click();
-        return new ManageJenkinsPage(getDriver());
-    }
-
     public BaseProjectPage clickOnProject() {
         WebElement chooseProject = getDriver().findElement(By.xpath("//a[@class='jenkins-table__link model-link inside']"));
         chooseProject.click();
