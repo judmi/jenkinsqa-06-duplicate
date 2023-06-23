@@ -1,4 +1,4 @@
-package school.redrover.model;
+package school.redrover.model.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
+import school.redrover.model.base.BaseProjectPage;
 
 public class MainPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/manage']")
@@ -49,7 +50,7 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    public NewItemPage chooseNewItem() {
+    public NewItemPage clickNewItem() {
         WebElement newItemButton = getDriver().findElement(By.xpath("//a[@href='/view/all/newJob']"));
         newItemButton.click();
         return (new NewItemPage(getDriver()));
@@ -64,10 +65,10 @@ public class MainPage extends BasePage {
         return new ManageJenkinsPage(getDriver());
     }
 
-    public ProjectPage clickOnProject() {
+    public BaseProjectPage clickOnProject() {
         WebElement chooseProject = getDriver().findElement(By.xpath("//a[@class='jenkins-table__link model-link inside']"));
         chooseProject.click();
-        return new ProjectPage(getDriver());
+        return new BaseProjectPage(getDriver());
     }
 
     public UsersDatabasePage getUsersDataBase() {
