@@ -1,4 +1,4 @@
-package school.redrover.model;
+package school.redrover.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +15,7 @@ public class RenameProjectPage extends BasePage {
     @FindBy (xpath = "//button [@name='Submit']")
     private WebElement newNameSaveButton;
 
-    final String NamePipeline = "My Pipeline1";
+
 
     public RenameProjectPage(WebDriver driver) {
         super(driver);

@@ -1,4 +1,4 @@
-package school.redrover.model;
+package school.redrover.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -66,7 +66,7 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
-    public ProjectPage AddNewDescription() {
+    public ProjectPage addDescription() {
         descriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
         return this;
     }
@@ -76,13 +76,13 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
-    public String getTextOfNewDescription() {
+    public String getDescriptionText() {
         return descriptionTitle.getText();
     }
     public String getWarningMessage() {
         return projectIsDisabledTitle.getText();
     }
-    public String getProjectIsEnabledConfirmation() {
+    public String getConfirmationEnabledProject() {
         return projectIsEnableTitle.getText();
     }
 }

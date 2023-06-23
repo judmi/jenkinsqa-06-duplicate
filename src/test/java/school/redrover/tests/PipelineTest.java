@@ -1,21 +1,21 @@
-package school.redrover;
+package school.redrover.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
+import school.redrover.page.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class PipelineTest extends BaseTest {
-    final String NamePipeline = "My Pipeline";
-    final String DisabledProject = "This project is currently disabled\n" +
+    final String pipelineName = "My Pipeline";
+    final String disabledProjectText = "This project is currently disabled\n" +
             "Enable";
-    final String newNamePipeline = "My Pipeline1";
+    final String newPipelineName = "My Pipeline1";
 
     @Test
     public void testCreateNewPipelineWithScript() {
         String createNewPipeline = new MainPage(getDriver())
                 .chooseNewItem()
-                .chooseNameForProject(NamePipeline)
+                .chooseNameForProject(pipelineName)
                 .choosePipeline()
                 .clickOk()
                 .selectNewScript()
@@ -23,7 +23,7 @@ public class PipelineTest extends BaseTest {
                 .saveChanges()
                 .getProjectTitle();
 
-        Assert.assertEquals(createNewPipeline, "Pipeline " + NamePipeline);
+        Assert.assertEquals(createNewPipeline, "Pipeline " + pipelineName);
     }
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithScript")
@@ -32,11 +32,11 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .clickOnRenameProject()
                 .clearOldName()
-                .writeNewName(newNamePipeline)
+                .writeNewName(newPipelineName)
                 .submitRename()
                 .getProjectTitle();
 
-        Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
+        Assert.assertEquals(newNameOfPipeline, "Pipeline " + pipelineName + 1);
     }
 
     @Test(dependsOnMethods = "testCreateNewPipelineWithScript")
@@ -46,7 +46,7 @@ public class PipelineTest extends BaseTest {
                 .chooseDisableProject()
                 .getWarningMessage();
 
-        Assert.assertEquals(disableProject, DisabledProject);
+        Assert.assertEquals(disableProject, disabledProjectText);
     }
 
     @Test(dependsOnMethods = {"testCreateNewPipelineWithScript", "testDisablePipeline"})
@@ -55,7 +55,7 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .pushDisable()
                 .pushEnable()
-                .getProjectIsEnabledConfirmation();
+                .getConfirmationEnabledProject();
 
         Assert.assertEquals(enableProject, "Enable");
     }
@@ -65,9 +65,9 @@ public class PipelineTest extends BaseTest {
         String projectWithNewDescription = new MainPage(getDriver())
                 .clickOnProject()
                 .clickAddDescription()
-                .AddNewDescription()
+                .addDescription()
                 .saveDescription()
-                .getTextOfNewDescription();
+                .getDescriptionText();
 
         Assert.assertEquals(projectWithNewDescription, "Мой переименованный, c измененными настройками Pipeline");
     }

@@ -1,10 +1,10 @@
-package school.redrover;
+package school.redrover.tests;
 
 import com.github.javafaker.Faker;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
-import school.redrover.model.ManageJenkinsPage;
+import school.redrover.page.MainPage;
+import school.redrover.page.ManageJenkinsPage;
 import school.redrover.runner.BaseTest;
 
 

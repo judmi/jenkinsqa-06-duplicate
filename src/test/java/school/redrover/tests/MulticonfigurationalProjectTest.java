@@ -1,8 +1,8 @@
-package school.redrover;
+package school.redrover.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.MainPage;
+import school.redrover.page.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class MulticonfigurationalProjectTest extends BaseTest {
