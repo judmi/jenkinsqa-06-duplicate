@@ -8,30 +8,50 @@ import school.redrover.runner.BaseTest;
 public class MulticonfigurationProjectTest extends BaseTest {
     private static final String MULTICONFIGURATIONAL_PROJECT_NAME = "My MC project";
 
-
     @Test
-    public void testCreateMulticonfigurationalProject() {
-        String createdMulticonfigurationalProject = new MainPage(getDriver())
-                .clickNewItem()
-                .inputItemName(MULTICONFIGURATIONAL_PROJECT_NAME)
+    public void testCreateMulticonfigurationProject() {
+        String createdMulticonfigurationProject = new MainPage(getDriver())
+                .chooseNewItem()
+                .chooseNameForProject(MULTICONFIGURATIONAL_PROJECT_NAME)
                 .clickMulticonfigurationalProjectItem()
                 .clickOkButtonForMulticonfigurationProject()
                 .clickSaveButton()
-                .getProjectName();
+                .getProjectTitle();
 
-        Assert.assertEquals(createdMulticonfigurationalProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME);
+        Assert.assertEquals(createdMulticonfigurationProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME);
     }
 
-    @Test(dependsOnMethods = "testCreateMulticonfigurationalProject")
-    public void testRenameMulticonfigurationalProject() {
-        String renamedMulticonfigurationalProject = new MainPage(getDriver())
+    @Test(dependsOnMethods = "testCreateMulticonfigurationProject")
+    public void testRenameMulticonfigurationProject() {
+        String renamedMulticonfigurationProject = new MainPage(getDriver())
                 .clickOnProject()
                 .clickOnRenameProject()
                 .clearOldName()
                 .writeNewName(MULTICONFIGURATIONAL_PROJECT_NAME + "1")
                 .submitRename()
-                .getProjectName();
+                .getProjectTitle();
 
-        Assert.assertEquals(renamedMulticonfigurationalProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME + "1");
+        Assert.assertEquals(renamedMulticonfigurationProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME + "1");
+    }
+
+    @Test(dependsOnMethods = "testRenameMulticonfigurationProject")
+    public void testDisableMulticonfigurationProject() {
+        String disableProjectConfirmation = new MainPage(getDriver())
+                .clickOnProject()
+                .chooseDisableProject()
+                .getWarningMessage();
+
+        Assert.assertEquals(disableProjectConfirmation, "This project is currently disabled\n" + "Enable");
+    }
+
+    @Test(dependsOnMethods = "testDisableMulticonfigurationProject")
+    public void testEnableMulticonfigurationProject() {
+        String enableProjectConfirmation = new MainPage(getDriver())
+                .clickOnProject()
+                .pushDisable()
+                .pushEnable()
+                .getProjectIsEnabledConfirmation();
+
+        Assert.assertEquals(enableProjectConfirmation, "Enable");
     }
 }
