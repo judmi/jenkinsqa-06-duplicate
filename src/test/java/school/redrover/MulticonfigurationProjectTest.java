@@ -11,12 +11,12 @@ public class MulticonfigurationProjectTest extends BaseTest {
     @Test
     public void testCreateMulticonfigurationProject() {
         String createdMulticonfigurationProject = new MainPage(getDriver())
-                .chooseNewItem()
-                .chooseNameForProject(MULTICONFIGURATIONAL_PROJECT_NAME)
+                .clickNewItem()
+                .inputItemName(MULTICONFIGURATIONAL_PROJECT_NAME)
                 .clickMulticonfigurationalProjectItem()
                 .clickOkButtonForMulticonfigurationProject()
                 .clickSaveButton()
-                .getProjectTitle();
+                .getProjectName();
 
         Assert.assertEquals(createdMulticonfigurationProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME);
     }
@@ -29,7 +29,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
                 .clearOldName()
                 .writeNewName(MULTICONFIGURATIONAL_PROJECT_NAME + "1")
                 .submitRename()
-                .getProjectTitle();
+                .getProjectName();
 
         Assert.assertEquals(renamedMulticonfigurationProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME + "1");
     }
