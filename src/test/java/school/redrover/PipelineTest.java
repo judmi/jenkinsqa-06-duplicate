@@ -14,14 +14,14 @@ public class PipelineTest extends BaseTest {
     @Test
     public void testCreateNewPipelineWithScript() {
         String createNewPipeline = new MainPage(getDriver())
-                .chooseNewItem()
+                .clickNewItem()
                 .inputItemName(NamePipeline)
                 .choosePipeline()
                 .clickOk()
                 .selectNewScript()
                 .selectScriptedPipelineScript()
                 .saveChanges()
-                .getProjectTitle();
+                .getProjectName();
 
         Assert.assertEquals(createNewPipeline, "Pipeline " + NamePipeline);
     }
@@ -34,7 +34,7 @@ public class PipelineTest extends BaseTest {
                 .clearOldName()
                 .writeNewName(newNamePipeline)
                 .submitRename()
-                .getProjectTitle();
+                .getProjectName();
 
         Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
     }

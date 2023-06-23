@@ -1,17 +1,14 @@
-package school.redrover.model.page;
+package school.redrover.model.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import school.redrover.model.base.BasePage;
+import school.redrover.model.page.RenameProjectPage;
 
-public class ProjectPage extends BasePage {
-    public ProjectPage(WebDriver driver) {
-        super(driver);
-    }
+public class BaseProjectPage extends BasePage {
 
-    @FindBy (xpath = "//h1[ancestor::div[@id='main-panel']]")
-    private WebElement titleOfNewProject;
+    @FindBy(xpath = "//h1[ancestor::div[@id='main-panel']]")
+    private WebElement projectName;
 
     @FindBy(linkText = ("Rename"))
     private WebElement renamedProjectField;
@@ -40,8 +37,12 @@ public class ProjectPage extends BasePage {
     @FindBy(xpath = "//button[@name = 'Submit']")
     private WebElement projectIsEnableTitle;
 
-    public String getProjectTitle() {
-        return  titleOfNewProject.getText();
+    public BaseProjectPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public String getProjectName() {
+        return projectName.getText();
     }
 
     public RenameProjectPage clickOnRenameProject() {
@@ -49,29 +50,32 @@ public class ProjectPage extends BasePage {
         return new RenameProjectPage(getDriver());
     }
 
-    public ProjectPage chooseDisableProject() {
+    public BaseProjectPage chooseDisableProject() {
         disableProjectButton.click();
         return this;
     }
-    public ProjectPage pushDisable() {
+
+    public BaseProjectPage pushDisable() {
         disableEnableProjectButton.click();
         return this;
     }
-    public ProjectPage pushEnable() {
+
+    public BaseProjectPage pushEnable() {
         disableEnableProjectButton.click();
         return this;
     }
-    public ProjectPage clickAddDescription() {
+
+    public BaseProjectPage clickAddDescription() {
         addDescriptionLink.click();
         return this;
     }
 
-    public ProjectPage AddNewDescription() {
+    public BaseProjectPage AddNewDescription() {
         descriptionField.sendKeys("Мой переименованный, c измененными настройками Pipeline");
         return this;
     }
 
-    public ProjectPage saveDescription() {
+    public BaseProjectPage saveDescription() {
         descriptionSaveButton.click();
         return this;
     }
@@ -79,9 +83,11 @@ public class ProjectPage extends BasePage {
     public String getTextOfNewDescription() {
         return descriptionTitle.getText();
     }
+
     public String getWarningMessage() {
         return projectIsDisabledTitle.getText();
     }
+
     public String getProjectIsEnabledConfirmation() {
         return projectIsEnableTitle.getText();
     }

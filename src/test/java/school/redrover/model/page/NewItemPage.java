@@ -3,6 +3,7 @@ package school.redrover.model.page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
 import school.redrover.model.page.config.FreestyleProjectConfigPage;
 import school.redrover.model.page.config.MulticonfigurationProjectConfigPage;
@@ -74,6 +75,6 @@ public class NewItemPage extends BasePage {
     }
 
     public String getInvalidItemNameMessage() {
-        return invalidItemNameMessage.getText();
+        return getWait5().until(ExpectedConditions.visibilityOf(invalidItemNameMessage)).getText();
     }
 }
