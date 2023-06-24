@@ -21,7 +21,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .clickSaveButton()
                 .getProjectName();
 
-        Assert.assertEquals(projectName, String.format("Project %s",PROJECT_NAME));
+        Assert.assertEquals(projectName, String.format("Project %s", PROJECT_NAME));
     }
 
     @DataProvider(name = "unsafe-characters")
@@ -47,7 +47,7 @@ public class FreestyleProjectTest extends BaseTest {
                 .inputItemName(PROJECT_NAME);
 
         Assert.assertEquals(newItemPage.getInvalidItemNameMessage(),
-            String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
+                String.format("» A job already exists with the name ‘%s’", PROJECT_NAME));
         Assert.assertTrue(newItemPage.isOkButtonDisabled());
     }
 }
