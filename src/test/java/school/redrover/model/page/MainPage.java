@@ -56,7 +56,7 @@ public class MainPage extends BasePage {
         return (new NewItemPage(getDriver()));
     }
 
-    public WebElement getTitleOfNewProject() {
+    public WebElement getProjectTitle() {
         return getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']"));
     }
 
@@ -82,12 +82,12 @@ public class MainPage extends BasePage {
         return new LoginPage(getDriver());
     }
 
-    private WebElement getLinkfromSidebarMenu(LinkFromSidebarMenu link) {
+    private WebElement getLinkFromSidebarMenu(LinkFromSidebarMenu link) {
         return link.getLocator();
     }
 
     public <Page extends BasePage> Page clickLinkFromSidebarMenu(LinkFromSidebarMenu link, Page page) {
-        getLinkfromSidebarMenu(link).click();
+        getLinkFromSidebarMenu(link).click();
         return page;
     }
 }

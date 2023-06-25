@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
 import school.redrover.model.page.config.FreestyleProjectConfigPage;
+import school.redrover.model.page.config.MultibranchPipelineConfigPage;
 import school.redrover.model.page.config.MulticonfigurationProjectConfigPage;
 import school.redrover.model.page.config.PipelineConfigPage;
 
@@ -24,10 +25,12 @@ public class NewItemPage extends BasePage {
     private WebElement okButton;
 
     @FindBy(xpath = "//li[descendant::input[@value ='hudson.matrix.MatrixProject']]")
-    private WebElement multiconfigurationalProjectItem;
-
+    private WebElement multiconfigurationProjectItem;
     @FindBy(className = "hudson_model_FreeStyleProject")
     private WebElement freestyleProjectOption;
+
+    @FindBy(className = "org_jenkinsci_plugins_workflow_multibranch_WorkflowMultiBranchProject")
+    private WebElement multiBranchPipelineOption;
 
     @FindBy(id = "itemname-invalid")
     private WebElement invalidItemNameMessage;
@@ -37,18 +40,17 @@ public class NewItemPage extends BasePage {
         return this;
     }
 
-    public NewItemPage choosePipeline() {
+    public NewItemPage selectPipeline() {
         choosenPipelineLink.click();
         return this;
     }
-
     public PipelineConfigPage clickOk() {
         okButton.click();
         return (new PipelineConfigPage(getDriver()));
     }
 
-    public NewItemPage clickMulticonfigurationalProjectItem() {
-        multiconfigurationalProjectItem.click();
+    public NewItemPage selectMulticonfigurationProjectItem() {
+        multiconfigurationProjectItem.click();
 
         return this;
     }
@@ -63,11 +65,19 @@ public class NewItemPage extends BasePage {
 
         return this;
     }
+    public NewItemPage selectMultibranchPipeline(){
+        multiBranchPipelineOption.click();
+        return this;
+    }
 
     public FreestyleProjectConfigPage clickOkForFreestyleProject() {
         okButton.click();
 
         return new FreestyleProjectConfigPage(getDriver());
+    }
+    public MultibranchPipelineConfigPage clickOkForMultibranchPipeline(){
+        okButton.click();
+        return new MultibranchPipelineConfigPage(getDriver());
     }
 
     public boolean isOkButtonDisabled() {

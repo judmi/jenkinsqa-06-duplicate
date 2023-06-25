@@ -6,19 +6,19 @@ import school.redrover.model.page.MainPage;
 import school.redrover.runner.BaseTest;
 
 public class MulticonfigurationProjectTest extends BaseTest {
-    private static final String MULTICONFIGURATIONAL_PROJECT_NAME = "My MC project";
+    private static final String MULTICONFIGURATION_PROJECT_NAME = "My MC project";
 
     @Test
     public void testCreateMulticonfigurationProject() {
         String createdMulticonfigurationProject = new MainPage(getDriver())
                 .clickNewItem()
-                .inputItemName(MULTICONFIGURATIONAL_PROJECT_NAME)
-                .clickMulticonfigurationalProjectItem()
+                .inputItemName(MULTICONFIGURATION_PROJECT_NAME)
+                .selectMulticonfigurationProjectItem()
                 .clickOkButtonForMulticonfigurationProject()
                 .clickSaveButton()
                 .getProjectName();
 
-        Assert.assertEquals(createdMulticonfigurationProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME);
+        Assert.assertEquals(createdMulticonfigurationProject, "Project " + MULTICONFIGURATION_PROJECT_NAME);
     }
 
     @Test(dependsOnMethods = "testCreateMulticonfigurationProject")
@@ -27,11 +27,11 @@ public class MulticonfigurationProjectTest extends BaseTest {
                 .clickOnProject()
                 .clickOnRenameProject()
                 .clearOldName()
-                .writeNewName(MULTICONFIGURATIONAL_PROJECT_NAME + "1")
+                .writeNewName(MULTICONFIGURATION_PROJECT_NAME + "1")
                 .submitRename()
                 .getProjectName();
 
-        Assert.assertEquals(renamedMulticonfigurationProject, "Project " + MULTICONFIGURATIONAL_PROJECT_NAME + "1");
+        Assert.assertEquals(renamedMulticonfigurationProject, "Project " + MULTICONFIGURATION_PROJECT_NAME + "1");
     }
 
     @Test(dependsOnMethods = "testRenameMulticonfigurationProject")
