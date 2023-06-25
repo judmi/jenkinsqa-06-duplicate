@@ -11,7 +11,6 @@ import school.redrover.model.base.BasePage;
 import java.util.List;
 
 public class UsersDatabasePage extends BasePage {
-
     @FindBy(xpath = "//a[@href = 'addUser']")
     private WebElement createUserBtn;
 
@@ -50,6 +49,12 @@ public class UsersDatabasePage extends BasePage {
         getWait2().until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//a[@href = '/user/" + userName.toLowerCase() + "/delete']")))
                 .click();
+        return new UserPage(getDriver());
+    }
+
+    public UserPage clickUserIdInTable(String userName) {
+        getWait5().until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//a[@href = 'user/" + userName.toLowerCase() + "/']"))).click();
         return new UserPage(getDriver());
     }
 }

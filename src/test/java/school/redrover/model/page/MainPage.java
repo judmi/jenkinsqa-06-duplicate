@@ -4,25 +4,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
 import school.redrover.model.base.BaseProjectPage;
 
 public class MainPage extends BasePage {
-    @FindBy(xpath = "//a[@href = '/manage']")
-    static WebElement manageJenkinsLink;
 
-    @FindBy(xpath = "//a[@href='/view/all/newJob']")
-    static WebElement newItemLink;
+    private static final By manageJenkinsLink = By.xpath("//a[@href = '/manage']");
 
-    @FindBy(xpath = "//a[@href = '/asynchPeople/']")
-    static WebElement peopleLink;
+    private static final By newItemLink = By.xpath("//a[@href='/view/all/newJob']");
 
-    @FindBy(xpath = "//a[@href = '/view/all/builds']")
-    static WebElement buildHistoryLink;
+    private static final By peopleLink = By.xpath("//a[@href = '/asynchPeople/']");
 
-    @FindBy(xpath = "//a[@href = '/me/my-views']")
-    static WebElement myViewsLink;
+    private static final By buildHistoryLink = By.xpath("//a[@href = '/view/all/builds']");
+
+    private static final By myViewsLink = By.xpath("//a[@href = '/me/my-views']");
 
     @FindBy(xpath = "//a[@href = '/logout']")
     private WebElement logoutLink;
@@ -34,14 +29,14 @@ public class MainPage extends BasePage {
         MANAGE_JENKINS(manageJenkinsLink),
         MY_VIEWS(myViewsLink);
 
-        private final WebElement locator;
+        private final By locator;
 
-        LinkFromSidebarMenu(WebElement locator) {
+        LinkFromSidebarMenu(By locator) {
             this.locator = locator;
         }
 
-        public WebElement getLocator() {
-            return locator;
+        public WebElement getLocator(WebDriver driver) {
+            return driver.findElement(locator);
         }
     }
 
@@ -58,11 +53,6 @@ public class MainPage extends BasePage {
 
     public WebElement getProjectTitle() {
         return getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']"));
-    }
-
-    public ManageJenkinsPage clickManageJenkinsTab() {
-        getWait10().until(ExpectedConditions.elementToBeClickable(manageJenkinsLink)).click();
-        return new ManageJenkinsPage(getDriver());
     }
 
     public BaseProjectPage clickOnProject() {
@@ -83,7 +73,7 @@ public class MainPage extends BasePage {
     }
 
     private WebElement getLinkFromSidebarMenu(LinkFromSidebarMenu link) {
-        return link.getLocator();
+        return link.getLocator(getDriver());
     }
 
     public <Page extends BasePage> Page clickLinkFromSidebarMenu(LinkFromSidebarMenu link, Page page) {

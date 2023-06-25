@@ -8,7 +8,6 @@ import school.redrover.model.page.ManageJenkinsPage;
 import school.redrover.runner.BaseTest;
 
 
-
 public class ManageJenkinsTest extends BaseTest {
 
     private final String userName = new Faker().name().firstName();
@@ -27,6 +26,18 @@ public class ManageJenkinsTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "testCreateNewUser")
+    public void testChangeUserProfile() {
+        boolean isProfileChanged = new MainPage(getDriver())
+                .getUsersDataBase()
+                .clickUserIdInTable(userName)
+                .clickConfigureInSidebar()
+                .fillInProfileFieldsAndSave()
+                .clickConfigureInSidebar()
+                .isChangesSaved();
+        Assert.assertTrue(isProfileChanged);
+    }
+
+    @Test(dependsOnMethods = {"testCreateNewUser", "testChangeUserProfile"})
     public void testDeleteUser() {
         boolean isUserInDatabase = new MainPage(getDriver())
                 .getUsersDataBase()
@@ -37,7 +48,7 @@ public class ManageJenkinsTest extends BaseTest {
         Assert.assertFalse(isUserInDatabase);
     }
 
-    @Test(dependsOnMethods = {"testCreateNewUser", "testDeleteUser"})
+    @Test(dependsOnMethods = {"testCreateNewUser", "testChangeUserProfile", "testDeleteUser"})
     public void testLoginWithCredentialsOfDeletedUser() {
         boolean wasErrorMessageAppeared = new MainPage(getDriver())
                 .clickLogout()
