@@ -26,7 +26,7 @@ public class UserConfigPage extends BasePage {
     @FindBy(xpath = "//input[@name = 'email.address']")
     private WebElement emailField;
 
-    @FindBy(xpath = "//div[@class = 'setting-main']/div[@class = 'jenkins-select']")
+    @FindBy(xpath = "//select[@checkdependson = 'timeZoneName']")
     private WebElement timeZoneField;
 
     @FindBy(xpath = "//option[@value = 'Iceland']")
@@ -57,7 +57,6 @@ public class UserConfigPage extends BasePage {
     }
 
     public boolean isChangesSaved() {
-        System.out.println(profileChanges);
         return isDescriptionSaved() && isEmailSaved() && isTimeZoneSaved();
     }
 
@@ -70,6 +69,6 @@ public class UserConfigPage extends BasePage {
     }
 
     private boolean isTimeZoneSaved() {
-        return profileChanges.contains(newTimeZone.getText());
+        return profileChanges.contains(timeZoneField.getAttribute("value"));
     }
 }
