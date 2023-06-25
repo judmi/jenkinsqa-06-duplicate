@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import school.redrover.model.base.BasePage;
+import school.redrover.model.page.config.FolderConfigPage;
 import school.redrover.model.page.config.FreestyleProjectConfigPage;
 import school.redrover.model.page.config.MulticonfigurationProjectConfigPage;
 import school.redrover.model.page.config.PipelineConfigPage;
@@ -31,6 +32,9 @@ public class NewItemPage extends BasePage {
 
     @FindBy(id = "itemname-invalid")
     private WebElement invalidItemNameMessage;
+
+    @FindBy(xpath ="//*[@class='com_cloudbees_hudson_plugins_folder_Folder']")
+    private WebElement folderJob;
 
     public NewItemPage inputItemName(String itemName) {
         nameField.sendKeys(itemName);
@@ -77,4 +81,17 @@ public class NewItemPage extends BasePage {
     public String getInvalidItemNameMessage() {
         return getWait5().until(ExpectedConditions.visibilityOf(invalidItemNameMessage)).getText();
     }
+
+    public NewItemPage selectFolder() {
+        folderJob.click();
+
+        return this;
+    }
+
+    public FolderConfigPage clickOkButtonForFolder() {
+        okButton.click();
+
+        return new FolderConfigPage(getDriver());
+    }
+
 }
