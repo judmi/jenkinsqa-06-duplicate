@@ -35,5 +35,4 @@ public class FolderTest extends BaseTest {
 
         Assert.assertEquals(newFolderName,FOLDER_ITEM_RENAME);
     }
-
 }
