@@ -16,7 +16,7 @@ public class PipelineTest extends BaseTest {
         String createNewPipeline = new MainPage(getDriver())
                 .clickNewItem()
                 .inputItemName(NamePipeline)
-                .choosePipeline()
+                .selectPipeline()
                 .clickOk()
                 .selectNewScript()
                 .selectScriptedPipelineScript()
