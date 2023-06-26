@@ -27,7 +27,7 @@ public class MulticonfigurationProjectTest extends BaseTest {
                 .clickOnProject()
                 .clickOnRenameProject()
                 .clearOldName()
-                .inputNewProjectName(MULTICONFIGURATIONAL_PROJECT_NAME + "1")
+                .inputNewProjectName(MULTICONFIGURATION_PROJECT_NAME + "1")
                 .clickRenameButton()
                 .getProjectName();
 

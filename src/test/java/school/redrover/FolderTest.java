@@ -8,6 +8,7 @@ import school.redrover.runner.BaseTest;
 public class FolderTest extends BaseTest {
 
     final String FOLDER_ITEM_NAME = "NEW FOLDER JOB";
+    final String FOLDER_ITEM_RENAME = "FOLDER JOB";
 
     @Test
     public void testCreateFolder() {
@@ -21,4 +22,18 @@ public class FolderTest extends BaseTest {
 
         Assert.assertEquals(folderItemName, FOLDER_ITEM_NAME);
     }
+
+    @Test(dependsOnMethods = "testCreateFolder")
+    public void testRenameFolder() {
+        String newFolderName = new MainPage(getDriver())
+                .clickOnProject()
+                .clickOnRenameProject()
+                .clearOldName()
+                .inputNewProjectName(FOLDER_ITEM_RENAME)
+                .clickRenameButton()
+                .getProjectName();
+
+        Assert.assertEquals(newFolderName,FOLDER_ITEM_RENAME);
+    }
+
 }
