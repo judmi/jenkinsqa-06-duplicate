@@ -51,7 +51,7 @@ public class MainPage extends BasePage {
         return (new NewItemPage(getDriver()));
     }
 
-    public WebElement getTitleOfNewProject() {
+    public WebElement getProjectTitle() {
         return getDriver().findElement(By.xpath("//h1[@class='job-index-headline page-headline']"));
     }
 
