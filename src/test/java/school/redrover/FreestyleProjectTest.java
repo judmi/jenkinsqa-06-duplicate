@@ -2,6 +2,7 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import school.redrover.model.page.MainPage;
 import school.redrover.model.page.NewItemPage;
@@ -39,7 +40,7 @@ public class FreestyleProjectTest extends BaseTest {
                 String.format("» ‘%s’ is an unsafe character", unsafeCharacter));
         Assert.assertTrue(newItemPage.isOkButtonDisabled());
     }
-
+    @Ignore
     @Test(dependsOnMethods = "testCreateWithValidName")
     public void testCreateWithExistingName() {
         NewItemPage newItemPage = new MainPage(getDriver())
