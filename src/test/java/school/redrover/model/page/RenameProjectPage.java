@@ -29,12 +29,12 @@ public class RenameProjectPage extends BasePage {
         return this;
     }
 
-    public RenameProjectPage writeNewName(String newName) {
+    public RenameProjectPage inputNewProjectName(String newName) {
         newNameField.sendKeys(newName);
         return this;
     }
 
-    public BaseProjectPage submitRename() {
+    public BaseProjectPage clickRenameButton() {
         newNameSaveButton.click();
 
         return new BaseProjectPage(getDriver());

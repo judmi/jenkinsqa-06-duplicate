@@ -27,8 +27,8 @@ public class MulticonfigurationProjectTest extends BaseTest {
                 .clickOnProject()
                 .clickOnRenameProject()
                 .clearOldName()
-                .writeNewName(MULTICONFIGURATION_PROJECT_NAME + "1")
-                .submitRename()
+                .inputNewProjectName(MULTICONFIGURATIONAL_PROJECT_NAME + "1")
+                .clickRenameButton()
                 .getProjectName();
 
         Assert.assertEquals(renamedMulticonfigurationProject, "Project " + MULTICONFIGURATION_PROJECT_NAME + "1");

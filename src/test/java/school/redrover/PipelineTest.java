@@ -32,8 +32,8 @@ public class PipelineTest extends BaseTest {
                 .clickOnProject()
                 .clickOnRenameProject()
                 .clearOldName()
-                .writeNewName(newNamePipeline)
-                .submitRename()
+                .inputNewProjectName(newNamePipeline)
+                .clickRenameButton()
                 .getProjectName();
 
         Assert.assertEquals(newNameOfPipeline, "Pipeline " + NamePipeline + 1);
