@@ -2,6 +2,7 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import school.redrover.model.base.BaseProjectPage;
 import school.redrover.model.page.MainPage;
 import school.redrover.runner.BaseTest;
 
@@ -34,7 +35,8 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertEquals(renamedMulticonfigurationProject, "Project " + MULTICONFIGURATION_PROJECT_NAME + "1");
     }
 
-    @Test(dependsOnMethods = "testRenameMulticonfigurationProject")
+    @Test(dependsOnMethods = {"testCreateMulticonfigurationProject",
+                              "testRenameMulticonfigurationProject"})
     public void testDisableMulticonfigurationProject() {
         String disableProjectConfirmation = new MainPage(getDriver())
                 .clickOnProject()
@@ -44,7 +46,9 @@ public class MulticonfigurationProjectTest extends BaseTest {
         Assert.assertEquals(disableProjectConfirmation, "This project is currently disabled\n" + "Enable");
     }
 
-    @Test(dependsOnMethods = "testDisableMulticonfigurationProject")
+    @Test(dependsOnMethods = {"testCreateMulticonfigurationProject",
+                              "testRenameMulticonfigurationProject",
+                              "testDisableMulticonfigurationProject"})
     public void testEnableMulticonfigurationProject() {
         String enableProjectConfirmation = new MainPage(getDriver())
                 .clickOnProject()
