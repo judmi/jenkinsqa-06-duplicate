@@ -2,7 +2,6 @@ package school.redrover;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import school.redrover.model.base.BaseProjectPage;
 import school.redrover.model.page.MainPage;
 import school.redrover.runner.BaseTest;
 
