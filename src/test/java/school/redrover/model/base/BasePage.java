@@ -1,12 +1,19 @@
 package school.redrover.model.base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import school.redrover.model.page.LoginPage;
 
 import java.time.Duration;
 
-public abstract class BasePage {
+public abstract class BasePage implements Header {
+
+    @FindBy(xpath = "//a[@href = '/logout']")
+    private WebElement logoutLink;
 
     private WebDriverWait wait2;
     private WebDriverWait wait5;
@@ -43,4 +50,11 @@ public abstract class BasePage {
         }
         return wait10;
     }
+
+    @Override
+    public LoginPage clickLogoutInt() {
+        logoutLink.click();
+        return new LoginPage(getDriver());
+    }
+
 }
