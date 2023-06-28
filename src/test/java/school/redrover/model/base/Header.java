@@ -4,5 +4,4 @@ import school.redrover.model.page.LoginPage;
 
 public interface Header {
     LoginPage clickLogout();
-
 }

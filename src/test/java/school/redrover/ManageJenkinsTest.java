@@ -7,7 +7,6 @@ import school.redrover.model.page.MainPage;
 import school.redrover.model.page.ManageJenkinsPage;
 import school.redrover.runner.BaseTest;
 
-
 public class ManageJenkinsTest extends BaseTest {
 
     private final String userName = new Faker().name().firstName();
