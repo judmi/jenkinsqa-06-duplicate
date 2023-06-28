@@ -51,7 +51,7 @@ public class ManageJenkinsTest extends BaseTest {
     @Test(dependsOnMethods = {"testCreateNewUser", "testChangeUserProfile", "testDeleteUser"})
     public void testLoginWithCredentialsOfDeletedUser() {
         boolean wasErrorMessageAppeared = new MainPage(getDriver())
-                .clickLogoutInt()
+                .clickLogout()
                 .inputLogin(userName)
                 .inputPassword(password)
                 .signInWithInvalidCredentials()

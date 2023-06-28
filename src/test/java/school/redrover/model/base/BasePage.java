@@ -52,7 +52,7 @@ public abstract class BasePage implements Header {
     }
 
     @Override
-    public LoginPage clickLogoutInt() {
+    public LoginPage clickLogout() {
         logoutLink.click();
         return new LoginPage(getDriver());
     }
