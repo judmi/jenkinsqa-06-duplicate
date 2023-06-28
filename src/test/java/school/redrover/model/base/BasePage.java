@@ -15,9 +15,12 @@ public abstract class BasePage implements Header {
     private WebDriverWait wait10;
     private final WebDriver driver;
 
+    private final Header header;
+
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        header = new HeaderComponent(driver);
     }
 
     protected WebDriver getDriver() {
@@ -47,7 +50,7 @@ public abstract class BasePage implements Header {
 
     @Override
     public LoginPage clickLogout() {
-        return new HeaderComponent(getDriver()).clickLogout();
+        return header.clickLogout();
     }
 
 }

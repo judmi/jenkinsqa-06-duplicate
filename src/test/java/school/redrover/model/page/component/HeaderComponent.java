@@ -1,24 +1,21 @@
 package school.redrover.model.page.component;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import school.redrover.model.base.BasePage;
 import school.redrover.model.base.Header;
 import school.redrover.model.page.LoginPage;
 
-public class HeaderComponent extends BasePage implements Header {
+public class HeaderComponent implements Header {
 
-    @FindBy(xpath = "//a[@href = '/logout']")
-    private WebElement logoutLink;
+    private final WebDriver driver;
 
     public HeaderComponent(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
 
     @Override
     public LoginPage clickLogout() {
-        logoutLink.click();
-        return new LoginPage(getDriver());
+        driver.findElement(By.xpath("//a[@href = '/logout']")).click();
+        return new LoginPage(driver);
     }
 }
