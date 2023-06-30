@@ -8,14 +8,14 @@ import school.redrover.model.page.component.HeaderComponent;
 
 import java.time.Duration;
 
-public abstract class BasePage implements Header {
+public abstract class BasePage implements BaseHeader {
 
     private WebDriverWait wait2;
     private WebDriverWait wait5;
     private WebDriverWait wait10;
     private final WebDriver driver;
 
-    private final Header header;
+    private final BaseHeader header;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;

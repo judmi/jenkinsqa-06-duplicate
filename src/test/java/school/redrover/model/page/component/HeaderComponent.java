@@ -2,10 +2,10 @@ package school.redrover.model.page.component;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import school.redrover.model.base.Header;
+import school.redrover.model.base.BaseHeader;
 import school.redrover.model.page.LoginPage;
 
-public class HeaderComponent implements Header {
+public class HeaderComponent implements BaseHeader {
 
     private final WebDriver driver;
 
