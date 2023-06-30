@@ -3,7 +3,6 @@ package school.redrover.model.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import school.redrover.model.base.BasePage;
 import school.redrover.model.base.BaseProjectPage;
 
@@ -18,9 +17,6 @@ public class MainPage extends BasePage {
     private static final By buildHistoryLink = By.xpath("//a[@href = '/view/all/builds']");
 
     private static final By myViewsLink = By.xpath("//a[@href = '/me/my-views']");
-
-    @FindBy(xpath = "//a[@href = '/logout']")
-    private WebElement logoutLink;
 
     public enum LinkFromSidebarMenu {
         NEW_ITEM(newItemLink),
@@ -39,7 +35,6 @@ public class MainPage extends BasePage {
             return driver.findElement(locator);
         }
     }
-
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -65,11 +60,6 @@ public class MainPage extends BasePage {
         clickLinkFromSidebarMenu(LinkFromSidebarMenu.MANAGE_JENKINS, new ManageJenkinsPage(getDriver()))
                 .clickManageUsersSection();
         return new UsersDatabasePage(getDriver());
-    }
-
-    public LoginPage clickLogout() {
-        logoutLink.click();
-        return new LoginPage(getDriver());
     }
 
     private WebElement getLinkFromSidebarMenu(LinkFromSidebarMenu link) {
